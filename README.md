@@ -1,24 +1,24 @@
-# lArTes
-// -----------------------------------------------------
-//  _    _        _____         _   
-// | |  / \   _ _|_   _|__  ___| |_ 
-// | | / _ \ | '__|| |/ _ \/ __| __|
-// | |/ ___ \| |   | |  __/\__ \ |_ 
-// |_/_/   \_\_|   |_|\___||___/\__|
-//                                  
-// lArTest: A Geant4 application to study and profile  
-//          simulation of physics processes relevant 
-//          to liquid Ar TPCs
-//
-// Author: Hans Wenzel, Fermilab
-// -----------------------------------------------------
+# lArTest
+
+  _    _        _____         _   
+ | |  / \   _ _|_   _|__  ___| |_ 
+ | | / _ \ | '__|| |/ _ \/ __| __|
+ | |/ ___ \| |   | |  __/\__ \ |_ 
+ |_/_/   \_\_|   |_|\___||___/\__|
+                                  
+ lArTest: A Geant4 application to study and profile  
+          simulation of physics processes relevant 
+          to liquid Ar TPCs
+
+ Author: Hans Wenzel, Fermilab
+
 
 Prerequisites: Geant 4 and ROOT installed and the runtime properly initialized.  
 cmake 
 
 
 Checking the code out from github:
-git clone https://hanswenzel@github.com/hanswenzel/lArTest
+git clone https://hanswenzel@github.com/hanswenzel/lArTest.git
 
 Build Instructions:
 For an out of source build do:
