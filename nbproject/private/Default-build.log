@@ -1,0 +1,515 @@
+Scanning dependencies of target lAr
+[  7%] Building CXX object CMakeFiles/lAr.dir/src/Analysis.cc.o
+[ 15%] Building CXX object CMakeFiles/lAr.dir/src/ConfigurationManager.cc.o
+[ 23%] Building CXX object CMakeFiles/lAr.dir/src/ConfigurationManagerMessenger.cc.o
+[ 30%] Building CXX object CMakeFiles/lAr.dir/src/DetectorConstruction.cc.o
+In file included from /home/wenzel/root-build2/include/TObject.h:238:0,
+                 from /home/wenzel/root-build2/include/TNamed.h:26,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/DetectorConstruction.cc:35:
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, Short_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:333:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, Short_t &s)  { buf.ReadShort(s);  return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, UShort_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:334:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, UShort_t &s) { buf.ReadUShort(s); return buf; }
+                                                     ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:344:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, TString &s)  { buf.ReadTString(s);return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, Short_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:349:51: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, Short_t s)  { buf.WriteShort(s);  return buf; }
+                                                   ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, UShort_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:350:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, UShort_t s) { buf.WriteUShort(s); return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, const TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:360:58: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, const TString &s) { buf.WriteTString(s);return buf; }
+                                                          ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/DetectorConstruction.cc:35:
+/home/wenzel/root-build2/include/TString.h: In copy constructor ‘TSubString::TSubString(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:106:6: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+      : fStr(s.fStr), fBegin(s.fBegin), fExtent(s.fExtent) { }
+      ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Align(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:213:35: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Align(Ssiz_t s) { return (s + (kAlignment-1)) & ~(kAlignment-1); }
+                                   ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Recommend(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:214:39: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Recommend(Ssiz_t s) { return (s < kMinCap ? kMinCap : Align(s+1)) - 1; }
+                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetShortSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:220:42: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetShortSize(Ssiz_t s) { fRep.fShort.fSize = (unsigned char)(s << 1); }
+                                          ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:226:41: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongSize(Ssiz_t s) { fRep.fLong.fSize = s; }
+                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:228:37: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetSize(Ssiz_t s) { IsLong() ? SetLongSize(s) : SetShortSize(s); }
+                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongCap(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:229:40: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongCap(Ssiz_t s) { fRep.fLong.fCap = kLongMask | s; }
+                                        ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/DetectorConstruction.cc:35:
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:459:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString &s) { return s.Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString*)’:
+/home/wenzel/root-build2/include/TString.h:460:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString *s) { return s->Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:498:49: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s)
+                                                 ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:501:59: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s, Ssiz_t n)
+                                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:507:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::operator+=(const TString &s)
+                                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long_t)’:
+/home/wenzel/root-build2/include/TString.h:514:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%ld", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong_t)’:
+/home/wenzel/root-build2/include/TString.h:517:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%lu", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Double_t)’:
+/home/wenzel/root-build2/include/TString.h:533:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long64_t)’:
+/home/wenzel/root-build2/include/TString.h:544:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong64_t)’:
+/home/wenzel/root-build2/include/TString.h:552:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::BeginsWith(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:558:68: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::BeginsWith(const char *s, ECaseCompare cmp) const
+                                                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::Contains(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:567:66: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::Contains(const char *s, ECaseCompare cmp) const
+                                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const char*, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:582:73: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const char *s, Ssiz_t i, ECaseCompare cmp) const
+                                                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const TString&, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:585:76: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const TString &s, Ssiz_t i, ECaseCompare cmp) const
+                                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:598:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s)
+                                                             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:601:71: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s, Ssiz_t n)
+                                                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:610:50: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s)
+                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:613:60: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s, Ssiz_t n)
+                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:628:72: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Replace(Ssiz_t pos, Ssiz_t n, const TString& s)
+                                                                        ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:632:43: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+                                  Ssiz_t n2)
+                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TSubString& TSubString::operator=(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:695:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TSubString &TSubString::operator=(const TSubString &s)
+                                                             ^
+In file included from /home/wenzel/root-build2/include/TQObjectEmitVA.h:22:0,
+                 from /home/wenzel/root-build2/include/TQObject.h:215,
+                 from /home/wenzel/root-build2/include/TSysEvtHandler.h:28,
+                 from /home/wenzel/root-build2/include/TTimer.h:46,
+                 from /home/wenzel/root-build2/include/TSystem.h:44,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/DetectorConstruction.cc:35:
+/home/wenzel/root-build2/include/TQConnection.h: In member function ‘void TQConnection::ExecuteMethod(const T& ...)’:
+/home/wenzel/root-build2/include/TQConnection.h:85:15: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+       TQSlot *s = fSlot;
+               ^
+/home/wenzel/lArTest/src/DetectorConstruction.cc: In constructor ‘DetectorConstruction::DetectorConstruction()’:
+/home/wenzel/lArTest/src/DetectorConstruction.cc:87:14: warning: unused variable ‘fano’ [-Wunused-variable]
+     G4double fano = 0.11;
+              ^
+[ 38%] Building CXX object CMakeFiles/lAr.dir/src/DetectorMessenger.cc.o
+[ 46%] Building CXX object CMakeFiles/lAr.dir/src/EventAction.cc.o
+[ 53%] Building CXX object CMakeFiles/lAr.dir/src/EventActionMessenger.cc.o
+[ 61%] Building CXX object CMakeFiles/lAr.dir/src/PrimaryGeneratorAction.cc.o
+In file included from /home/wenzel/root-build2/include/TObject.h:238:0,
+                 from /home/wenzel/root-build2/include/TNamed.h:26,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/PrimaryGeneratorAction.cc:19:
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, Short_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:333:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, Short_t &s)  { buf.ReadShort(s);  return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, UShort_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:334:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, UShort_t &s) { buf.ReadUShort(s); return buf; }
+                                                     ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:344:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, TString &s)  { buf.ReadTString(s);return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, Short_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:349:51: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, Short_t s)  { buf.WriteShort(s);  return buf; }
+                                                   ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, UShort_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:350:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, UShort_t s) { buf.WriteUShort(s); return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, const TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:360:58: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, const TString &s) { buf.WriteTString(s);return buf; }
+                                                          ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/PrimaryGeneratorAction.cc:19:
+/home/wenzel/root-build2/include/TString.h: In copy constructor ‘TSubString::TSubString(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:106:6: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+      : fStr(s.fStr), fBegin(s.fBegin), fExtent(s.fExtent) { }
+      ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Align(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:213:35: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Align(Ssiz_t s) { return (s + (kAlignment-1)) & ~(kAlignment-1); }
+                                   ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Recommend(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:214:39: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Recommend(Ssiz_t s) { return (s < kMinCap ? kMinCap : Align(s+1)) - 1; }
+                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetShortSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:220:42: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetShortSize(Ssiz_t s) { fRep.fShort.fSize = (unsigned char)(s << 1); }
+                                          ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:226:41: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongSize(Ssiz_t s) { fRep.fLong.fSize = s; }
+                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:228:37: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetSize(Ssiz_t s) { IsLong() ? SetLongSize(s) : SetShortSize(s); }
+                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongCap(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:229:40: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongCap(Ssiz_t s) { fRep.fLong.fCap = kLongMask | s; }
+                                        ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/PrimaryGeneratorAction.cc:19:
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:459:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString &s) { return s.Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString*)’:
+/home/wenzel/root-build2/include/TString.h:460:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString *s) { return s->Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:498:49: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s)
+                                                 ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:501:59: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s, Ssiz_t n)
+                                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:507:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::operator+=(const TString &s)
+                                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long_t)’:
+/home/wenzel/root-build2/include/TString.h:514:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%ld", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong_t)’:
+/home/wenzel/root-build2/include/TString.h:517:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%lu", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Double_t)’:
+/home/wenzel/root-build2/include/TString.h:533:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long64_t)’:
+/home/wenzel/root-build2/include/TString.h:544:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong64_t)’:
+/home/wenzel/root-build2/include/TString.h:552:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::BeginsWith(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:558:68: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::BeginsWith(const char *s, ECaseCompare cmp) const
+                                                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::Contains(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:567:66: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::Contains(const char *s, ECaseCompare cmp) const
+                                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const char*, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:582:73: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const char *s, Ssiz_t i, ECaseCompare cmp) const
+                                                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const TString&, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:585:76: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const TString &s, Ssiz_t i, ECaseCompare cmp) const
+                                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:598:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s)
+                                                             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:601:71: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s, Ssiz_t n)
+                                                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:610:50: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s)
+                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:613:60: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s, Ssiz_t n)
+                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:628:72: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Replace(Ssiz_t pos, Ssiz_t n, const TString& s)
+                                                                        ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:632:43: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+                                  Ssiz_t n2)
+                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TSubString& TSubString::operator=(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:695:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TSubString &TSubString::operator=(const TSubString &s)
+                                                             ^
+In file included from /home/wenzel/root-build2/include/TQObjectEmitVA.h:22:0,
+                 from /home/wenzel/root-build2/include/TQObject.h:215,
+                 from /home/wenzel/root-build2/include/TSysEvtHandler.h:28,
+                 from /home/wenzel/root-build2/include/TTimer.h:46,
+                 from /home/wenzel/root-build2/include/TSystem.h:44,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/PrimaryGeneratorAction.cc:19:
+/home/wenzel/root-build2/include/TQConnection.h: In member function ‘void TQConnection::ExecuteMethod(const T& ...)’:
+/home/wenzel/root-build2/include/TQConnection.h:85:15: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+       TQSlot *s = fSlot;
+               ^
+[ 69%] Building CXX object CMakeFiles/lAr.dir/src/RunAction.cc.o
+In file included from /home/wenzel/root-build2/include/TObject.h:238:0,
+                 from /home/wenzel/root-build2/include/TNamed.h:26,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/RunAction.cc:33:
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, Short_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:333:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, Short_t &s)  { buf.ReadShort(s);  return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, UShort_t&)’:
+/home/wenzel/root-build2/include/TBuffer.h:334:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, UShort_t &s) { buf.ReadUShort(s); return buf; }
+                                                     ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator>>(TBuffer&, TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:344:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator>>(TBuffer &buf, TString &s)  { buf.ReadTString(s);return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, Short_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:349:51: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, Short_t s)  { buf.WriteShort(s);  return buf; }
+                                                   ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, UShort_t)’:
+/home/wenzel/root-build2/include/TBuffer.h:350:52: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, UShort_t s) { buf.WriteUShort(s); return buf; }
+                                                    ^
+/home/wenzel/root-build2/include/TBuffer.h: In function ‘TBuffer& operator<<(TBuffer&, const TString&)’:
+/home/wenzel/root-build2/include/TBuffer.h:360:58: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TBuffer &operator<<(TBuffer &buf, const TString &s) { buf.WriteTString(s);return buf; }
+                                                          ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/RunAction.cc:33:
+/home/wenzel/root-build2/include/TString.h: In copy constructor ‘TSubString::TSubString(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:106:6: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+      : fStr(s.fStr), fBegin(s.fBegin), fExtent(s.fExtent) { }
+      ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Align(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:213:35: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Align(Ssiz_t s) { return (s + (kAlignment-1)) & ~(kAlignment-1); }
+                                   ^
+/home/wenzel/root-build2/include/TString.h: In static member function ‘static Ssiz_t TString::Recommend(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:214:39: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    static Ssiz_t  Recommend(Ssiz_t s) { return (s < kMinCap ? kMinCap : Align(s+1)) - 1; }
+                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetShortSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:220:42: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetShortSize(Ssiz_t s) { fRep.fShort.fSize = (unsigned char)(s << 1); }
+                                          ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:226:41: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongSize(Ssiz_t s) { fRep.fLong.fSize = s; }
+                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetSize(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:228:37: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetSize(Ssiz_t s) { IsLong() ? SetLongSize(s) : SetShortSize(s); }
+                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘void TString::SetLongCap(Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:229:40: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    void           SetLongCap(Ssiz_t s) { fRep.fLong.fCap = kLongMask | s; }
+                                        ^
+In file included from /home/wenzel/root-build2/include/TNamed.h:29:0,
+                 from /home/wenzel/root-build2/include/TSystem.h:35,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/RunAction.cc:33:
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:459:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString &s) { return s.Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In function ‘UInt_t Hash(const TString*)’:
+/home/wenzel/root-build2/include/TString.h:460:36: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline UInt_t Hash(const TString *s) { return s->Hash(); }
+                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:498:49: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s)
+                                                 ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Append(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:501:59: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Append(const TString &s, Ssiz_t n)
+                                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:507:53: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::operator+=(const TString &s)
+                                                     ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long_t)’:
+/home/wenzel/root-build2/include/TString.h:514:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%ld", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong_t)’:
+/home/wenzel/root-build2/include/TString.h:517:12: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ { char s[32]; sprintf(s, "%lu", i); return operator+=(s); }
+            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Double_t)’:
+/home/wenzel/root-build2/include/TString.h:533:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(Long64_t)’:
+/home/wenzel/root-build2/include/TString.h:544:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::operator+=(ULong64_t)’:
+/home/wenzel/root-build2/include/TString.h:552:13: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+    char s[32];
+             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::BeginsWith(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:558:68: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::BeginsWith(const char *s, ECaseCompare cmp) const
+                                                                    ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Bool_t TString::Contains(const char*, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:567:66: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Bool_t TString::Contains(const char *s, ECaseCompare cmp) const
+                                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const char*, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:582:73: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const char *s, Ssiz_t i, ECaseCompare cmp) const
+                                                                         ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘Ssiz_t TString::Index(const TString&, Ssiz_t, TString::ECaseCompare) const’:
+/home/wenzel/root-build2/include/TString.h:585:76: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline Ssiz_t TString::Index(const TString &s, Ssiz_t i, ECaseCompare cmp) const
+                                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:598:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s)
+                                                             ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Insert(Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:601:71: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Insert(Ssiz_t pos, const TString &s, Ssiz_t n)
+                                                                       ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&)’:
+/home/wenzel/root-build2/include/TString.h:610:50: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s)
+                                                  ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Prepend(const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:613:60: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Prepend(const TString &s, Ssiz_t n)
+                                                            ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&)’:
+/home/wenzel/root-build2/include/TString.h:628:72: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TString &TString::Replace(Ssiz_t pos, Ssiz_t n, const TString& s)
+                                                                        ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TString& TString::Replace(Ssiz_t, Ssiz_t, const TString&, Ssiz_t)’:
+/home/wenzel/root-build2/include/TString.h:632:43: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+                                  Ssiz_t n2)
+                                           ^
+/home/wenzel/root-build2/include/TString.h: In member function ‘TSubString& TSubString::operator=(const TSubString&)’:
+/home/wenzel/root-build2/include/TString.h:695:61: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+ inline TSubString &TSubString::operator=(const TSubString &s)
+                                                             ^
+In file included from /home/wenzel/root-build2/include/TQObjectEmitVA.h:22:0,
+                 from /home/wenzel/root-build2/include/TQObject.h:215,
+                 from /home/wenzel/root-build2/include/TSysEvtHandler.h:28,
+                 from /home/wenzel/root-build2/include/TTimer.h:46,
+                 from /home/wenzel/root-build2/include/TSystem.h:44,
+                 from /home/wenzel/lArTest/include/Analysis.hh:21,
+                 from /home/wenzel/lArTest/src/RunAction.cc:33:
+/home/wenzel/root-build2/include/TQConnection.h: In member function ‘void TQConnection::ExecuteMethod(const T& ...)’:
+/home/wenzel/root-build2/include/TQConnection.h:85:15: warning: declaration of ‘s’ shadows a global declaration [-Wshadow]
+       TQSlot *s = fSlot;
+               ^
+[ 76%] Building CXX object CMakeFiles/lAr.dir/src/TrackerSD.cc.o
+/home/wenzel/lArTest/src/TrackerSD.cc:35:1: warning: unused parameter ‘hitsCollectionName’ [-Wunused-parameter]
+ TrackerSD::TrackerSD(const G4String& name,
+ ^
+/home/wenzel/lArTest/src/TrackerSD.cc:48:6: warning: unused parameter ‘hce’ [-Wunused-parameter]
+ void TrackerSD::Initialize(G4HCofThisEvent* hce) {
+      ^
+[ 84%] Linking CXX shared library lib/liblAr.so
+[ 84%] Built target lAr
+Scanning dependencies of target lArTest
+[ 92%] Building CXX object CMakeFiles/lArTest.dir/lArTest.cc.o
+[100%] Linking CXX executable bin/lArTest
+[100%] Built target lArTest
+Install the project...
+-- Install configuration: "Debug"
+-- Installing: /home/wenzel/lArTest-install/bin/lArTest
+-- Set runtime path of "/home/wenzel/lArTest-install/bin/lArTest" to "/home/wenzel/lArTest-install/lib"
+-- Installing: /home/wenzel/lArTest-install/lib/liblAr.so
+-- Installing: /home/wenzel/lArTest-install/bin/vis.mac
+-- Installing: /home/wenzel/lArTest-install/bin/init_vis.mac
+-- Installing: /home/wenzel/lArTest-install/bin/muons.in
