@@ -15,10 +15,11 @@
 #ifndef ANALYSIS_HH
 #define ANALYSIS_HH
 
-#include "globals.hh"
+//#include "globals.hh"
 
 //root
-#include "TSystem.h"
+#include "RtypesCore.h"
+//#include "TSystem.h"
 #include <vector>
 
 
