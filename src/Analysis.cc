@@ -114,7 +114,7 @@ void Analysis::WriteNtuple() {
 void Analysis::SetDetConstInfo(std::vector<Double_t> DCinfo, G4Material* mat) {
     targetx = DCinfo[0];
     targety = DCinfo[1];
-    targety = DCinfo[2];
+    targetz = DCinfo[2];
     rho = DCinfo[3];
     mate = mat;
     material = mate->GetName();
