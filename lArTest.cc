@@ -50,8 +50,6 @@ int main(int argc, char** argv) {
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
-
-
     G4PhysListFactory factory;
     G4VModularPhysicsList* phys = NULL;
     G4String physName = "";
@@ -116,14 +114,19 @@ int main(int argc, char** argv) {
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
+    //StepLimiter:
+    G4cout << "UUUUUUUUUUUUUUUUUUU"<<ConfigurationManager::getInstance()->GetstepLimit() << G4endl;
+    G4cout << ConfigurationManager::getInstance()->Getlimitval() << G4endl;
+    G4cout << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
+    if (ConfigurationManager::getInstance()->GetstepLimit()) {
+        G4cout << "step limiter enabled" << G4endl;
+        phys->RegisterPhysics(new G4StepLimiterPhysics());
+    }
     //    
     phys->DumpList();
     //set mandatory initialization classes
     runManager->SetUserInitialization(new DetectorConstruction());
-    //StepLimiter:
-    if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        phys->RegisterPhysics(new G4StepLimiterPhysics());
-    }
+
     runManager->SetUserInitialization(phys);
     //set user action classes
     runManager->SetUserAction(new PrimaryGeneratorAction());

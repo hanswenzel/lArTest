@@ -7,7 +7,7 @@
 
 /testConfig/DoAnalysis true
 /testConfig/DoStepLimit true
-/testConfig/steplengthlimit 0.03 cm
+/testConfig/steplengthlimit 0.01 cm
 
 /Detector/Update 
 /run/initialize 
