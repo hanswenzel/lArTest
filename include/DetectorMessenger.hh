@@ -45,7 +45,7 @@ private:
     G4UIcmdWithADoubleAndUnit* xCmd;
     G4UIcmdWithADoubleAndUnit* yCmd;
     G4UIcmdWithADoubleAndUnit* zCmd;
-    G4UIcmdWithADoubleAndUnit* stepCmd;
+//    G4UIcmdWithADoubleAndUnit* stepCmd;
     G4UIcmdWithoutParameter* updateCmd;
 
 };

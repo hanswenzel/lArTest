@@ -59,7 +59,7 @@ private:
     DetectorConstruction(const DetectorConstruction&);
 
     G4double targetX, targetY, targetZ;
-    G4double maxStep;
+    //G4double maxStep;
 
     G4Material* targetMaterial;
     G4Material* worldMaterial;
