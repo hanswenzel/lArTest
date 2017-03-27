@@ -35,6 +35,7 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
     steplimitCmd->SetGuidance("Let's you select if step limit should be applied ");
     steplimitCmd->SetParameterName("stepLimit", true);
     steplimitCmd->SetDefaultValue(true);
+    steplimitCmd->AvailableForStates(G4State_PreInit);
     //
     slengthCmd = new G4UIcmdWithADoubleAndUnit("/testConfig/steplengthlimit", this);
     slengthCmd->SetGuidance("Set maximum step length");

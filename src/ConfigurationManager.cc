@@ -23,9 +23,9 @@ ConfigurationManager* ConfigurationManager::instance = 0;
 
 ConfigurationManager::ConfigurationManager() {
     confMessenger = new ConfigurationManagerMessenger(this);
-    doAnalysis = true;
-    stepLimit = false;
-    limitval = 0.1 * cm;
+    doAnalysis = true;      // by default we do analysis
+    stepLimit = true;       // by default we enable the step limiter
+    limitval = 0.1 * mm;
 }
 
 ConfigurationManager* ConfigurationManager::getInstance() {

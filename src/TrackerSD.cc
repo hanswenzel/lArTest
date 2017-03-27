@@ -26,6 +26,8 @@
 #include "G4SteppingManager.hh"
 #include "G4Track.hh"
 #include "G4UnitsTable.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4PhysicalConstants.hh"
 // project headers
 #include "Analysis.hh"
 #include "TrackerSD.hh"
@@ -76,11 +78,11 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
     }
 
     Analysis* analysis = Analysis::getInstance();
-    analysis->FillEvent(edep,
-            aStep->GetTrack()->GetPosition().x(),
-            aStep->GetTrack()->GetPosition().y(),
-            aStep->GetTrack()->GetPosition().z(),
-            aStep->GetStepLength(),
+    analysis->FillEvent(edep/MeV,
+            aStep->GetTrack()->GetPosition().x()/cm,
+            aStep->GetTrack()->GetPosition().y()/cm,
+            aStep->GetTrack()->GetPosition().z()/cm,
+            aStep->GetStepLength()/cm,
             photons,
             G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
     return true;

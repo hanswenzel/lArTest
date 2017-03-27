@@ -49,7 +49,7 @@ DetectorConstruction::DetectorConstruction() {
     targetX = 4.0 * m;
     targetY = 4.0 * m;
     targetZ = 4.5 * m;
-    maxStep = .3 * mm;
+    //maxStep = .3 * mm;
 
     targetMaterial = G4NistManager::Instance()->FindOrBuildMaterial("G4_lAr");
     worldMaterial = G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR");
@@ -137,7 +137,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
 
     G4VisAttributes regCcolor(G4Colour(0., 0.3, 0.7));
     logicTarget->SetVisAttributes(&regCcolor);
-
+    // Analysis:
     if (ConfigurationManager::getInstance()->GetdoAnalysis()) {
         //for ntuple:
         Analysis* analysis = Analysis::getInstance();
@@ -148,14 +148,17 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         G4double dens = targetMaterial->GetDensity() / (g / cm3);
         G4String nameM = targetMaterial->GetName();
         vDCinfo.push_back(dens);
-        //step limits
-        if (ConfigurationManager::getInstance()->GetstepLimit()) {
-            G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
-            G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
-            logicTarget->SetUserLimits(fStepLimit);
-        }
+
         analysis->SetDetConstInfo(vDCinfo, targetMaterial);
     }
+    //step limits
+    if (ConfigurationManager::getInstance()->GetstepLimit()) {
+        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
+        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
+        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
+        logicTarget->SetUserLimits(fStepLimit);
+    }
+
     return world;
 }
 
@@ -179,6 +182,7 @@ void DetectorConstruction::SetWorldMaterial(const G4String& mat) {
 
     if (material && material != worldMaterial) {
         worldMaterial = material;
+     
         if (logicWorld) logicWorld->SetMaterial(worldMaterial);
         G4RunManager::GetRunManager()->PhysicsHasBeenModified();
     }
@@ -192,14 +196,12 @@ void DetectorConstruction::UpdateGeometry() {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-
-
-void DetectorConstruction::SetMaxStepLength(G4double val) {
-    if (val > 0.0) {
-        this->maxStep = val;
-        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    }
-}
+//void DetectorConstruction::SetMaxStepLength(G4double val) {
+//    if (val > 0.0) {
+//        this->maxStep = val;
+//        G4RunManager::GetRunManager()->GeometryHasBeenModified();
+//    }
+//}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

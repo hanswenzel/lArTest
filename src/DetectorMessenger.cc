@@ -62,12 +62,12 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
     zCmd->SetRange("lengthZ>0");
     zCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
-    stepCmd = new G4UIcmdWithADoubleAndUnit("/Detector/MaxStepLength", this);
-    stepCmd->SetGuidance("Set Maximum Step Length");
-    stepCmd->SetParameterName("maxStep", false);
-    stepCmd->SetUnitCategory("Length");
-    stepCmd->SetRange("maxStep>0");
-    stepCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+//    stepCmd = new G4UIcmdWithADoubleAndUnit("/Detector/MaxStepLength", this);
+//    stepCmd->SetGuidance("Set Maximum Step Length");
+//    stepCmd->SetParameterName("maxStep", false);
+//    stepCmd->SetUnitCategory("Length");
+//    stepCmd->SetRange("maxStep>0");
+//    stepCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
     updateCmd = new G4UIcmdWithoutParameter("/Detector/Update", this);
     updateCmd->SetGuidance("Update geometry.");
@@ -86,7 +86,7 @@ DetectorMessenger::~DetectorMessenger() {
     delete zCmd;
     delete updateCmd;
     delete testDir;
-    delete stepCmd;
+   // delete stepCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -102,8 +102,8 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
         Detector->SetTargetY(yCmd->GetNewDoubleValue(newValue));
     else if (command == zCmd)
         Detector->SetTargetZ(zCmd->GetNewDoubleValue(newValue));
-    else if (command == stepCmd)
-        Detector->SetMaxStepLength(stepCmd->GetNewDoubleValue(newValue));
+    //else if (command == stepCmd)
+    //    Detector->SetMaxStepLength(stepCmd->GetNewDoubleValue(newValue));
     else if (command == updateCmd)
         Detector->UpdateGeometry();
 
