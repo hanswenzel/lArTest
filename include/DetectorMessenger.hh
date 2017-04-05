@@ -19,7 +19,7 @@
 
 class DetectorConstruction;
 class G4UIdirectory;
-//class G4UIcmdWithABool;
+class G4UIcmdWithABool;
 class G4UIcmdWithAString;
 class G4UIcmdWithAnInteger;
 class G4UIcmdWithADoubleAndUnit;
@@ -46,8 +46,12 @@ private:
     G4UIcmdWithADoubleAndUnit* yCmd;
     G4UIcmdWithADoubleAndUnit* zCmd;
 //    G4UIcmdWithADoubleAndUnit* stepCmd;
+    G4UIcmdWithABool*   hitsCmd;    
+    G4UIcmdWithABool*   analCmd;    
+    G4UIcmdWithABool*   gdmlCmd;    
     G4UIcmdWithoutParameter* updateCmd;
 
+    //control for performance profiling sevice
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -18,6 +18,9 @@
 #include "G4Run.hh"
 #include "globals.hh"
 
+class G4Timer;
+class MemoryService;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class RunAction : public G4UserRunAction
@@ -35,6 +38,11 @@ public: // With description
   void EndOfRunAction(const G4Run*);
   // In this method bookHisto method is called in which histogramms are filled
   int nEvts;
+
+private:
+
+  G4Timer* timer;
+  MemoryService* memory;
 
 };
 

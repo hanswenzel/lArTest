@@ -21,6 +21,9 @@ class EventAction;
 class G4UIcmdWithAString;
 class G4UIcmdWithAnInteger;
 
+class G4UIdirectory;
+class G4UIcmdWithABool;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class EventActionMessenger: public G4UImessenger
@@ -38,6 +41,9 @@ private:
   G4UIcmdWithAString*   drawCmd;
   G4UIcmdWithAnInteger* printCmd;    
   G4UIcmdWithAnInteger* dCmd;    
+
+  G4UIdirectory*        profDirectory;
+  G4UIcmdWithABool*     profCmd;    
 
 };
 

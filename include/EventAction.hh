@@ -24,6 +24,9 @@ class G4Event;
 class G4Track;
 class EventActionMessenger;
 class G4UImanager;
+class G4Timer;
+class MemoryService ;
+class SteppingAction;
 
 class EventAction : public G4UserEventAction
 {
@@ -33,14 +36,19 @@ public: // Without description
   virtual ~EventAction();
 
   void BeginOfEventAction(const G4Event*);
-  void   EndOfEventAction(const G4Event*);
+  void EndOfEventAction(const G4Event*);
 
-  void SetPrintModulo(G4int val)   {printModulo = val;};
-  void SetDrawFlag(G4String val)   {drawFlag = val;};
-  void AddEventToDebug(G4int val)  {selectedEvents.push_back(val);
-                                    nSelected++;};
+  void SetPrintModulo(G4int val)    {printModulo = val;};
+  void SetDrawFlag(G4String val)    {drawFlag = val;};
+  void SetProfileFlag(G4bool val)   {profileFlag = val;};
+  void AddEventToDebug(G4int val)   {selectedEvents.push_back(val);
+                                     nSelected++;};
 
+  void InstanciateSteppingAction();      
 
+  //IgProf Service
+  void (*dump_)(const char *);
+  
 private:
 
   EventActionMessenger* eventMessenger;
@@ -52,9 +60,15 @@ private:
 
   // drawFlags = all, charged, neutral, charged+n
   G4String     drawFlag;
+  G4bool       profileFlag;
   G4bool       debugStarted;
   //std::vector<TrackInfo_t> TrackInfoVec;
-  
+
+  //performance profiling service
+  G4double        totalEventCPUTime;
+  G4Timer*        eventTimer;
+  MemoryService*  eventMemory;
+  SteppingAction* theSteppingAction;
 };
 
 #endif

@@ -35,7 +35,7 @@ using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TrackerSD::TrackerSD(const G4String& name,
-        const G4String& hitsCollectionName)
+                     const G4String& /* hitsCollectionName */)
 : G4VSensitiveDetector(name) {
 }
 
@@ -47,7 +47,7 @@ TrackerSD::~TrackerSD() {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void TrackerSD::Initialize(G4HCofThisEvent* hce) {
+void TrackerSD::Initialize(G4HCofThisEvent* /*hce*/) {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

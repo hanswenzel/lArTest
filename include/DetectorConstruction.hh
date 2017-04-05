@@ -17,6 +17,7 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
 #include "G4Material.hh"
+#include "G4GDMLParser.hh"
 
 class G4LogicalVolume;
 class DetectorMessenger;
@@ -29,15 +30,24 @@ public:
     DetectorConstruction();
     virtual ~DetectorConstruction();
 
+    void PrepareLArTest();
+    void ReadGDML();
+
+    G4VPhysicalVolume* BuildLArTest();
+  //    void BuildByGDML();
+
     G4VPhysicalVolume* Construct();
 
     void SetWorldMaterial(const G4String&);
     void SetTargetMaterial(const G4String&);
     void SetTargetX(G4double val);
     void SetTargetY(G4double val);
-    void SetTargetZ(G4double val);
+    void SetTargetZ(G4double val); 
+    void SetWriteHits(G4bool val);
+    void SetDoAnalysis(G4bool val);
+    void SetUseGDML(G4bool val);
 
-    void SetMaxStepLength(G4double val);
+    void SetMaxStepLength(G4double val); 
 
     void UpdateGeometry();
 
@@ -60,12 +70,19 @@ private:
 
     G4double targetX, targetY, targetZ;
     //G4double maxStep;
+    G4bool writeHits;
+    G4bool doAnalysis;
+    G4bool useGDML;
 
     G4Material* targetMaterial;
     G4Material* worldMaterial;
 
     G4LogicalVolume* logicTarget;
     G4LogicalVolume* logicWorld;
+
+    // GDMLparser
+    G4GDMLParser parser;
+    G4String fGDML;
 
     DetectorMessenger* detectorMessenger;
 
