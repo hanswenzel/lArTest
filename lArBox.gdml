@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+<materials>
+  <element Z="7" formula="N" name="Nitrogen" >
+   <atom value="14.01" />
+  </element>
+  <element Z="8" formula="O" name="Oxygen" >
+   <atom value="16" />
+  </element>
+  <element Z="18" formula="Ar" name="Argon" >
+   <atom value="39.948" />
+  </element>
+  <material formula=" " name="Air" >
+   <D value="0.00129" />
+   <fraction n="0.7" ref="Nitrogen" />
+   <fraction n="0.3" ref="Oxygen" />
+  </material>
+  <material formula=" " name="lAr" >
+   <D value="1.396 " />
+   <fraction n="1.0" ref="Argon" />
+  </material>
+ </materials>
+
+
+
+    <solids>
+        <box name="WorldBox" lunit="cm" x="500" y="500" z="1000"/>
+        <box name="ArgonVolume"  lunit="cm" x="400" y="400" z="900"/>
+    </solids>
+
+    <structure>
+        <volume name="volTPCActiveInner">
+            <materialref ref="lAr"/>
+            <solidref ref="ArgonVolume"/>
+        </volume>
+        <volume name="TOP">
+            <materialref ref="Air"/>
+            <solidref ref="WorldBox"/>
+            <physvol name="pCalorimeterVolume">
+                <volumeref ref="volTPCActiveInner"/>
+                <position name="Calpos" x="0" y="0" z="0"/>
+            </physvol>
+        </volume>
+    </structure>
+
+    <setup version="1.0" name="Default">
+        <world ref="TOP"/>
+    </setup>
+
+</gdml>
