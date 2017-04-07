@@ -1,0 +1,26 @@
+/control/verbose 1 
+/run/verbose 1 
+/tracking/verbose 0
+/profile/profFlag true
+/Detector/TargetX 4. m
+/Detector/TargetY 4. m
+/Detector/TargetZ 4.5 m
+/Detector/WriteHit false
+/Detector/DoAnalys false
+#/Detector/UseGDML true
+
+/testConfig/DoAnalysis true
+/testConfig/DoStepLimit true
+/testConfig/steplengthlimit 0.01 cm
+
+/Detector/Update 
+/run/initialize 
+/random/setSeeds 7 38 
+
+
+/gun/particle mu- 
+/gun/energy 5000.0 MeV
+/gun/position 0. 0. -4.55 m
+/gun/direction 0. 0. 1.
+/run/beamOn 10
+
