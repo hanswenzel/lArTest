@@ -2,11 +2,8 @@
 /run/verbose 1 
 /tracking/verbose 0
 /profile/profFlag true
-/Detector/TargetX 4. m
-/Detector/TargetY 4. m
-/Detector/TargetZ 4.5 m
-/Detector/WriteHit false
-/Detector/DoAnalys false
+/Detector/WriteHits true
+#/Detector/DoAnalys false
 #/Detector/UseGDML true
 
 /testConfig/DoAnalysis true
