@@ -40,15 +40,11 @@ private:
     DetectorConstruction* Detector;
 
     G4UIdirectory* testDir;
-    G4UIcmdWithAString* matCmd;
-    G4UIcmdWithAString* mat1Cmd;
-    G4UIcmdWithADoubleAndUnit* xCmd;
-    G4UIcmdWithADoubleAndUnit* yCmd;
-    G4UIcmdWithADoubleAndUnit* zCmd;
+
 //    G4UIcmdWithADoubleAndUnit* stepCmd;
     G4UIcmdWithABool*   hitsCmd;    
     G4UIcmdWithABool*   analCmd;    
-    G4UIcmdWithABool*   gdmlCmd;    
+//    G4UIcmdWithABool*   gdmlCmd;    
     G4UIcmdWithoutParameter* updateCmd;
 
     //control for performance profiling sevice
