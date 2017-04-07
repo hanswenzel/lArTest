@@ -42,12 +42,14 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
 
-DetectorConstruction::DetectorConstruction() 
-  : writeHits(true),
-    doAnalysis(true),
-    useGDML(false)
+DetectorConstruction::DetectorConstruction(G4String fname)
+//    useGDML(false)
 {
-  detectorMessenger = new DetectorMessenger(this);
+    gdmlFile = fname;
+    writeHits = true;
+    doAnalysis = true;
+    detectorMessenger = new DetectorMessenger(this);
+    Construct();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -57,55 +59,37 @@ DetectorConstruction::~DetectorConstruction() {
 }
 
 G4VPhysicalVolume* DetectorConstruction::Construct() {
-
-  G4VPhysicalVolume* worldPhysVol;     
-
-  if(!useGDML) {
-    PrepareLArTest();
-    worldPhysVol = BuildLArTest();
-  }
-  else  {
     ReadGDML();
-    worldPhysVol = parser.GetWorldVolume();
-  }
-
-  return worldPhysVol;
+    logicTarget = G4LogicalVolumeStore::GetInstance()->GetVolume("volTPCActiveInner");
+    G4VPhysicalVolume* worldPhysVol = parser.GetWorldVolume();
+    PrepareLArTest();
+    if (writeHits) {
+        std::cout << "Writing Tracker Sensitive Hits" << std::endl;
+        G4String SDname = "TrackerSD";
+        TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
+        // Setting aTrackerSD to all logical volumes with the same name 
+        // of "Target".
+        SetSensitiveDetector("volTPCActiveInner", aTrackerSD, true);
+    }
+    if (ConfigurationManager::getInstance()->GetstepLimit()) {
+        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
+        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
+        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
+        logicTarget->SetUserLimits(fStepLimit);
+    }
+    PrepareLArTest();
+    return worldPhysVol;
 }
 
 void DetectorConstruction::ReadGDML() {
 
-  char* gdmlFile = getenv("LARTEST_GDML");
-
-  if (gdmlFile) {
-    fGDML = gdmlFile;
-  }
-  else {
-    //default geometry (protodune detector description)
-    fGDML ="protodune.gdml";
-  }
-  parser.Read(fGDML,false);
+    parser.Read(gdmlFile, false);
 }
 
 void DetectorConstruction::PrepareLArTest() {
-    // Cleanup old geometry
 
-    logicTarget = 0;
-    logicWorld = 0;
-
-    targetX = 4.0 * m;
-    targetY = 4.0 * m;
-    targetZ = 4.5 * m;
-    //maxStep = .3 * mm;
-
-    targetMaterial = G4NistManager::Instance()->FindOrBuildMaterial("G4_lAr");
-    worldMaterial = G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR");
-    //G4NistManager::Instance()->ListMaterials("all");
 
     G4MaterialPropertiesTable* LArMPT = new G4MaterialPropertiesTable();
-
-    //LArMPT->AddProperty("RINDEX", photonEnergy, refractiveIndex, nEntries);
-
-    //->SetSpline(true);
     //
     //  simple description of scintillation yield  
     //  [J Chem Phys vol 91 (1989) 1469]
@@ -124,8 +108,6 @@ void DetectorConstruction::PrepareLArTest() {
     LArMPT->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
     LArMPT->AddProperty("FASTCOMPONENT", FastScintEnergies, FastScintSpectrum, num)->SetSpline(true);
     LArMPT->AddProperty("SLOWCOMPONENT", FastScintEnergies, FastScintSpectrum, num)->SetSpline(true);
-    //    LArMPT->AddProperty("FASTCOMPONENT", Scnt_spe, Scnt_pp, scinum);
-    //    LArMPT->AddProperty("SLOWCOMPONENT", Scnt_spe, Scnt_pp, scinum);
     LArMPT->AddConstProperty("FASTTIMECONSTANT", 7. * ns);
     LArMPT->AddConstProperty("SLOWTIMECONSTANT", 1400. * ns);
     LArMPT->AddConstProperty("YIELDRATIO", 0.75);
@@ -136,143 +118,15 @@ void DetectorConstruction::PrepareLArTest() {
     // Doke et al, NIM 134 (1976)353
     //LArMPT->AddConstProperty("RESOLUTIONSCALE", fano);
     LArMPT->AddConstProperty("RESOLUTIONSCALE", 1.0);
-    targetMaterial->SetMaterialPropertiesTable(LArMPT);
-}
 
-G4VPhysicalVolume* DetectorConstruction::BuildLArTest() {
-    // Cleanup old geometry
-
-    G4GeometryManager::GetInstance()->OpenGeometry();
-    G4PhysicalVolumeStore::GetInstance()->Clean();
-    G4LogicalVolumeStore::GetInstance()->Clean();
-    G4SolidStore::GetInstance()->Clean();
-
-    // Sizes
-    G4double worldX = targetX + 0.5 * m;
-    G4double worldY = targetY + 0.5 * m;
-    G4double worldZ = targetZ + 0.5 * m;
-
-    //
-    // World
-    //
-
-    G4Box* solidW = new G4Box("World", worldX, worldY, worldZ);
-    logicWorld = new G4LogicalVolume(solidW, worldMaterial, "World");
-    G4VPhysicalVolume* world = new G4PVPlacement(0, G4ThreeVector(),
-            logicWorld, "World", 0, false, 0);
-    //
-    // Target volume
-    //
-    G4Box* solidT = new G4Box("Tracker", targetX, targetY, targetZ);
-    logicTarget = new G4LogicalVolume(solidT, targetMaterial, "Tracker");
-    new G4PVPlacement(0, G4ThreeVector(), logicTarget, "Tracker", logicWorld, false, 0);
-
-    if(writeHits) {
-      std::cout << "Writing Tracker Sensitive Hits" << std::endl;
-      G4String SDname = "TrackerSD";
-      TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
-      // Setting aTrackerSD to all logical volumes with the same name 
-      // of "Target".
-      SetSensitiveDetector("Tracker", aTrackerSD, true);
-    }
-
-    // colors
-    G4VisAttributes zero = G4VisAttributes::Invisible;
-    logicWorld->SetVisAttributes(&zero);
-
-    G4VisAttributes regCcolor(G4Colour(0., 0.3, 0.7));
-    logicTarget->SetVisAttributes(&regCcolor);
-    // Analysis:
-
-    if (doAnalysis && ConfigurationManager::getInstance()->GetdoAnalysis()) {
-        //for ntuple:
-        Analysis* analysis = Analysis::getInstance();
-        std::vector<G4double> vDCinfo;
-        vDCinfo.push_back(2. * targetX);
-        vDCinfo.push_back(2. * targetY);
-        vDCinfo.push_back(2. * targetZ);
-        G4double dens = targetMaterial->GetDensity() / (g / cm3);
-        G4String nameM = targetMaterial->GetName();
-        vDCinfo.push_back(dens);
-
-        analysis->SetDetConstInfo(vDCinfo, targetMaterial);
-    }
-
-    //step limits
-    if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
-        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
-        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
-        logicTarget->SetUserLimits(fStepLimit);
-    }
-
-    return world;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void DetectorConstruction::SetTargetMaterial(const G4String& mat) {
-    // search the material by its name
-    G4Material* material = G4NistManager::Instance()->FindOrBuildMaterial(mat);
-
-    if (material && material != targetMaterial) {
-        targetMaterial = material;
-        if (logicTarget) logicTarget->SetMaterial(targetMaterial);
-        G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-    }
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void DetectorConstruction::SetWorldMaterial(const G4String& mat) {
-    // search the material by its name
-    G4Material* material = G4NistManager::Instance()->FindOrBuildMaterial(mat);
-
-    if (material && material != worldMaterial) {
-        worldMaterial = material;
-     
-        if (logicWorld) logicWorld->SetMaterial(worldMaterial);
-        G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-    }
+    G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
+    logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void DetectorConstruction::UpdateGeometry() {
     G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-//void DetectorConstruction::SetMaxStepLength(G4double val) {
-//    if (val > 0.0) {
-//        this->maxStep = val;
-//        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-//    }
-//}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void DetectorConstruction::SetTargetX(G4double val) {
-    if (val > 0.0) {
-        targetX = val;
-        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    }
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void DetectorConstruction::SetTargetY(G4double val) {
-    if (val > 0.0) {
-        targetY = val;
-        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    }
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void DetectorConstruction::SetTargetZ(G4double val) {
-    if (val > 0.0) {
-        targetZ = val;
-        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    }
 }
 
 void DetectorConstruction::SetWriteHits(G4bool val) {
@@ -285,12 +139,6 @@ void DetectorConstruction::SetDoAnalysis(G4bool val) {
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
 }
 
-void DetectorConstruction::SetUseGDML(G4bool val) {
-    useGDML = val;
-    std::cout << "print useGDML = " << useGDML << std::endl;
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    std::cout << "print useGDML = " << useGDML << std::endl;
-}
 
 // The following 3 functions are described in
 // https://indico.cern.ch/event/44566/contributions/1101918/attachments/943057/1337650/dipompeo.pdf

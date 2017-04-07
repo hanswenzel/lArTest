@@ -31,43 +31,6 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
     testDir = new G4UIdirectory("/Detector/");
     testDir->SetGuidance("G4 Detector stores all steps within the TrackerSD. The test allows to apply step limits.");
 
-    matCmd = new G4UIcmdWithAString("/Detector/TargetMat", this);
-    matCmd->SetGuidance("Select Material for the target");
-    matCmd->SetParameterName("tMaterial", false);
-    matCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
-    mat1Cmd = new G4UIcmdWithAString("/Detector/WorldMat", this);
-    mat1Cmd->SetGuidance("Select Material for world");
-    mat1Cmd->SetParameterName("wMaterial", false);
-    mat1Cmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
-    xCmd = new G4UIcmdWithADoubleAndUnit("/Detector/TargetX", this);
-    xCmd->SetGuidance("Set x half length of the target");
-    xCmd->SetParameterName("lengthX", false);
-    xCmd->SetUnitCategory("Length");
-    xCmd->SetRange("lengthX>0");
-    xCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
-    yCmd = new G4UIcmdWithADoubleAndUnit("/Detector/TargetY", this);
-    yCmd->SetGuidance("Set y half length of the target");
-    yCmd->SetParameterName("lengthY", false);
-    yCmd->SetUnitCategory("Length");
-    yCmd->SetRange("lengthY>0");
-    yCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
-    zCmd = new G4UIcmdWithADoubleAndUnit("/Detector/TargetZ", this);
-    zCmd->SetGuidance("Set z half length of the target");
-    zCmd->SetParameterName("lengthZ", false);
-    zCmd->SetUnitCategory("Length");
-    zCmd->SetRange("lengthZ>0");
-    zCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
-//    stepCmd = new G4UIcmdWithADoubleAndUnit("/Detector/MaxStepLength", this);
-//    stepCmd->SetGuidance("Set Maximum Step Length");
-//    stepCmd->SetParameterName("maxStep", false);
-//    stepCmd->SetUnitCategory("Length");
-//    stepCmd->SetRange("maxStep>0");
-//    stepCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
     updateCmd = new G4UIcmdWithoutParameter("/Detector/Update", this);
     updateCmd->SetGuidance("Update geometry.");
@@ -88,50 +51,27 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
     analCmd->SetDefaultValue(true);
     analCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-    gdmlCmd = new G4UIcmdWithABool("/Detector/UseGDML",this);
-    gdmlCmd->SetGuidance("Enable/disable GDML interface");
-    gdmlCmd->SetParameterName("UseGDML",false);
-    gdmlCmd->SetDefaultValue(false);
-    gdmlCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorMessenger::~DetectorMessenger() {
-    delete matCmd;
-    delete mat1Cmd;
-    delete xCmd;
-    delete yCmd;
-    delete zCmd;
+
     delete updateCmd;
     delete testDir;
    // delete stepCmd;
     delete hitsCmd;
     delete analCmd;
-    delete gdmlCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void DetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
-    if (command == matCmd)
-        Detector->SetTargetMaterial(newValue);
-    else if (command == mat1Cmd)
-        Detector->SetWorldMaterial(newValue);
-    else if (command == xCmd)
-        Detector->SetTargetX(xCmd->GetNewDoubleValue(newValue));
-    else if (command == yCmd)
-        Detector->SetTargetY(yCmd->GetNewDoubleValue(newValue));
-    else if (command == zCmd)
-        Detector->SetTargetZ(zCmd->GetNewDoubleValue(newValue));
-    //else if (command == stepCmd)
-    //    Detector->SetMaxStepLength(stepCmd->GetNewDoubleValue(newValue));
-    else if(command == hitsCmd)
+
+    if(command == hitsCmd)
         Detector->SetWriteHits(hitsCmd->GetNewBoolValue(newValue));
     else if(command == analCmd)
         Detector->SetDoAnalysis(analCmd->GetNewBoolValue(newValue));
-    else if(command == gdmlCmd)
-        Detector->SetUseGDML(gdmlCmd->GetNewBoolValue(newValue));
     else if (command == updateCmd)
         Detector->UpdateGeometry();
 }
