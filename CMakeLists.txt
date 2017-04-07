@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 set(name lArTest)
+#set(Boost_NO_BOOST_CMAKE  ON)
 project(${name})
 
 #----------------------------------------------------------------------------
@@ -18,6 +19,13 @@ add_definitions(-DG4ANALYSIS_USE)
 
 include(${Geant4_USE_FILE})
 
+
+#find_package(Boost REQUIRED)
+#if(NOT BOOST_FOUND)
+#  message(STATUS "lArTest: BOOST package not found. --> lArTest disabled")
+#  return()
+#endif()
+
 find_package(ROOT REQUIRED)
 if(NOT ROOT_FOUND)
   message(STATUS "lArTest: ROOT package not found. --> lArTest disabled")
@@ -27,10 +35,13 @@ endif()
 message(STATUS "${ROOT_USE_FILE}=${${ROOT_USE_FILE}}")
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include
+#                    /home/wenzel/boost_1_63_0  
                     ${Geant4_INCLUDE_DIR}
                     ${ROOT_INCLUDE_DIR})
 
-link_directories( ${ROOT_LIBRARY_DIR} )
+link_directories( 
+#/home/wenzel/boost_1_63_0/stage/lib
+                  ${ROOT_LIBRARY_DIR} )
 
 
 file(GLOB sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc )
@@ -56,4 +67,4 @@ target_link_libraries(${name}  lAr  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 install (TARGETS ${name} DESTINATION bin)
 install (TARGETS lAr DESTINATION lib)
-install (FILES vis.mac init_vis.mac muons.in DESTINATION bin)
+install (FILES vis.mac init_vis.mac muons.in profile.in protodune.gdml scripts/Ana.C DESTINATION bin)
