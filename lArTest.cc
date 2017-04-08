@@ -21,8 +21,12 @@
 #include "G4StepLimiter.hh"
 #include "G4StepLimiterPhysics.hh"
 #include "G4SystemOfUnits.hh"
+#ifdef G4UI_USE
 #include "G4UIExecutive.hh"
+#endif
+#ifdef G4VIS_USE
 #include "G4VisExecutive.hh"
+#endif
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
@@ -33,14 +37,21 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 int main(int argc, char** argv) {
+    if (argc < 2) {
+        G4cout << "Error! Mandatory input file is not specified!" << G4endl;
+        G4cout << G4endl;
+        G4cout << G4endl;
+        G4cout << "Usage: lArTest <intput_gdml_file:mandatory>" << G4endl;
+        G4cout << G4endl;
+        return -1;
+    }
     //
-    // Detect interactive mode (if no arguments) and define UI session
+    // Detect interactive mode (if only one argument) and define UI session
     //
     G4UIExecutive* ui = 0;
-    if (argc == 1) {
+    if (argc == 2) {
         ui = new G4UIExecutive(argc, argv);
     }
-
     //choose the Random engine
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
     // Construct the default run manager
@@ -115,23 +126,22 @@ int main(int argc, char** argv) {
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
     //StepLimiter:
-    G4cout << "UUUUUUUUUUUUUUUUUUU"<<ConfigurationManager::getInstance()->GetstepLimit() << G4endl;
-    G4cout << ConfigurationManager::getInstance()->Getlimitval() << G4endl;
     G4cout << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        G4cout << "step limiter enabled" << G4endl;
+        G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
         phys->RegisterPhysics(new G4StepLimiterPhysics());
     }
     //    
     phys->DumpList();
     //set mandatory initialization classes
-    runManager->SetUserInitialization(new DetectorConstruction());
+    runManager->SetUserInitialization(new DetectorConstruction(argv[1]));
 
     runManager->SetUserInitialization(phys);
     //set user action classes
     runManager->SetUserAction(new PrimaryGeneratorAction());
     runManager->SetUserAction(new RunAction());
     runManager->SetUserAction(new EventAction());
+#ifdef G4VIS_USE
     //
     // Initialize visualization
     //
@@ -140,13 +150,13 @@ int main(int argc, char** argv) {
 
     //get the pointer to the User Interface manager
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
-
+#endif
     // Process macro or start UI session
     //
     if (!ui) {
         // batch mode
         G4String command = "/control/execute ";
-        G4String fileName = argv[1];
+        G4String fileName = argv[2];
         UImanager->ApplyCommand(command + fileName);
     } else {
         // interactive mode
@@ -158,7 +168,9 @@ int main(int argc, char** argv) {
     // Free the store: user actions, physics_list and detector_description are
     // owned and deleted by the run manager, so they should not be deleted 
     // in the main() program !
+#ifdef G4VIS_USE
     delete visManager;
+#endif
     delete runManager;
     return 0;
 }
