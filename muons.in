@@ -1,9 +1,6 @@
 /control/verbose 1 
 /run/verbose 1 
 /tracking/verbose 0 
-/Detector/TargetX 4. m
-/Detector/TargetY 4. m
-/Detector/TargetZ 4.5 m
 
 /testConfig/DoAnalysis true
 /testConfig/DoStepLimit true
