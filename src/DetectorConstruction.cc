@@ -118,8 +118,9 @@ void DetectorConstruction::PrepareLArTest() {
     // Doke et al, NIM 134 (1976)353
     //LArMPT->AddConstProperty("RESOLUTIONSCALE", fano);
     LArMPT->AddConstProperty("RESOLUTIONSCALE", 1.0);
-
+    G4cout << "**********************************************************************" << G4endl;
     G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
+    G4cout << "**********************************************************************" << G4endl;
     logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
 }
 
