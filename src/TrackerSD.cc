@@ -81,6 +81,7 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
             aStep->GetTrack()->GetPosition().x()/cm,
             aStep->GetTrack()->GetPosition().y()/cm,
             aStep->GetTrack()->GetPosition().z()/cm,
+            aStep->GetTrack()->GetGlobalTime()/ns,
             aStep->GetStepLength()/cm,
             photons,
             G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());

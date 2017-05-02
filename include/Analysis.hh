@@ -40,6 +40,7 @@ public:
             Double_t x,
             Double_t y,
             Double_t z,
+            Double_t t,
             Double_t StepLength,
             G4int NrofPhotons,
             G4int eventID);
@@ -67,18 +68,20 @@ private:
     Double_t targetz;
     Double_t rho;
     Double_t aweight;
-    Double_t edep;
-    Double_t x;
-    Double_t y;
-    Double_t z;
+
     Double_t enerPrimGen;
     std::string PartName;
 
-    
+
     // info  for Event record
     Double_t StepLength;
     G4int NrofPhotons;
     G4int eventID;
+    Double_t edep;
+    Double_t x;
+    Double_t y;
+    Double_t z;
+    Double_t t;
     G4Material* mate;
     std::string material;
     std::string namePrim;

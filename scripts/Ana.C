@@ -6,6 +6,7 @@ void Ana()
   Double_t x;
   Double_t y;
   Double_t z;
+  Double_t t;
   Double_t StepLength;
   Int_t    NrofPhotons;
   Int_t eventID;
@@ -13,6 +14,7 @@ void Ana()
   evt->SetBranchAddress("x", &x);
   evt->SetBranchAddress("y", &y);
   evt->SetBranchAddress("z", &z);
+  evt->SetBranchAddress("t", &t);
   evt->SetBranchAddress("StepLength", &StepLength);
   evt->SetBranchAddress("Photons", &NrofPhotons);
   evt->SetBranchAddress("eventID", &eventID);
@@ -25,12 +27,14 @@ void Ana()
   TH1F *hedp    = new TH1F("edep","Edep [MeV]",100,0,4000);
   TH1F *dEdx    = new TH1F("dEdx","dEdx [MeV]",900,-4500,4500);
   TH1F *dEdxPh  = new TH1F("dEdxPh","Nphotons ",900,-4500,4500);
+  TH1F *time  = new TH1F("time","time ",100,0,100);
   TH1F *steplength  = new TH1F("steplength","steplength",100,0,0.02);
   Int_t nentries = (Int_t)evt->GetEntries();
   for (Int_t i=0;i<nentries;i++) {
     evt->GetEntry(i);
     sumEdep= sumEdep+edep;
     dEdx->Fill(z,edep);
+    time->Fill(time)
     if (z>0&&z<1.){
       sumEdepcm=sumEdepcm+edep;
       //     cout <<z<<endl;
@@ -98,4 +102,11 @@ TCanvas *c6 = new TCanvas("c6","steplength",200,10,1400,1000);
   gPad->SetGridx();
   gPad->SetGridy();
   steplength->Draw();
+  TCanvas *c7 = new TCanvas("c7","time",200,10,1400,1000);
+  c7->SetGrid();
+  //  gPad->SetLogx();
+  // gPad->SetLogy();
+  gPad->SetGridx();
+  gPad->SetGridy();
+  timeAna->Draw();
 }

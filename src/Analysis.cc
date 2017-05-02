@@ -88,6 +88,7 @@ void Analysis::book(G4long id0, G4long id1) {
     EventTree->Branch("x", &x, "x/D");
     EventTree->Branch("y", &y, "y/D");
     EventTree->Branch("z", &z, "z/D");
+    EventTree->Branch("t", &t, "t/D");
     EventTree->Branch("StepLength", &StepLength, "StepLength/D");
     EventTree->Branch("Photons", &NrofPhotons, "Photons/I");
     EventTree->Branch("eventID", &eventID, "eventID/I");
@@ -139,6 +140,7 @@ void Analysis::FillEvent(Double_t edep1,
         Double_t x1,
         Double_t y1,
         Double_t z1,
+        Double_t t1,
         Double_t StepLength1,
         G4int NrofPhotons1,
         G4int NEvent1) {
@@ -146,6 +148,7 @@ void Analysis::FillEvent(Double_t edep1,
     x = x1;
     y = y1;
     z = z1;
+    t = t1;
     StepLength = StepLength1;
     NrofPhotons = NrofPhotons1;
     eventID = NEvent1;
