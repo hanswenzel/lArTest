@@ -15,6 +15,7 @@
 // Geant4 headers
 #include "G4UImanager.hh"
 #include "G4VVisManager.hh"
+#include "G4Run.hh"
 #include "G4Element.hh"
 #include "Randomize.hh"
 #include "G4UnitsTable.hh"
@@ -26,7 +27,6 @@
 #include "G4NistManager.hh"
 #include "G4HadronicProcessStore.hh"
 #include "G4NucleiProperties.hh"
-#include "G4NistManager.hh"
 #include "G4StableIsotopes.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Timer.hh"

@@ -15,13 +15,11 @@
 #define EventAction_h 1
  
 #include "G4UserEventAction.hh"
-#include "globals.hh"
 #include <vector>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class G4Event;
-class G4Track;
 class EventActionMessenger;
 class G4UImanager;
 class G4Timer;

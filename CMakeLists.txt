@@ -35,12 +35,11 @@ endif()
 message(STATUS "${ROOT_USE_FILE}=${${ROOT_USE_FILE}}")
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include
-#                    /home/wenzel/boost_1_63_0  
+                   /home/wenzel/boost_1_63_0  
                     ${Geant4_INCLUDE_DIR}
                     ${ROOT_INCLUDE_DIR})
 
-link_directories( 
-#/home/wenzel/boost_1_63_0/stage/lib
+link_directories( /home/wenzel/boost_1_63_0/stage/lib
                   ${ROOT_LIBRARY_DIR} )
 
 
@@ -67,4 +66,4 @@ target_link_libraries(${name}  lAr  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 install (TARGETS ${name} DESTINATION bin)
 install (TARGETS lAr DESTINATION lib)
-install (FILES vis.mac init_vis.mac muons.in profile.in protodune.gdml scripts/Ana.C DESTINATION bin)
+install (FILES vis.mac init_vis.mac muons.in profile.in protodune.gdml lArBox.gdml scripts/Ana.C DESTINATION bin)

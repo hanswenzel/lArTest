@@ -22,7 +22,6 @@
 #include "G4Event.hh"
 #include "G4Cerenkov.hh"
 #include "G4Scintillation.hh"
-#include "G4VProcess.hh"
 #include "G4SteppingManager.hh"
 #include "G4Track.hh"
 #include "G4UnitsTable.hh"

@@ -15,12 +15,12 @@
 #define RunAction_h 1
 
 #include "G4UserRunAction.hh"
-#include "G4Run.hh"
-#include "globals.hh"
+//#include "G4Run.hh"
+//#include "globals.hh"
 
 class G4Timer;
 class MemoryService;
-
+class G4Run;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class RunAction : public G4UserRunAction
