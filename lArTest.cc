@@ -13,6 +13,7 @@
 // -----------------------------------------------------
 // Geant4 headers
 #include "G4RunManager.hh"
+#include "G4MTRunManager.hh"
 #include "G4UImanager.hh"
 #include "Randomize.hh"
 #include "G4PhysListFactory.hh"
@@ -28,11 +29,9 @@
 #include "G4VisExecutive.hh"
 #endif
 // project headers
+#include "ActionInitialization.hh"
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
-#include "EventAction.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -56,8 +55,21 @@ int main(int argc, char** argv) {
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
     // Construct the default run manager
     //
+
+#ifdef G4MULTITHREADED
+    //the default number of threads
+    G4int nThreads = 4;
+    //set it from the -t option is provided
+    for ( G4int i = 1 ; i < argc ; i = i+2 ) {
+      if ( G4String(argv[i]) == "-t" ) {
+        nThreads = G4UIcommand::ConvertToInt(argv[i+1]);
+      }
+    }
+#endif
+
 #ifdef G4MULTITHREADED
     G4MTRunManager* runManager = new G4MTRunManager;
+    runManager->SetNumberOfThreads(nThreads);
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
@@ -134,13 +146,15 @@ int main(int argc, char** argv) {
     //    
     phys->DumpList();
     //set mandatory initialization classes
-    runManager->SetUserInitialization(new DetectorConstruction(argv[1]));
+    DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
+    runManager->SetUserInitialization(detConstruction);
 
     runManager->SetUserInitialization(phys);
     //set user action classes
-    runManager->SetUserAction(new PrimaryGeneratorAction());
-    runManager->SetUserAction(new RunAction());
-    runManager->SetUserAction(new EventAction());
+    ActionInitialization* actionInitialization = 
+      new ActionInitialization(detConstruction);
+    runManager->SetUserInitialization(actionInitialization);
+
 #ifdef G4VIS_USE
     //
     // Initialize visualization
