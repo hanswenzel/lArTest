@@ -34,7 +34,6 @@
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 // project headers
-#include "Analysis.hh"
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
 #include "DetectorMessenger.hh"

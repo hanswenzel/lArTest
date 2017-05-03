@@ -28,13 +28,14 @@
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 // project headers
-#include "Analysis.hh"
 #include "TrackerSD.hh"
+#include "Analysis.hh"
+#include "ConfigurationManager.hh"
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TrackerSD::TrackerSD(const G4String& name,
-                     const G4String& /* hitsCollectionName */)
+        const G4String& /* hitsCollectionName */)
 : G4VSensitiveDetector(name) {
 }
 
@@ -75,16 +76,21 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
             }
         }
     }
-
-    Analysis* analysis = Analysis::getInstance();
-    analysis->FillEvent(edep/MeV,
-            aStep->GetTrack()->GetPosition().x()/cm,
-            aStep->GetTrack()->GetPosition().y()/cm,
-            aStep->GetTrack()->GetPosition().z()/cm,
-            aStep->GetTrack()->GetGlobalTime()/ns,
-            aStep->GetStepLength()/cm,
-            photons,
-            G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
+    ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
+    if (cfMgr->GetdoAnalysis()) {
+        // get analysis manager
+        auto analysisManager = G4AnalysisManager::Instance();
+        // fill ntuple
+        analysisManager->FillNtupleDColumn(0, edep / MeV);
+        analysisManager->FillNtupleDColumn(1, aStep->GetTrack()->GetPosition().x() / cm);
+        analysisManager->FillNtupleDColumn(2, aStep->GetTrack()->GetPosition().y() / cm);
+        analysisManager->FillNtupleDColumn(3, aStep->GetTrack()->GetPosition().z() / cm);
+        analysisManager->FillNtupleDColumn(4, aStep->GetTrack()->GetGlobalTime() / ns);
+        analysisManager->FillNtupleDColumn(5, aStep->GetStepLength() / cm);
+        analysisManager->FillNtupleIColumn(6, photons);
+        analysisManager->FillNtupleIColumn(7, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
+        analysisManager->AddNtupleRow();
+    }
     return true;
 }
 

@@ -16,7 +16,7 @@
 #include "G4ParticleGun.hh"
 // Project headers:
 #include "PrimaryGeneratorAction.hh"
-#include "Analysis.hh"
+//#include "Analysis.hh"
 #include "ConfigurationManager.hh"
 //
 #include "Randomize.hh"
@@ -46,10 +46,12 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
     particleGun->GeneratePrimaryVertex(anEvent);
     ConfigurationManager* cfMgr=ConfigurationManager::getInstance();
     if (cfMgr->GetdoAnalysis()) {
+        /*
         Analysis* analysis = Analysis::getInstance();
         Double_t ener = particleGun->GetParticleEnergy();
         G4ParticleDefinition* part = particleGun->GetParticleDefinition();
         analysis->SetPrimGenInfo(ener, part);
+         */
     }
 }
 
