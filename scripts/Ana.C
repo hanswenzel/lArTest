@@ -1,7 +1,7 @@
 void Ana()
 {
-  TFile *f = new TFile("ntuple_0007.root");
-  TTree *evt = (TTree*)f->Get("Event");
+  TFile *f = new TFile("lArTest.root");
+  TTree *evt = (TTree*)f->Get("ntuple/lArTest");
   Double_t edep;
   Double_t x;
   Double_t y;
@@ -15,9 +15,9 @@ void Ana()
   evt->SetBranchAddress("y", &y);
   evt->SetBranchAddress("z", &z);
   evt->SetBranchAddress("t", &t);
-  evt->SetBranchAddress("StepLength", &StepLength);
-  evt->SetBranchAddress("Photons", &NrofPhotons);
-  evt->SetBranchAddress("eventID", &eventID);
+  evt->SetBranchAddress("steplength", &StepLength);
+  evt->SetBranchAddress("NPhotons", &NrofPhotons);
+  evt->SetBranchAddress("Evt", &eventID);
   Int_t sumphotons = 0;
   Float_t sumEdep=0.0;
   Float_t sumEdepcm=0.0;
@@ -34,7 +34,7 @@ void Ana()
     evt->GetEntry(i);
     sumEdep= sumEdep+edep;
     dEdx->Fill(z,edep);
-    time->Fill(time)
+    time->Fill(t);
     if (z>0&&z<1.){
       sumEdepcm=sumEdepcm+edep;
       //     cout <<z<<endl;
@@ -108,5 +108,5 @@ TCanvas *c6 = new TCanvas("c6","steplength",200,10,1400,1000);
   // gPad->SetLogy();
   gPad->SetGridx();
   gPad->SetGridy();
-  timeAna->Draw();
+  time->Draw();
 }
