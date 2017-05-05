@@ -8,7 +8,8 @@ class DetectorConstruction;
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization(DetectorConstruction*);
+//    ActionInitialization(DetectorConstruction*);
+      ActionInitialization();
     virtual ~ActionInitialization();
 
     virtual void BuildForMaster() const;

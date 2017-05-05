@@ -5,12 +5,12 @@
 #include "SteppingAction.hh"
 #include "DetectorConstruction.hh"
 
-ActionInitialization::ActionInitialization
-                      (DetectorConstruction* detConstruction)
- : G4VUserActionInitialization(),
-   fDetConstruction(detConstruction)
-{}
-
+//ActionInitialization::ActionInitialization
+//                      (DetectorConstruction* detConstruction)
+// : G4VUserActionInitialization(),
+//   fDetConstruction(detConstruction)
+//{}
+ActionInitialization::ActionInitialization(): G4VUserActionInitialization(){}
 ActionInitialization::~ActionInitialization()
 {}
 

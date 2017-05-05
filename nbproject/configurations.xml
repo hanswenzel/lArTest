@@ -3,15 +3,17 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
       <df name="src">
-        <in>Analysis.cc</in>
+        <in>ActionInitialization.cc</in>
         <in>ConfigurationManager.cc</in>
         <in>ConfigurationManagerMessenger.cc</in>
         <in>DetectorConstruction.cc</in>
         <in>DetectorMessenger.cc</in>
         <in>EventAction.cc</in>
         <in>EventActionMessenger.cc</in>
+        <in>MemoryService.cc</in>
         <in>PrimaryGeneratorAction.cc</in>
         <in>RunAction.cc</in>
+        <in>SteppingAction.cc</in>
         <in>TrackerSD.cc</in>
       </df>
       <in>lArTest.cc</in>
@@ -39,7 +41,7 @@
       </toolsSet>
       <flagsDictionary>
         <element flagsID="0" commonFlags="-pedantic -std=c++11 -fPIC"/>
-        <element flagsID="1" commonFlags="-pedantic -std=c++11 -std=c++11"/>
+        <element flagsID="1" commonFlags="-pedantic -std=c++11 -fPIC -std=c++11"/>
       </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
@@ -50,15 +52,6 @@
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
           <ccTool>
-            <incDir>
-              <pElem>../geant4.10.03.p01-install/include/Geant4</pElem>
-              <pElem>/usr/include/QtCore</pElem>
-              <pElem>/usr/include/QtGui</pElem>
-              <pElem>/usr/include/QtOpenGL</pElem>
-              <pElem>include</pElem>
-              <pElem>../root-build2/include</pElem>
-              <pElem>../lArTest-build</pElem>
-            </incDir>
             <preprocessorList>
               <Elem>G4ANALYSIS_USE</Elem>
               <Elem>G4FPE_DEBUG</Elem>
@@ -89,14 +82,62 @@
       </folder>
       <item path="lArTest.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>/usr/include/qt5</pElem>
+            <pElem>/usr/include/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/qt5/QtGui</pElem>
+            <pElem>/usr/include/qt5/QtCore</pElem>
+            <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>/usr/include/qt5/QtOpenGL</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
-      <item path="src/Analysis.cc" ex="false" tool="1" flavor2="8">
+      <item path="src/ActionInitialization.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/ConfigurationManager.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/ConfigurationManagerMessenger.cc"
@@ -104,34 +145,162 @@
             tool="1"
             flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/DetectorConstruction.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/DetectorMessenger.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/EventAction.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/EventActionMessenger.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/MemoryService.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/PrimaryGeneratorAction.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/RunAction.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/SteppingAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/TrackerSD.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>../../geant4.10.03.p01-install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4MULTITHREADED</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
     </conf>

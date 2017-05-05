@@ -33,6 +33,7 @@
 #include "G4ParticleTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
+#include "G4SDManager.hh"
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
@@ -66,9 +67,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         std::cout << "Writing Tracker Sensitive Hits" << std::endl;
         G4String SDname = "TrackerSD";
         TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
+         G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
         // Setting aTrackerSD to all logical volumes with the same name 
         // of "Target".
-        SetSensitiveDetector("volTPCActiveInner", aTrackerSD, true);
+        SetSensitiveDetector("volTPCActiveInner", aTrackerSD,true);
+        
     }
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
         G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();

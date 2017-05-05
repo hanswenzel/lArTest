@@ -151,8 +151,9 @@ int main(int argc, char** argv) {
 
     runManager->SetUserInitialization(phys);
     //set user action classes
-    ActionInitialization* actionInitialization = 
-      new ActionInitialization(detConstruction);
+    //ActionInitialization* actionInitialization = 
+    //  new ActionInitialization(detConstruction);
+    ActionInitialization* actionInitialization = new ActionInitialization();
     runManager->SetUserInitialization(actionInitialization);
 
 #ifdef G4VIS_USE
