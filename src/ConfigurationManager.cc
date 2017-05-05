@@ -21,6 +21,7 @@ using namespace std;
 
 ConfigurationManager* ConfigurationManager::instance = 0;
 
+
 ConfigurationManager::ConfigurationManager() {
     confMessenger = new ConfigurationManagerMessenger(this);
     doAnalysis = true;      // by default we do analysis
