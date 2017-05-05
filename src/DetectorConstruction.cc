@@ -70,7 +70,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
          G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
         // Setting aTrackerSD to all logical volumes with the same name 
         // of "Target".
-        SetSensitiveDetector("volTPCActiveInner", aTrackerSD,true);
+        SetSensitiveDetector("volTPCActiveInner", aTrackerSD);
         
     }
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
