@@ -49,7 +49,7 @@ DetectorConstruction::DetectorConstruction(G4String fname)
     writeHits = true;
     doAnalysis = true;
     detectorMessenger = new DetectorMessenger(this);
-    Construct();
+    //    Construct();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -63,6 +63,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
     logicTarget = G4LogicalVolumeStore::GetInstance()->GetVolume("volTPCActiveInner");
     G4VPhysicalVolume* worldPhysVol = parser.GetWorldVolume();
     PrepareLArTest();
+    if (ConfigurationManager::getInstance()->GetstepLimit()) {
+        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
+        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
+        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
+        logicTarget->SetUserLimits(fStepLimit);
+    }
+    //    PrepareLArTest();
+    return worldPhysVol;
+}
+
+void DetectorConstruction::ConstructSDandField() {
+  ;
     if (writeHits) {
         std::cout << "Writing Tracker Sensitive Hits" << std::endl;
         G4String SDname = "TrackerSD";
@@ -71,17 +83,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         // Setting aTrackerSD to all logical volumes with the same name 
         // of "Target".
         SetSensitiveDetector("volTPCActiveInner", aTrackerSD);
-        
     }
-    if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
-        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
-        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
-        logicTarget->SetUserLimits(fStepLimit);
-    }
-    PrepareLArTest();
-    return worldPhysVol;
 }
+
 
 void DetectorConstruction::ReadGDML() {
 

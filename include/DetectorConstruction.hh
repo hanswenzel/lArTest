@@ -35,6 +35,7 @@ public:
     //    void BuildByGDML();
 
     G4VPhysicalVolume* Construct();
+    virtual void ConstructSDandField();
 
     void SetWorldMaterial(const G4String&);
     void SetTargetMaterial(const G4String&);
