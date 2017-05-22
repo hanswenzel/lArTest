@@ -1,20 +1,16 @@
 /control/verbose 1 
 /run/verbose 1 
 /tracking/verbose 0
-/profile/profFlag true
-/Detector/WriteHits true
-#/Detector/DoAnalys false
-#/Detector/UseGDML true
 
+/testConfig/WriteHits true
 /testConfig/DoAnalysis true
 /testConfig/DoStepLimit true
 /testConfig/steplengthlimit 0.01 cm
+/testConfig/DoProfile true
 
 /Detector/Update 
 /run/initialize 
 /random/setSeeds 7 38 
-
-
 
 /gun/position 0. 0. -4.55 m
 /gun//gun/particle mu- 
