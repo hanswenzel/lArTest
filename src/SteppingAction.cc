@@ -50,11 +50,11 @@ void SteppingAction::Reset()
 
 void SteppingAction::Print(const G4Event* evt) 
 {
-  std::cout << "NStepping> " << evt->GetEventID()+1 << " " 
+  G4cout << "NStepping> " << evt->GetEventID()+1 << " " 
 	    << G4RunManager::GetRunManager()->GetCurrentRun()->GetRunID()+1;
   for(G4int i = 0 ; i <  SteppingAction::kNPType ; i++)
-    std::cout << " " << GetNSteps(i);
+    G4cout << " " << GetNSteps(i);
   for(G4int i = 0 ; i <  SteppingAction::kNPType ; i++)
-    std::cout << " " << GetNTracks(i);
-  std::cout << std::endl;
+    G4cout << " " << GetNTracks(i);
+  G4cout << G4endl;
 }
