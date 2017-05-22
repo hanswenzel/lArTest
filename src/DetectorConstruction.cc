@@ -37,25 +37,18 @@
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
-#include "DetectorMessenger.hh"
 #include "TrackerSD.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
 
 DetectorConstruction::DetectorConstruction(G4String fname)
-//    useGDML(false)
 {
     gdmlFile = fname;
-    writeHits = true;
-    doAnalysis = true;
-    detectorMessenger = new DetectorMessenger(this);
-    //    Construct();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorConstruction::~DetectorConstruction() {
-    delete detectorMessenger;
 }
 
 G4VPhysicalVolume* DetectorConstruction::Construct() {
@@ -69,13 +62,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
         logicTarget->SetUserLimits(fStepLimit);
     }
-    //    PrepareLArTest();
     return worldPhysVol;
 }
 
 void DetectorConstruction::ConstructSDandField() {
-  ;
-    if (writeHits) {
+    if (ConfigurationManager::getInstance()->GetwriteHits()) {
         std::cout << "Writing Tracker Sensitive Hits" << std::endl;
         G4String SDname = "TrackerSD";
         TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
@@ -135,17 +126,6 @@ void DetectorConstruction::PrepareLArTest() {
 void DetectorConstruction::UpdateGeometry() {
     G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
 }
-
-void DetectorConstruction::SetWriteHits(G4bool val) {
-    writeHits = val;
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-}
-
-void DetectorConstruction::SetDoAnalysis(G4bool val) {
-    doAnalysis = val;
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-}
-
 
 // The following 3 functions are described in
 // https://indico.cern.ch/event/44566/contributions/1101918/attachments/943057/1337650/dipompeo.pdf

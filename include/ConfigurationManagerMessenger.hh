@@ -39,8 +39,11 @@ private:
     ConfigurationManager* mgr;
 
     G4UIdirectory* testDir;
+    G4UIcmdWithABool* writeHitsCmd;
     G4UIcmdWithABool* anaCmd;
     G4UIcmdWithABool* steplimitCmd;
+    G4UIcmdWithABool* debugEventCmd;
+    G4UIcmdWithABool* profileCmd;
     G4UIcmdWithADoubleAndUnit* slengthCmd;
 };
 

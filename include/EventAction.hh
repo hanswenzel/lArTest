@@ -21,7 +21,6 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class G4Event;
-class EventActionMessenger;
 class G4UImanager;
 class G4Timer;
 class MemoryService ;
@@ -37,9 +36,6 @@ public: // Without description
   void BeginOfEventAction(const G4Event*);
   void EndOfEventAction(const G4Event*);
 
-  void SetPrintModulo(G4int val)    {printModulo = val;};
-  void SetDrawFlag(G4String val)    {drawFlag = val;};
-  void SetProfileFlag(G4bool val)   {profileFlag = val;};
   void AddEventToDebug(G4int val)   {selectedEvents.push_back(val);
                                      nSelected++;};
 
@@ -50,18 +46,9 @@ public: // Without description
   
 private:
 
-  EventActionMessenger* eventMessenger;
   G4UImanager*          UI;
   std::vector<G4int>    selectedEvents;
-
-  G4int        printModulo;
   G4int        nSelected;
-
-  // drawFlags = all, charged, neutral, charged+n
-  G4String     drawFlag;
-  G4bool       profileFlag;
-  G4bool       debugStarted;
-  //std::vector<TrackInfo_t> TrackInfoVec;
 
   //performance profiling service
   G4double        totalEventCPUTime;

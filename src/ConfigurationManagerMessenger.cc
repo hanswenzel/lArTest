@@ -25,6 +25,12 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
 : mgr(mgr1) {
     testDir = new G4UIdirectory("/testConfig/");
     testDir->SetGuidance("Examining stepping in geant 4.");
+    //
+    writeHitsCmd = new G4UIcmdWithABool("/testConfig/WriteHits", this);
+    writeHitsCmd->SetGuidance("Set flag for wrting hits");
+    writeHitsCmd->SetParameterName("writeHits", true);
+    writeHitsCmd->SetDefaultValue(true);
+    writeHitsCmd->AvailableForStates(G4State_PreInit);
     //    
     anaCmd = new G4UIcmdWithABool("/testConfig/DoAnalysis", this);
     anaCmd->SetGuidance("Let's you select if analysis should be done and root files be created ");
@@ -42,17 +48,30 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
     slengthCmd->SetParameterName("limitval", false);
     slengthCmd->SetUnitCategory("Length");
     slengthCmd->SetRange("limitval>0");
-    //slengthCmd->AvailableForStates(G4State_PreInit);
-
+    //
+    debugEventCmd = new G4UIcmdWithABool("/testConfig/DebugEvent", this);
+    debugEventCmd->SetGuidance("Set flag for debugging Event");
+    debugEventCmd->SetParameterName("debugEvent", false);
+    debugEventCmd->SetDefaultValue(true);
+    debugEventCmd->AvailableForStates(G4State_PreInit);
+    //
+    profileCmd = new G4UIcmdWithABool("/testConfig/DoProfile", this);
+    profileCmd->SetGuidance("Set flag for computing performance profile");
+    profileCmd->SetParameterName("profileFlag", false);
+    profileCmd->SetDefaultValue(true);
+    profileCmd->AvailableForStates(G4State_PreInit);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ConfigurationManagerMessenger::~ConfigurationManagerMessenger() {
     delete testDir;
+    delete writeHitsCmd;
     delete anaCmd;
     delete steplimitCmd;
     delete slengthCmd;
+    delete debugEventCmd;
+    delete profileCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -60,10 +79,16 @@ ConfigurationManagerMessenger::~ConfigurationManagerMessenger() {
 void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
     if (command == anaCmd)
         mgr->SetdoAnalysis(anaCmd->GetNewBoolValue(newValue));
+    else if (command == writeHitsCmd)
+        mgr->SetwriteHits(writeHitsCmd->GetNewBoolValue(newValue));
     else if (command == steplimitCmd)
         mgr->SetstepLimit(newValue);
     else if (command == slengthCmd)
         mgr->Setlimitval(slengthCmd->GetNewDoubleValue(newValue));
+    else if (command == debugEventCmd)
+        mgr->SetdebugEvent(debugEventCmd->GetNewBoolValue(newValue));
+    else if (command == profileCmd)
+        mgr->SetdoProfile(profileCmd->GetNewBoolValue(newValue));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

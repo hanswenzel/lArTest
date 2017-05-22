@@ -19,7 +19,7 @@
 #include "G4Event.hh"
 // project headers
 #include "EventAction.hh"
-#include "EventActionMessenger.hh"
+#include "ConfigurationManager.hh"
 // performance headers
 #include "G4Timer.hh"
 #include "MemoryService.hh"
@@ -31,13 +31,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 using namespace std;
 EventAction::EventAction():
-  printModulo(100),
-  nSelected(0),
-  drawFlag("all"),
-  profileFlag(false),
-  debugStarted(false)
+  nSelected(0)
 {
-  eventMessenger = new EventActionMessenger(this);
   UI = G4UImanager::GetUIpointer();
   selectedEvents.clear();
 
@@ -48,14 +43,14 @@ EventAction::EventAction():
   eventTimer = new G4Timer;
   eventMemory = new MemoryService();
 
-  if(profileFlag) {
+  if(ConfigurationManager::getInstance()->GetdoProfile()) {
     //instantiate igprof service
     if (void *sym = dlsym(0, "igprof_dump_now")) {
       dump_ = __extension__ (void(*)(const char *)) sym;
     } else {
       dump_=0;
-      std::cout << "Heap profile requested but application is not "
-		<< "currently being profiled with igprof" << std::endl;
+      G4cout << "Heap profile requested but application is not "
+		<< "currently being profiled with igprof" << G4endl;
     }
   }
 }
@@ -64,7 +59,7 @@ EventAction::EventAction():
 
 EventAction::~EventAction()
 {
-  delete eventMessenger;
+  //  delete eventMessenger;
   delete eventTimer;
   delete eventMemory;
 }
@@ -81,13 +76,13 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
       if(nEvt == selectedEvents[i]) {
         UI->ApplyCommand("/random/saveThisEvent");
         UI->ApplyCommand("/tracking/verbose  2");
-        debugStarted = true;
+        ConfigurationManager::getInstance()->SetdebugEvent(true);
         break;
       }
     }
   }
 
-  if(profileFlag) {
+  if(ConfigurationManager::getInstance()->GetdoProfile()) {
     eventTimer->Start();
     eventMemory->Start();
   }
@@ -99,14 +94,15 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
 void EventAction::EndOfEventAction(const G4Event* evt)
 {
   
-  if(debugStarted) {
+  //  if(debugStarted) {
+  if(ConfigurationManager::getInstance()->GetdebugEvent()) {
     G4cout<<"End of debug: eventID: "<<(evt->GetEventID())<<G4endl;
     UI->ApplyCommand("/tracking/verbose  0");
-    debugStarted = false;
+    ConfigurationManager::getInstance()->SetdebugEvent(false);
   }
 
   //performance profile service
-  if(profileFlag) {
+  if(ConfigurationManager::getInstance()->GetdoProfile()) {
 
     eventTimer->Stop();
     eventMemory->Update();

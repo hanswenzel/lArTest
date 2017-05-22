@@ -18,7 +18,6 @@
 #include "G4GDMLParser.hh"
 
 class G4LogicalVolume;
-class DetectorMessenger;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -31,21 +30,11 @@ public:
     void PrepareLArTest();
     void ReadGDML();
 
-   // G4VPhysicalVolume* BuildLArTest();
-    //    void BuildByGDML();
-
     G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
 
     void SetWorldMaterial(const G4String&);
     void SetTargetMaterial(const G4String&);
-  //  void SetTargetX(G4double val);
-  //  void SetTargetY(G4double val);
-  //  void SetTargetZ(G4double val);
-    void SetWriteHits(G4bool val);
-    void SetDoAnalysis(G4bool val);
-//    void SetUseGDML(G4bool val);
-
     void SetMaxStepLength(G4double val);
 
     void UpdateGeometry();
@@ -68,21 +57,11 @@ private:
     DetectorConstruction(const DetectorConstruction&);
 
     G4String gdmlFile;
-    G4bool writeHits;
-    G4bool doAnalysis;
-
-//    G4Material* targetMaterial;
-//    G4Material* worldMaterial;
-
     G4LogicalVolume* logicTarget;
     G4LogicalVolume* logicWorld;
 
     // GDMLparser
     G4GDMLParser parser;
-
-    //    G4GDMLReadStructure* fReader;
-    DetectorMessenger* detectorMessenger;
-
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....

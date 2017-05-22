@@ -19,10 +19,14 @@ class ConfigurationManager {
 private:
 
     static ConfigurationManager* instance;
-    bool stepLimit; // variable determines if step limits are applied
+    bool writeHits;  // variable determines if hits are written
+    bool stepLimit;  // variable determines if step limits are applied
     bool doAnalysis; // variable determines if analysis is done and root file written out
+    bool debugEvent; // variable determines if debugging is done
+    bool doProfile;  // variable determines if computing profiling is done
     double limitval; // value of the step limit in mm
     ConfigurationManagerMessenger* confMessenger;
+
 public:
     ConfigurationManager();
     ~ConfigurationManager();
@@ -32,24 +36,48 @@ public:
         return stepLimit;
     }
 
-    void SetstepLimit(bool junk) {
-        stepLimit = junk;
+    void SetstepLimit(bool value) {
+        stepLimit = value;
+    }
+
+    void SetwriteHits(bool value) {
+        writeHits = value;
+    }
+
+    bool GetwriteHits() {
+        return writeHits;
     }
 
     bool GetdoAnalysis() {
         return doAnalysis;
     }
 
-    void SetdoAnalysis(bool junk) {
-        doAnalysis = junk;
+    void SetdoAnalysis(bool value) {
+        doAnalysis = value;
+    }
+
+    bool GetdebugEvent() {
+        return debugEvent;
+    }
+
+    void SetdebugEvent(bool value) {
+        debugEvent = value;
+    }
+
+    bool GetdoProfile() {
+        return doProfile;
+    }
+
+    void SetdoProfile(bool value) {
+        doProfile = value;
     }
 
     double Getlimitval() {
         return limitval;
     }
 
-    void Setlimitval(double junk) {
-        limitval = junk;
+    void Setlimitval(double value) {
+        limitval = value;
     }
 };
 
