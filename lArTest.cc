@@ -22,6 +22,7 @@
 #include "G4StepLimiter.hh"
 #include "G4StepLimiterPhysics.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4Timer.hh"
 #ifdef G4UI_USE
 #include "G4UIExecutive.hh"
 #endif
@@ -53,9 +54,12 @@ int main(int argc, char** argv) {
     }
     //choose the Random engine
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
-    // Construct the default run manager
-    //
 
+    //start time
+    G4Timer *eventTimer = new G4Timer;
+    eventTimer->Start();
+
+    // Construct the default run manager
 #ifdef G4MULTITHREADED
     //the default number of threads
     G4int nThreads = 4;
@@ -187,6 +191,21 @@ int main(int argc, char** argv) {
     delete visManager;
 #endif
     delete runManager;
+
+    //stop time - the total elapsed time including initialization
+    eventTimer->Stop();
+    double totalCPUTime = eventTimer->GetUserElapsed() 
+                        + eventTimer->GetSystemElapsed();
+    
+    G4int precision_t = G4cout.precision(3);
+    std::ios::fmtflags flags_t = G4cout.flags();
+    G4cout.setf(std::ios::fixed,std::ios::floatfield); 
+    G4cout << "TimeTotal> " << eventTimer->GetRealElapsed() << " " 
+           << totalCPUTime << G4endl;
+    G4cout.setf(flags_t);
+    G4cout.precision(precision_t);
+    delete eventTimer;
+
     return 0;
 }
 
