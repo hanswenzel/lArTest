@@ -98,7 +98,7 @@ void MemoryService::Print(const G4Run* )
   std::ios::fmtflags flags_t = G4cout.flags();
   G4cout.setf(std::ios::fixed,std::ios::floatfield); 
 
-  G4cout << "MemoryReport> Memory [VSIZW,RSS,SHR] report complete in "
+  G4cout << "MemoryReport> Memory [VSIZE,RSS,SHR] report complete in "
          << GetVsize() << " " 
          << GetRss() << " " 
          << GetShare() << G4endl;
