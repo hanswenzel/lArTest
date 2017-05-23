@@ -8,13 +8,11 @@
 /testConfig/steplengthlimit 0.01 cm
 /testConfig/DoProfile true
 
-/Detector/Update 
 /run/initialize 
 /random/setSeeds 7 38 
 
 /gun/position 0. 0. -4.55 m
-/gun//gun/particle mu- 
+/gun/particle mu- 
 /gun/energy 5000.0 MeV
 /gun/direction 0. 0. 1.
 /run/beamOn 10
-
