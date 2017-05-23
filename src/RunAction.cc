@@ -40,10 +40,10 @@ using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 RunAction::RunAction() : G4UserRunAction() {
+     timer = new G4Timer;
+     memory = new MemoryService;
     // set printing event number per each event
     G4RunManager::GetRunManager()->SetPrintProgress(1);
-    timer = new G4Timer;
-    memory = new MemoryService;
     // Create analysis manager
     // The choice of analysis technology is done via selecting of a namespace
     // in Analysis.hh
@@ -83,19 +83,9 @@ RunAction::~RunAction() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void RunAction::BeginOfRunAction(const G4Run* aRun) {
-    //start benchmark
-    timer->Start();
-    memory->Start();
     G4int id = aRun->GetRunID();
     G4cout << "### Run " << id << " start" << G4endl;
     nEvts = aRun->GetNumberOfEventToBeProcessed();
-/*
-    const G4long* table_entry;
-    
-    table_entry = CLHEP::HepRandom::getTheSeeds();
-    G4long id0 = table_entry[0];
-    G4long id1 = table_entry[1];
-*/
 #ifdef G4VIS_USE
     G4UImanager* UI = G4UImanager::GetUIpointer();
 
@@ -106,10 +96,12 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
     }
 #endif
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
-    //if (cfMgr->GetdoAnalysis()) {
-    // Analysis* analysis = Analysis::getInstance();
-    // analysis->book(id0, id1);
-    //}
+
+    if (cfMgr->GetdoProfile()) {
+        //start benchmark
+        timer->Start();
+        memory->Start();
+    }
     if (cfMgr->GetdoAnalysis()) {
         // Get analysis manager
         auto analysisManager = G4AnalysisManager::Instance();
@@ -123,22 +115,6 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void RunAction::EndOfRunAction(const G4Run* aRun) {
-
-    // printout time and memory information
-    G4int oldPrecision = G4cout.precision(3);
-    std::ios::fmtflags oldFlags = G4cout.flags();
-    G4cout.setf(std::ios::fixed, std::ios::floatfield);
-    G4cout << "TimeReport> Time report complete in ";
-    if (timer->IsValid()) {
-        G4cout << timer->GetRealElapsed();
-    } else {
-        G4cout << "UNDEFINED";
-    }
-    G4cout << " seconds" << G4endl;
-    G4cout.setf(oldFlags);
-    G4cout.precision(oldPrecision);
-    memory->Print(aRun);
-    G4cout << "RunAction: End of run actions are started" << G4endl;
 
 #ifdef G4VIS_USE
     if (G4VVisManager::GetConcreteInstance())
@@ -154,10 +130,28 @@ void RunAction::EndOfRunAction(const G4Run* aRun) {
         analysisManager->Write();
         analysisManager->CloseFile();
     }
-    //Stop benchmark
-    timer->Stop();
-    memory->Update();
 
+    if (cfMgr->GetdoProfile()) {
+        //Stop benchmark
+        timer->Stop();
+        memory->Update();
+        
+        // printout time and memory information
+        G4int oldPrecision = G4cout.precision(3);
+        std::ios::fmtflags oldFlags = G4cout.flags();
+        G4cout.setf(std::ios::fixed, std::ios::floatfield);
+        G4cout << "TimeReport> Time report complete in ";
+        if (timer->IsValid()) {
+            G4cout << timer->GetRealElapsed();
+        } else {
+            G4cout << "UNDEFINED";
+        }
+        G4cout << " seconds" << G4endl;
+        G4cout.setf(oldFlags);
+        G4cout.precision(oldPrecision);
+        memory->Print(aRun);
+        G4cout << "RunAction: End of run actions are started" << G4endl;
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
