@@ -43,15 +43,13 @@ EventAction::EventAction():
   eventTimer = new G4Timer;
   eventMemory = new MemoryService();
 
-  if(ConfigurationManager::getInstance()->GetdoProfile()) {
-    //instantiate igprof service
-    if (void *sym = dlsym(0, "igprof_dump_now")) {
-      dump_ = __extension__ (void(*)(const char *)) sym;
-    } else {
-      dump_=0;
-      G4cout << "Heap profile requested but application is not "
-		<< "currently being profiled with igprof" << G4endl;
-    }
+  //instantiate igprof service
+  if (void *sym = dlsym(0, "igprof_dump_now")) {
+    dump_ = __extension__ (void(*)(const char *)) sym;
+  } else {
+    dump_=0;
+    G4cout << "Heap profile requested but application is not "
+  		<< "currently being profiled with igprof" << G4endl;
   }
 }
 
@@ -59,7 +57,6 @@ EventAction::EventAction():
 
 EventAction::~EventAction()
 {
-  //  delete eventMessenger;
   delete eventTimer;
   delete eventMemory;
 }
