@@ -33,7 +33,8 @@ to run
 
 cd ../lArTest-install/bin
 
-./lArTest muons.in
+
+./lArTest tinylArBox.gdml muons_tiny.in
 
 to analyse the data in the scripts directory you find Ana.C
 
