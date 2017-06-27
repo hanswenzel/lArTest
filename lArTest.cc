@@ -74,6 +74,11 @@ int main(int argc, char** argv) {
 #ifdef G4MULTITHREADED
     G4MTRunManager* runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(nThreads);
+    //
+    // ConfigurationManager is lazily initialized
+    // Therefore in multi-threading mode we initialize before multiple threads are started
+    //
+    ConfigurationManager * CMgr  = ConfigurationManager::getInstance();
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
@@ -136,7 +141,7 @@ int main(int argc, char** argv) {
     opticalPhysics->Configure(kScintillation, true);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
-    opticalPhysics->SetScintillationStackPhotons(false);
+    opticalPhysics->SetScintillationStackPhotons(true);
     opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
