@@ -33,8 +33,11 @@ to run
 
 cd ../lArTest-install/bin
 
-
 ./lArTest tinylArBox.gdml muons_tiny.in
+
+lArTest can make use of multithreading in case we are using a geant 4 version which is compiled with multithreading enabled. The number of threads can be controled via the -t command line switch e.g. would run lArTest with 8 threads.
+
+./lArTest tinylArBox.gdml muons_tiny.in -t 8
 
 to analyse the data in the scripts directory you find Ana.C
 
