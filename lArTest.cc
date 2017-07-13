@@ -16,7 +16,13 @@
 #include "G4MTRunManager.hh"
 #include "G4UImanager.hh"
 #include "Randomize.hh"
-#include "G4PhysListFactory.hh"
+#ifdef USE_OLD
+    #include "G4PhysListFactory.hh" 
+#else
+   #include "G4PhysListFactoryAlt.hh" 
+#endif
+#include "G4PhysicsConstructorRegistry.hh"
+#include "G4PhysListRegistry.hh"
 #include "G4OpticalPhysics.hh"
 #include "G4VModularPhysicsList.hh"
 #include "G4StepLimiter.hh"
@@ -82,7 +88,22 @@ int main(int argc, char** argv) {
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
-    G4PhysListFactory factory;
+  // Access to registries and factories
+  //
+  G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
+  G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
+  //if ( gPrintCtorList  > 0 ) 
+  //g4pcr->PrintAvailablePhysicsConstructors();
+  //if ( gPrintPLRegList > 0 ) 
+  //g4plr->PrintAvailablePhysLists();
+#ifdef USE_OLD
+        G4PhysListFactory factory;
+#else
+	g4alt::G4PhysListFactory factory;
+#endif
+
+      //    G4PhysListFactory factory;
+
     G4VModularPhysicsList* phys = NULL;
     G4String physName = "";
     //-----------------------------------------------------
