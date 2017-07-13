@@ -93,9 +93,9 @@ int main(int argc, char** argv) {
   G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
   G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
   //if ( gPrintCtorList  > 0 ) 
-  //g4pcr->PrintAvailablePhysicsConstructors();
+  g4pcr->PrintAvailablePhysicsConstructors();
   //if ( gPrintPLRegList > 0 ) 
-  //g4plr->PrintAvailablePhysLists();
+  g4plr->PrintAvailablePhysLists();
 #ifdef USE_OLD
         G4PhysListFactory factory;
 #else
