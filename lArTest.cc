@@ -78,6 +78,7 @@ int main(int argc, char** argv) {
 #endif
 
 #ifdef G4MULTITHREADED
+    G4cout <<"multi:multi:multi:multi:multi:multi:multi"<<G4endl;
     G4MTRunManager* runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(nThreads);
     //
@@ -92,6 +93,13 @@ int main(int argc, char** argv) {
   //
   G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
   G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
+  // print state of the factory after loading 2nd library
+  G4cout<< "Available Physics Constructors:  "<< g4pcr->AvailablePhysicsConstructors().size()<<G4endl;
+  G4cout<< "Available Physics Lists:         "<< g4plr->AvailablePhysLists().size()<<G4endl;
+  G4cout<< "Available Physics Extensions:    "<< g4plr->AvailablePhysicsExtensions().size()<<G4endl;
+  G4cout<< "Available Physics Lists Em:      "<< g4plr->AvailablePhysListsEM().size()<<G4endl;
+  g4plr->AddPhysicsExtension("OPTICAL","G4OpticalPhysics");
+  g4plr->AddPhysicsExtension("STEPLIMIT","G4StepLimiterPhysics");
   //if ( gPrintCtorList  > 0 ) 
   g4pcr->PrintAvailablePhysicsConstructors();
   //if ( gPrintPLRegList > 0 ) 
@@ -142,27 +150,38 @@ int main(int argc, char** argv) {
     //"_PEN"
     //"__GS"
     //-----------------------------------------------------
-    char* path = getenv("PHYSLIST");
-    if (path) {
+    /*char* path = getenv("PHYSLIST");
+    //if (path) {
         physName = G4String(path);
     } else {
         physName = "FTFP_BERT"; // default
     }
+    */
+    //physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
+    physName = "FTFP_BERT+OPTICAL+STEPLIMIT";
+    G4cout<<physName<<G4endl;
+    
     // reference PhysicsList via its name
     if (factory.IsReferencePhysList(physName)) {
         phys = factory.GetReferencePhysList(physName);
     }
+    G4cout <<phys<<G4endl;
+/*
     // now add optical physics constructor:
     G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
     phys->RegisterPhysics(opticalPhysics);
     // Cerenkov off by default
+ */
+    G4cout <<phys->GetPhysicsTableDirectory()<<G4endl;
+    G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
+    G4cout <<opticalPhysics<<G4endl;
     opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(false);
     // Scintillation on by default, optical photons are not put on the stack 
     opticalPhysics->Configure(kScintillation, true);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
-    opticalPhysics->SetScintillationStackPhotons(true);
+    opticalPhysics->SetScintillationStackPhotons(false);
     opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
@@ -174,7 +193,10 @@ int main(int argc, char** argv) {
         phys->RegisterPhysics(new G4StepLimiterPhysics());
     }
     //    
+    G4cout << "hi hi"<<G4endl;
     phys->DumpList();
+   
+     G4cout << "ho ho"<<G4endl;
     //set mandatory initialization classes
     DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
     runManager->SetUserInitialization(detConstruction);
