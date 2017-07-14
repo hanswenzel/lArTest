@@ -78,7 +78,6 @@ int main(int argc, char** argv) {
 #endif
 
 #ifdef G4MULTITHREADED
-    G4cout << "multi:multi:multi:multi:multi:multi:multi" << G4endl;
     G4MTRunManager* runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(nThreads);
     //
