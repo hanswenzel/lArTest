@@ -113,10 +113,12 @@ int main(int argc, char** argv) {
 
     G4VModularPhysicsList* phys = NULL;
     G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT";
+    //G4String physName = "FTFP_BERT+Optical+stepLimiter";
     // 
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
-
+    // using the name doesn't work either
+    //G4String physName = "FTFP_BERT+Optical+stepLimiter";
     // reference PhysicsList via its name
     if (factory.IsReferencePhysList(physName)) {
         phys = factory.GetReferencePhysList(physName);
