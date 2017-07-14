@@ -6,6 +6,10 @@
 /testConfig/DoStepLimit true
 /testConfig/steplengthlimit 0.01 cm
 
+/process/optical/defaults/cerenkov/setStackPhotons false
+/process/optical/defaults/scintillation/setStackPhotons false
+
+
 /run/initialize 
 /random/setSeeds 7 38 
 
