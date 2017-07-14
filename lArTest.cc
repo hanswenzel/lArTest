@@ -17,9 +17,9 @@
 #include "G4UImanager.hh"
 #include "Randomize.hh"
 #ifdef USE_OLD
-    #include "G4PhysListFactory.hh" 
+#include "G4PhysListFactory.hh" 
 #else
-   #include "G4PhysListFactoryAlt.hh" 
+#include "G4PhysListFactoryAlt.hh" 
 #endif
 #include "G4PhysicsConstructorRegistry.hh"
 #include "G4PhysListRegistry.hh"
@@ -70,111 +70,67 @@ int main(int argc, char** argv) {
     //the default number of threads
     G4int nThreads = 4;
     //set it from the -t option is provided
-    for ( G4int i = 1 ; i < argc ; i = i+2 ) {
-      if ( G4String(argv[i]) == "-t" ) {
-        nThreads = G4UIcommand::ConvertToInt(argv[i+1]);
-      }
+    for (G4int i = 1; i < argc; i = i + 2) {
+        if (G4String(argv[i]) == "-t") {
+            nThreads = G4UIcommand::ConvertToInt(argv[i + 1]);
+        }
     }
 #endif
 
 #ifdef G4MULTITHREADED
-    G4cout <<"multi:multi:multi:multi:multi:multi:multi"<<G4endl;
+    G4cout << "multi:multi:multi:multi:multi:multi:multi" << G4endl;
     G4MTRunManager* runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(nThreads);
     //
     // ConfigurationManager is lazily initialized
     // Therefore in multi-threading mode we initialize before multiple threads are started
     //
-    ConfigurationManager * CMgr  = ConfigurationManager::getInstance();
+    ConfigurationManager * CMgr = ConfigurationManager::getInstance();
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
-  // Access to registries and factories
-  //
-  G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
-  G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
-  // print state of the factory after loading 2nd library
-  G4cout<< "Available Physics Constructors:  "<< g4pcr->AvailablePhysicsConstructors().size()<<G4endl;
-  G4cout<< "Available Physics Lists:         "<< g4plr->AvailablePhysLists().size()<<G4endl;
-  G4cout<< "Available Physics Extensions:    "<< g4plr->AvailablePhysicsExtensions().size()<<G4endl;
-  G4cout<< "Available Physics Lists Em:      "<< g4plr->AvailablePhysListsEM().size()<<G4endl;
-  g4plr->AddPhysicsExtension("OPTICAL","G4OpticalPhysics");
-  g4plr->AddPhysicsExtension("STEPLIMIT","G4StepLimiterPhysics");
-  //if ( gPrintCtorList  > 0 ) 
-  g4pcr->PrintAvailablePhysicsConstructors();
-  //if ( gPrintPLRegList > 0 ) 
-  g4plr->PrintAvailablePhysLists();
+    // Access to registries and factories
+    //
+    G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
+    G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
+    // print state of the factory after loading 2nd library
+    /*
+    G4cout<< "Available Physics Constructors:  "<< g4pcr->AvailablePhysicsConstructors().size()<<G4endl;
+    G4cout<< "Available Physics Lists:         "<< g4plr->AvailablePhysLists().size()<<G4endl;
+    G4cout<< "Available Physics Extensions:    "<< g4plr->AvailablePhysicsExtensions().size()<<G4endl;
+    G4cout<< "Available Physics Lists Em:      "<< g4plr->AvailablePhysListsEM().size()<<G4endl;
+     */
+    g4plr->AddPhysicsExtension("OPTICAL", "G4OpticalPhysics");
+    g4plr->AddPhysicsExtension("STEPLIMIT", "G4StepLimiterPhysics");
+    g4pcr->PrintAvailablePhysicsConstructors();
+    g4plr->PrintAvailablePhysLists();
 #ifdef USE_OLD
-        G4PhysListFactory factory;
+    G4PhysListFactory factory;
 #else
-	g4alt::G4PhysListFactory factory;
+    g4alt::G4PhysListFactory factory;
 #endif
 
-      //    G4PhysListFactory factory;
+    //    G4PhysListFactory factory;
 
     G4VModularPhysicsList* phys = NULL;
-    G4String physName = "";
-    //-----------------------------------------------------
-    // Physics List name defined via environmental variable
-    // The following physics lists are available PHYSLIST:
-    //"FTFP_BERT"
-    //"FTFP_BERT_TRV"
-    //"FTFP_BERT_ATL"
-    //"FTFP_BERT_HP"
-    //"FTFP_INCLXX"
-    //"FTFP_INCLXX_HP"
-    //"FTF_BIC"
-    //"LBE"
-    //"QBBC"
-    //"QGSP_BERT"
-    //"QGSP_BERT_HP"
-    //"QGSP_BIC"
-    //"QGSP_BIC_HP"
-    //"QGSP_BIC_AllHP"
-    //"QGSP_FTFP_BERT"
-    //"QGSP_INCLXX"
-    //"QGSP_INCLXX_HP"
-    //"QGS_BIC"
-    //"Shielding"
-    //"ShieldingLEND"
-    //"ShieldingM"
-    //"NuBeam"
-    //
-    // The following electromagnetic options are available:
-    //"",
-    //"_EMV"
-    //"_EMX"
-    //"_EMY"
-    //"_EMZ"
-    //"_LIV"
-    //"_PEN"
-    //"__GS"
-    //-----------------------------------------------------
-    /*char* path = getenv("PHYSLIST");
-    //if (path) {
-        physName = G4String(path);
-    } else {
-        physName = "FTFP_BERT"; // default
-    }
-    */
-    //physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
-    physName = "FTFP_BERT+OPTICAL+STEPLIMIT";
-    G4cout<<physName<<G4endl;
-    
+    G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT";
+    // 
+    // currently using the Constructor names doesn't work otherwise it would be:
+    // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
+
     // reference PhysicsList via its name
     if (factory.IsReferencePhysList(physName)) {
         phys = factory.GetReferencePhysList(physName);
     }
-    G4cout <<phys<<G4endl;
-/*
-    // now add optical physics constructor:
-    G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
-    phys->RegisterPhysics(opticalPhysics);
-    // Cerenkov off by default
- */
-    G4cout <<phys->GetPhysicsTableDirectory()<<G4endl;
+    /*
+        // now add optical physics constructor:
+        G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
+        phys->RegisterPhysics(opticalPhysics);
+        // Cerenkov off by default
+     */
+    G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
-    G4cout <<opticalPhysics<<G4endl;
+    G4cout << opticalPhysics << G4endl;
     opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(false);
     // Scintillation on by default, optical photons are not put on the stack 
@@ -186,21 +142,18 @@ int main(int argc, char** argv) {
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
-    //StepLimiter:
-    G4cout << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
+    // concerning the steplimiter the limits are actually applied to a specific material:
+    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
+
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
         G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
-        phys->RegisterPhysics(new G4StepLimiterPhysics());
+     //   phys->RegisterPhysics(new G4StepLimiterPhysics());
     }
     //    
-    G4cout << "hi hi"<<G4endl;
     phys->DumpList();
-   
-     G4cout << "ho ho"<<G4endl;
     //set mandatory initialization classes
     DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
     runManager->SetUserInitialization(detConstruction);
-
     runManager->SetUserInitialization(phys);
     //set user action classes
     //ActionInitialization* actionInitialization = 
@@ -242,14 +195,14 @@ int main(int argc, char** argv) {
 
     //stop time - the total elapsed time including initialization
     eventTimer->Stop();
-    double totalCPUTime = eventTimer->GetUserElapsed() 
-                        + eventTimer->GetSystemElapsed();
-    
+    double totalCPUTime = eventTimer->GetUserElapsed()
+            + eventTimer->GetSystemElapsed();
+
     G4int precision_t = G4cout.precision(3);
     std::ios::fmtflags flags_t = G4cout.flags();
-    G4cout.setf(std::ios::fixed,std::ios::floatfield); 
-    G4cout << "TimeTotal> " << eventTimer->GetRealElapsed() << " " 
-           << totalCPUTime << G4endl;
+    G4cout.setf(std::ios::fixed, std::ios::floatfield);
+    G4cout << "TimeTotal> " << eventTimer->GetRealElapsed() << " "
+            << totalCPUTime << G4endl;
     G4cout.setf(flags_t);
     G4cout.precision(precision_t);
     delete eventTimer;
