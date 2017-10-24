@@ -16,14 +16,11 @@
 #include "G4MTRunManager.hh"
 #include "G4UImanager.hh"
 #include "Randomize.hh"
-#ifdef USE_OLD
-#include "G4PhysListFactory.hh" 
-#else
 #include "G4PhysListFactoryAlt.hh" 
-#endif
 #include "G4PhysicsConstructorRegistry.hh"
 #include "G4PhysListRegistry.hh"
 #include "G4OpticalPhysics.hh"
+#include "G4NeutronTrackingCut.hh"
 #include "G4VModularPhysicsList.hh"
 #include "G4StepLimiter.hh"
 #include "G4StepLimiterPhysics.hh"
@@ -75,9 +72,6 @@ int main(int argc, char** argv) {
             nThreads = G4UIcommand::ConvertToInt(argv[i + 1]);
         }
     }
-#endif
-
-#ifdef G4MULTITHREADED
     G4MTRunManager* runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(nThreads);
     //
@@ -101,19 +95,12 @@ int main(int argc, char** argv) {
      */
     g4plr->AddPhysicsExtension("OPTICAL", "G4OpticalPhysics");
     g4plr->AddPhysicsExtension("STEPLIMIT", "G4StepLimiterPhysics");
+    g4plr->AddPhysicsExtension("NEUTRONLIMIT", "G4NeutronTrackingCut");
     g4pcr->PrintAvailablePhysicsConstructors();
     g4plr->PrintAvailablePhysLists();
-#ifdef USE_OLD
-    G4PhysListFactory factory;
-#else
     g4alt::G4PhysListFactory factory;
-#endif
-
-    //    G4PhysListFactory factory;
-
     G4VModularPhysicsList* phys = NULL;
-    G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT";
-    //G4String physName = "FTFP_BERT+Optical+stepLimiter";
+    G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
     // 
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
@@ -131,7 +118,6 @@ int main(int argc, char** argv) {
      */
     G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
-    G4cout << opticalPhysics << G4endl;
     opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(false);
     // Scintillation on by default, optical photons are not put on the stack 
@@ -144,14 +130,17 @@ int main(int argc, char** argv) {
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
     // concerning the steplimiter the limits are actually applied to a specific material:
-    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
-
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
         G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
-     //   phys->RegisterPhysics(new G4StepLimiterPhysics());
+        //   phys->RegisterPhysics(new G4StepLimiterPhysics());
     }
+    G4NeutronTrackingCut * neutrcut = (G4NeutronTrackingCut*) phys->GetPhysics("neutronTrackingCut");
+    
+    neutrcut->SetTimeLimit(10000);
+    G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
     //    
     phys->DumpList();
+    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
     //set mandatory initialization classes
     DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
     runManager->SetUserInitialization(detConstruction);

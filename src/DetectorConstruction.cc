@@ -58,7 +58,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
     PrepareLArTest();
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
         G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
-        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&mxStep" << mxStep / mm << " mm" << G4endl;
         G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
         logicTarget->SetUserLimits(fStepLimit);
     }
@@ -100,7 +99,6 @@ void DetectorConstruction::PrepareLArTest() {
     for (int jj = 0; jj < num; jj++) {
         G4double lam = ((h_Planck * c_light) / FastScintEnergies[jj]) / nm;
         G4cout << FastScintEnergies[jj] / eV << "  " << ((h_Planck * c_light) / FastScintEnergies[jj]) / nm << "   " << LArRefIndex(lam) << "  " << ArScintillationSpectrum(lam) << G4endl;
-
     }
     LArMPT->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
     LArMPT->AddProperty("FASTCOMPONENT", FastScintEnergies, FastScintSpectrum, num)->SetSpline(true);
