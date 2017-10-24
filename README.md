@@ -10,7 +10,9 @@
 
 
 Prerequisites: Geant 4 and ROOT installed and the runtime properly initialized,  cmake. 
+
 cmake command for Geant4:
+
 cmake -DCMAKE_INSTALL_PREFIX=~/geant4.10.03.p03_install -DGEANT4_USE_GDML=ON -DGEANT4_INSTALL_DATA=ON  -DGEANT4_USE_QT=ON -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_USE_OPENGL_X11=ON ~/geant4.10.03.p03
 
 Checking the code out from github:
