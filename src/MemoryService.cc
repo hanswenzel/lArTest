@@ -1,3 +1,4 @@
+#ifdef MEMCHECK
 #include "MemoryService.hh"
 
 #include "G4ios.hh"
@@ -105,3 +106,5 @@ void MemoryService::Print(const G4Run* )
   G4cout.setf(flags_t);
   G4cout.precision(precision_t);
 }
+#endif
+
