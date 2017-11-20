@@ -22,7 +22,9 @@
 #include "ConfigurationManager.hh"
 // performance headers
 #include "G4Timer.hh"
+#ifdef MEMCHECK
 #include "MemoryService.hh"
+#endif
 #include "SteppingAction.hh"
 #include "G4Run.hh"
 #include "G4RunManager.hh"
@@ -41,7 +43,9 @@ EventAction::EventAction():
 
   totalEventCPUTime = 0;
   eventTimer = new G4Timer;
+#ifdef MEMCHECK
   eventMemory = new MemoryService();
+#endif
 
   //instantiate igprof service
   if (void *sym = dlsym(0, "igprof_dump_now")) {
@@ -58,7 +62,10 @@ EventAction::EventAction():
 EventAction::~EventAction()
 {
   delete eventTimer;
+#ifdef MEMCHECK
   delete eventMemory;
+#endif
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -81,7 +88,10 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
 
   if(ConfigurationManager::getInstance()->GetdoProfile()) {
     eventTimer->Start();
+#ifdef MEMCHECK
     eventMemory->Start();
+#endif
+
   }
 
 }
@@ -102,7 +112,10 @@ void EventAction::EndOfEventAction(const G4Event* evt)
   if(ConfigurationManager::getInstance()->GetdoProfile()) {
 
     eventTimer->Stop();
+#ifdef MEMCHECK
     eventMemory->Update();
+#endif
+
 
     // igprof service: snapshot live memory on the heap for every 25 events.
 
@@ -129,8 +142,9 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     G4cout.precision(precision_t);
 
     // print memory usage in megabyte: [vsize] [rss] [share]
-
+#ifdef MEMCHECK
     eventMemory->Print(evt);
+#endif
 
     //print the number of steps and tracks: gamma e+ e- pi- pi+ p others
     theSteppingAction->Print(evt);
