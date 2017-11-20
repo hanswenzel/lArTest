@@ -1,5 +1,6 @@
 #ifndef MemoryService_H
 #define MemoryService_H 1
+#ifdef MEMCHECK
 
 #include "globals.hh"
 
@@ -81,5 +82,5 @@ private:
   char* save_;
   char const* const delims_; 
 };
-
+#endif
 #endif
