@@ -23,7 +23,9 @@
 class G4Event;
 class G4UImanager;
 class G4Timer;
+#ifdef MEMCHECK
 class MemoryService ;
+#endif
 class SteppingAction;
 
 class EventAction : public G4UserEventAction
@@ -53,7 +55,9 @@ private:
   //performance profiling service
   G4double        totalEventCPUTime;
   G4Timer*        eventTimer;
+#ifdef MEMCHECK
   MemoryService*  eventMemory;
+#endif
   SteppingAction* theSteppingAction;
 };
 
