@@ -34,14 +34,19 @@
 // Project headers
 #include "RunAction.hh"
 #include "ConfigurationManager.hh"
+#ifdef MEMCHECK
 #include "MemoryService.hh"
+#endif
+
 #include "Analysis.hh"
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 RunAction::RunAction() : G4UserRunAction() {
      timer = new G4Timer;
+#ifdef MEMCHECK
      memory = new MemoryService;
+#endif
     // set printing event number per each event
     G4RunManager::GetRunManager()->SetPrintProgress(1);
     // Create analysis manager
@@ -77,7 +82,9 @@ RunAction::RunAction() : G4UserRunAction() {
 RunAction::~RunAction() {
     delete G4AnalysisManager::Instance();
     delete timer;
+#ifdef MEMCHECK
     delete memory;
+#endif
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -100,7 +107,9 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
     if (cfMgr->GetdoProfile()) {
         //start benchmark
         timer->Start();
+#ifdef MEMCHECK
         memory->Start();
+#endif
     }
     if (cfMgr->GetdoAnalysis()) {
         // Get analysis manager
@@ -134,8 +143,9 @@ void RunAction::EndOfRunAction(const G4Run* aRun) {
     if (cfMgr->GetdoProfile()) {
         //Stop benchmark
         timer->Stop();
+#ifdef MEMCHECK
         memory->Update();
-        
+#endif
         // printout time and memory information
         G4int oldPrecision = G4cout.precision(3);
         std::ios::fmtflags oldFlags = G4cout.flags();
@@ -149,7 +159,9 @@ void RunAction::EndOfRunAction(const G4Run* aRun) {
         G4cout << " seconds" << G4endl;
         G4cout.setf(oldFlags);
         G4cout.precision(oldPrecision);
-        memory->Print(aRun);
+#ifdef MEMCHECK
+	memory->Print(aRun);
+#endif
         G4cout << "RunAction: End of run actions are started" << G4endl;
     }
 }
