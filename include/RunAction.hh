@@ -17,7 +17,9 @@
 #include "G4UserRunAction.hh"
 
 class G4Timer;
+#ifdef MEMCHECK
 class MemoryService;
+#endif
 class G4Run;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -40,8 +42,9 @@ public: // With description
 private:
 
   G4Timer* timer;
+#ifdef MEMCHECK
   MemoryService* memory;
-
+#endif
 };
 
 #endif
