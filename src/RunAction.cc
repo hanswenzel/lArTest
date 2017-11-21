@@ -43,9 +43,9 @@ using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 RunAction::RunAction() : G4UserRunAction() {
-     timer = new G4Timer;
+    timer = new G4Timer;
 #ifdef MEMCHECK
-     memory = new MemoryService;
+    memory = new MemoryService;
 #endif
     // set printing event number per each event
     G4RunManager::GetRunManager()->SetPrintProgress(1);
@@ -65,28 +65,26 @@ RunAction::RunAction() : G4UserRunAction() {
         // Book histograms, ntuple
         //
         G4int TrackerNTID = analysisManager->CreateNtuple("lArTest", "Event");
-	G4cout <<"TrackerNTID:  "<<TrackerNTID<<G4endl;
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"Edep");
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"x");
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"y");
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"z");
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"t");
-        analysisManager->CreateNtupleDColumn(TrackerNTID,"steplength");
-        analysisManager->CreateNtupleIColumn(TrackerNTID,"NPhotons");
-        analysisManager->CreateNtupleIColumn(TrackerNTID,"Evt");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "Edep");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "x");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "y");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "z");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "t");
+        analysisManager->CreateNtupleDColumn(TrackerNTID, "steplength");
+        analysisManager->CreateNtupleIColumn(TrackerNTID, "NPhotons");
+        analysisManager->CreateNtupleIColumn(TrackerNTID, "Evt");
         analysisManager->FinishNtuple(TrackerNTID);
 
         G4int PhotonNTID = analysisManager->CreateNtuple("PhotonSD", "Photon Hits");
-	G4cout <<"PhotonNTID "<<PhotonNTID<<G4endl;
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"E");
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"x");
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"y");
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"z");
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"t");
-        analysisManager->CreateNtupleDColumn(PhotonNTID,"px");
-        analysisManager->CreateNtupleIColumn(PhotonNTID,"py");
-        analysisManager->CreateNtupleIColumn(PhotonNTID,"pz");
-      analysisManager->CreateNtupleIColumn(PhotonNTID,"Evt");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "E");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "x");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "y");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "z");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "t");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "px");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "py");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "pz");
+        analysisManager->CreateNtupleDColumn(PhotonNTID, "Evt");
         analysisManager->FinishNtuple(PhotonNTID);
     }
 }
@@ -174,7 +172,7 @@ void RunAction::EndOfRunAction(const G4Run* aRun) {
         G4cout.setf(oldFlags);
         G4cout.precision(oldPrecision);
 #ifdef MEMCHECK
-	memory->Print(aRun);
+        memory->Print(aRun);
 #endif
         G4cout << "RunAction: End of run actions are started" << G4endl;
     }
