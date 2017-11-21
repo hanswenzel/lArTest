@@ -44,13 +44,13 @@ PhotonSD::~PhotonSD() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
-
     G4Track* theTrack = aStep->GetTrack();
                  
     // we only deal with optical Photons:
     if (theTrack->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return false;
     }
+    G4cout<<"PhotonSD: "<<theTrack->GetTotalEnergy()<<G4endl;
     G4double theEdep = theTrack->GetTotalEnergy();
     const G4VProcess * thisProcess = theTrack->GetCreatorProcess();
     
