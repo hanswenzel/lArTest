@@ -5,15 +5,24 @@
     <solids>
         <box name="WorldBox" lunit="cm" x="50" y="50" z="100"/>
         <box name="ArgonVolume"  lunit="cm" x="40" y="40" z="90"/>
+	<box name="ArgonContainer"  lunit="cm" x="40.1" y="40.1" z="90.1"/>
     </solids>
     <structure>
         <volume name="volTPCActiveInner">
             <materialref ref="G4_lAr"/>
             <solidref ref="ArgonVolume"/>
         </volume>
+        <volume name="volContainer">
+            <materialref ref="G4_STAINLESS-STEEL"/>
+            <solidref ref="ArgonContainer"/>
+        </volume>
         <volume name="TOP">
             <materialref ref="G4_AIR"/>
             <solidref ref="WorldBox"/>
+            <physvol name="pvolContainer">
+                <volumeref ref="volContainer"/>
+                <position name="containerpos" x="0" y="0" z="0"/>
+            </physvol>
             <physvol name="pCalorimeterVolume">
                 <volumeref ref="volTPCActiveInner"/>
                 <position name="Calpos" x="0" y="0" z="0"/>
