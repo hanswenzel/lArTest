@@ -64,16 +64,30 @@ RunAction::RunAction() : G4UserRunAction() {
         // Note: merging ntuples is available only with Root output
         // Book histograms, ntuple
         //
-        analysisManager->CreateNtuple("lArTest", "Event");
-        analysisManager->CreateNtupleDColumn("Edep");
-        analysisManager->CreateNtupleDColumn("x");
-        analysisManager->CreateNtupleDColumn("y");
-        analysisManager->CreateNtupleDColumn("z");
-        analysisManager->CreateNtupleDColumn("t");
-        analysisManager->CreateNtupleDColumn("steplength");
-        analysisManager->CreateNtupleIColumn("NPhotons");
-        analysisManager->CreateNtupleIColumn("Evt");
-        analysisManager->FinishNtuple();
+        G4int TrackerNTID = analysisManager->CreateNtuple("lArTest", "Event");
+	G4cout <<"TrackerNTID:  "<<TrackerNTID<<G4endl;
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"Edep");
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"x");
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"y");
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"z");
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"t");
+        analysisManager->CreateNtupleDColumn(TrackerNTID,"steplength");
+        analysisManager->CreateNtupleIColumn(TrackerNTID,"NPhotons");
+        analysisManager->CreateNtupleIColumn(TrackerNTID,"Evt");
+        analysisManager->FinishNtuple(TrackerNTID);
+
+        G4int PhotonNTID = analysisManager->CreateNtuple("PhotonSD", "Photon Hits");
+	G4cout <<"PhotonNTID "<<PhotonNTID<<G4endl;
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"E");
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"x");
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"y");
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"z");
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"t");
+        analysisManager->CreateNtupleDColumn(PhotonNTID,"px");
+        analysisManager->CreateNtupleIColumn(PhotonNTID,"py");
+        analysisManager->CreateNtupleIColumn(PhotonNTID,"pz");
+      analysisManager->CreateNtupleIColumn(PhotonNTID,"Evt");
+        analysisManager->FinishNtuple(PhotonNTID);
     }
 }
 
