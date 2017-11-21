@@ -81,15 +81,15 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
         // get analysis manager
         auto analysisManager = G4AnalysisManager::Instance();
         // fill ntuple
-        analysisManager->FillNtupleDColumn(0, edep / MeV);
-        analysisManager->FillNtupleDColumn(1, aStep->GetTrack()->GetPosition().x() / cm);
-        analysisManager->FillNtupleDColumn(2, aStep->GetTrack()->GetPosition().y() / cm);
-        analysisManager->FillNtupleDColumn(3, aStep->GetTrack()->GetPosition().z() / cm);
-        analysisManager->FillNtupleDColumn(4, aStep->GetTrack()->GetGlobalTime() / ns);
-        analysisManager->FillNtupleDColumn(5, aStep->GetStepLength() / cm);
-        analysisManager->FillNtupleIColumn(6, photons);
-        analysisManager->FillNtupleIColumn(7, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
-        analysisManager->AddNtupleRow();
+        analysisManager->FillNtupleDColumn(0,0, edep / MeV);
+        analysisManager->FillNtupleDColumn(0,1, aStep->GetTrack()->GetPosition().x() / cm);
+        analysisManager->FillNtupleDColumn(0,2, aStep->GetTrack()->GetPosition().y() / cm);
+        analysisManager->FillNtupleDColumn(0,3, aStep->GetTrack()->GetPosition().z() / cm);
+        analysisManager->FillNtupleDColumn(0,4, aStep->GetTrack()->GetGlobalTime() / ns);
+        analysisManager->FillNtupleDColumn(0,5, aStep->GetStepLength() / cm);
+        analysisManager->FillNtupleIColumn(0,6, photons);
+        analysisManager->FillNtupleIColumn(0,7, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
+        analysisManager->AddNtupleRow(0);
     }
     return true;
 }
