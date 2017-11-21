@@ -84,7 +84,7 @@ RunAction::RunAction() : G4UserRunAction() {
         analysisManager->CreateNtupleDColumn(PhotonNTID, "px");
         analysisManager->CreateNtupleDColumn(PhotonNTID, "py");
         analysisManager->CreateNtupleDColumn(PhotonNTID, "pz");
-        analysisManager->CreateNtupleDColumn(PhotonNTID, "Evt");
+        analysisManager->CreateNtupleIColumn(PhotonNTID, "Evt");
         analysisManager->FinishNtuple(PhotonNTID);
     }
 }
