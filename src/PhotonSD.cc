@@ -21,7 +21,10 @@
 #include "G4SDManager.hh"
 #include "G4ios.hh"
 #include "G4VVisManager.hh"
-
+#include "Analysis.hh"
+#include "ConfigurationManager.hh"
+#include "G4RunManager.hh"
+#include "G4Event.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PhotonSD::PhotonSD(const G4String& name,
@@ -32,7 +35,7 @@ PhotonSD::PhotonSD(const G4String& name,
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PhotonSD::Initialize(G4HCofThisEvent* HCE) {
- 
+
 }
 
 
@@ -45,18 +48,17 @@ PhotonSD::~PhotonSD() {
 
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4Track* theTrack = aStep->GetTrack();
-                 
+
     // we only deal with optical Photons:
     if (theTrack->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return false;
     }
-    G4cout<<"PhotonSD: "<<theTrack->GetTotalEnergy()<<G4endl;
     G4double theEdep = theTrack->GetTotalEnergy();
     const G4VProcess * thisProcess = theTrack->GetCreatorProcess();
-    
+
     G4String processname;
-    if(thisProcess !=NULL)
-         processname = thisProcess->GetProcessName();
+    if (thisProcess != NULL)
+        processname = thisProcess->GetProcessName();
     else
         processname = "No Process";
     G4int theCreationProcessid;
@@ -67,6 +69,23 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     } else {
         theCreationProcessid = -1;
     }
+    ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
+    if (cfMgr->GetdoAnalysis()) {
+        // get analysis manager
+        auto analysisManager = G4AnalysisManager::Instance();
+        // fill ntuple
+        analysisManager->FillNtupleDColumn(1, 0, theEdep / eV);
+        analysisManager->FillNtupleDColumn(1, 1, aStep->GetTrack()->GetPosition().x() / cm);
+        analysisManager->FillNtupleDColumn(1, 2, aStep->GetTrack()->GetPosition().y() / cm);
+        analysisManager->FillNtupleDColumn(1, 3, aStep->GetTrack()->GetPosition().z() / cm);
+        analysisManager->FillNtupleDColumn(1, 4, aStep->GetTrack()->GetGlobalTime() / ns);
+        analysisManager->FillNtupleDColumn(1, 5, aStep->GetTrack()->GetMomentumDirection()->getX());
+        analysisManager->FillNtupleIColumn(1, 6, aStep->GetTrack()->GetMomentumDirection()->getY());
+        analysisManager->FillNtupleIColumn(1, 7, aStep->GetTrack()->GetMomentumDirection()->getZ());
+        analysisManager->FillNtupleIColumn(1, 8, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
+        analysisManager->AddNtupleRow(1);
+    }
+
     /*
     PhotonHit* newHit = new PhotonHit();
     newHit->SetProcessID(theCreationProcessid);
@@ -74,9 +93,10 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     newHit->SetPos(aStep->GetPostStepPoint()->GetPosition());
     newHit->SetTime(theTrack->GetGlobalTime());
     photonCollection->insert(newHit);
-*/
+     */
     theTrack->SetTrackStatus(fStopAndKill);
     return true;
 }
+
 void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
 }
