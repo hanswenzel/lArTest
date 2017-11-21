@@ -18,6 +18,26 @@ void Ana()
   evt->SetBranchAddress("steplength", &StepLength);
   evt->SetBranchAddress("NPhotons", &NrofPhotons);
   evt->SetBranchAddress("Evt", &eventID);
+  Double_t pE;
+  Double_t px;
+  Double_t py;
+  Double_t pz;
+  Double_t pt;
+  Double_t ppx;
+  Double_t ppy;
+  Double_t ppz;
+  Int_t peventID;
+  TTree *photon = (TTree*)f->Get("ntuple/PhotonSD");
+  photon->SetBranchAddress("E",&pE);
+  photon->SetBranchAddress("x",&px);
+  photon->SetBranchAddress("y",&py);
+  photon->SetBranchAddress("z",&pz);
+  photon->SetBranchAddress("t",&pt);
+  photon->SetBranchAddress("px",&ppx);
+  photon->SetBranchAddress("py",&ppy);
+  photon->SetBranchAddress("pz",&ppz);
+  photon->SetBranchAddress("Evt",&peventID);
+
   Int_t sumphotons = 0;
   Float_t sumEdep=0.0;
   Float_t sumEdepcm=0.0;
@@ -53,6 +73,9 @@ void Ana()
 	sumEdep=0.0;
 	sumEdepcm=0.0;
       }
+  }
+ Int_t pnentries = (Int_t)photon->GetEntries();
+  for (Int_t i=0;i<pnentries;i++) {
   }
   //  cout << evtid<< "    "<<sumphotons<<"   "<< sumEdep << "  "  << sumEdepcm <<endl;
   nphot-> Fill(sumphotons);
