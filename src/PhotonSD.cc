@@ -25,6 +25,9 @@
 #include "ConfigurationManager.hh"
 #include "G4RunManager.hh"
 #include "G4Event.hh"
+#include "G4UnitsTable.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4PhysicalConstants.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PhotonSD::PhotonSD(const G4String& name,
@@ -79,9 +82,9 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         analysisManager->FillNtupleDColumn(1, 2, aStep->GetTrack()->GetPosition().y() / cm);
         analysisManager->FillNtupleDColumn(1, 3, aStep->GetTrack()->GetPosition().z() / cm);
         analysisManager->FillNtupleDColumn(1, 4, aStep->GetTrack()->GetGlobalTime() / ns);
-        analysisManager->FillNtupleDColumn(1, 5, aStep->GetTrack()->GetMomentumDirection()->getX());
-        analysisManager->FillNtupleIColumn(1, 6, aStep->GetTrack()->GetMomentumDirection()->getY());
-        analysisManager->FillNtupleIColumn(1, 7, aStep->GetTrack()->GetMomentumDirection()->getZ());
+        analysisManager->FillNtupleDColumn(1, 5, aStep->GetTrack()->GetMomentumDirection().getX());
+        analysisManager->FillNtupleDColumn(1, 6, aStep->GetTrack()->GetMomentumDirection().getY());
+        analysisManager->FillNtupleDColumn(1, 7, aStep->GetTrack()->GetMomentumDirection().getZ());
         analysisManager->FillNtupleIColumn(1, 8, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
         analysisManager->AddNtupleRow(1);
     }
