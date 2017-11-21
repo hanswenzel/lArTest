@@ -38,9 +38,10 @@
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
 #include "TrackerSD.hh"
+#include "PhotonSD.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
-
+G4LogicalVolume* logicContainer;
 DetectorConstruction::DetectorConstruction(G4String fname)
 {
     gdmlFile = fname;
@@ -54,6 +55,7 @@ DetectorConstruction::~DetectorConstruction() {
 G4VPhysicalVolume* DetectorConstruction::Construct() {
     ReadGDML();
     logicTarget = G4LogicalVolumeStore::GetInstance()->GetVolume("volTPCActiveInner");
+    logicContainer = G4LogicalVolumeStore::GetInstance()->GetVolume("volContainer");
     G4VPhysicalVolume* worldPhysVol = parser.GetWorldVolume();
     PrepareLArTest();
     if (ConfigurationManager::getInstance()->GetstepLimit()) {
@@ -71,8 +73,14 @@ void DetectorConstruction::ConstructSDandField() {
         TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
          G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
         // Setting aTrackerSD to all logical volumes with the same name 
-        // of "Target".
+        // of "volTPCActiveInner".
         SetSensitiveDetector("volTPCActiveInner", aTrackerSD);
+        G4String SDname2 = "PhotonSD";
+        PhotonSD* aPhotonSD = new PhotonSD(SDname2, "HitsCollection");
+         G4SDManager::GetSDMpointer()->AddNewDetector(aPhotonSD);
+        // Setting aTrackerSD to all logical volumes with the same name 
+        // of "volTPCActiveInner".
+        SetSensitiveDetector("volContainer", aPhotonSD);
     }
 }
 
@@ -86,6 +94,7 @@ void DetectorConstruction::PrepareLArTest() {
 
 
     G4MaterialPropertiesTable* LArMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable* LArMPT2 = new G4MaterialPropertiesTable();
     //
     //  simple description of scintillation yield  
     //  [J Chem Phys vol 91 (1989) 1469]
@@ -101,6 +110,7 @@ void DetectorConstruction::PrepareLArTest() {
         G4cout << FastScintEnergies[jj] / eV << "  " << ((h_Planck * c_light) / FastScintEnergies[jj]) / nm << "   " << LArRefIndex(lam) << "  " << ArScintillationSpectrum(lam) << G4endl;
     }
     LArMPT->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
+    LArMPT2->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
     LArMPT->AddProperty("FASTCOMPONENT", FastScintEnergies, FastScintSpectrum, num)->SetSpline(true);
     LArMPT->AddProperty("SLOWCOMPONENT", FastScintEnergies, FastScintSpectrum, num)->SetSpline(true);
     LArMPT->AddConstProperty("FASTTIMECONSTANT", 7. * ns);
@@ -117,6 +127,7 @@ void DetectorConstruction::PrepareLArTest() {
     G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
     G4cout << "**********************************************************************" << G4endl;
     logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
+    logicContainer->GetMaterial()->SetMaterialPropertiesTable(LArMPT2);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
