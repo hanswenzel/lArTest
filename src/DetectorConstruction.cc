@@ -42,8 +42,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
 G4LogicalVolume* logicContainer;
-DetectorConstruction::DetectorConstruction(G4String fname)
-{
+
+DetectorConstruction::DetectorConstruction(G4String fname) {
     gdmlFile = fname;
 }
 
@@ -71,19 +71,18 @@ void DetectorConstruction::ConstructSDandField() {
         std::cout << "Writing Tracker Sensitive Hits" << std::endl;
         G4String SDname = "TrackerSD";
         TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
-         G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
+        G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
         // Setting aTrackerSD to all logical volumes with the same name 
         // of "volTPCActiveInner".
         SetSensitiveDetector("volTPCActiveInner", aTrackerSD);
         G4String SDname2 = "PhotonSD";
         PhotonSD* aPhotonSD = new PhotonSD(SDname2, "HitsCollection");
-         G4SDManager::GetSDMpointer()->AddNewDetector(aPhotonSD);
+        G4SDManager::GetSDMpointer()->AddNewDetector(aPhotonSD);
         // Setting aTrackerSD to all logical volumes with the same name 
         // of "volTPCActiveInner".
         SetSensitiveDetector("volContainer", aPhotonSD);
     }
 }
-
 
 void DetectorConstruction::ReadGDML() {
 
