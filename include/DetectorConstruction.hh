@@ -13,7 +13,7 @@
 // -----------------------------------------------------
 #ifndef DetectorConstruction_h
 #define DetectorConstruction_h 1
-
+#include "ColorReader.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4GDMLParser.hh"
 
@@ -57,11 +57,13 @@ private:
     DetectorConstruction(const DetectorConstruction&);
 
     G4String gdmlFile;
-    G4LogicalVolume* logicTarget;
-    G4LogicalVolume* logicWorld;
+ //   G4LogicalVolume* logicTarget;
+ //   G4LogicalVolume* logicWorld;
+    std::vector<std::pair<std::string, std::string> > DetectorList;
 
     // GDMLparser
-    G4GDMLParser parser;
+    G4GDMLParser *parser;
+    ColorReader* fReader;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....

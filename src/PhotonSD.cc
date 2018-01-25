@@ -30,8 +30,7 @@
 #include "G4PhysicalConstants.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PhotonSD::PhotonSD(const G4String& name,
-        const G4String& /* hitsCollectionName */)
+PhotonSD::PhotonSD(G4String name)
 : G4VSensitiveDetector(name) {
 }
 

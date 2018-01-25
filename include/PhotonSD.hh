@@ -27,8 +27,7 @@ class G4HCofThisEvent;
 class PhotonSD : public G4VSensitiveDetector {
 public:
   
-  PhotonSD(const G4String& name, 
-                const G4String& hitsCollectionName);
+  PhotonSD(G4String name); 
 
     ~PhotonSD();
 

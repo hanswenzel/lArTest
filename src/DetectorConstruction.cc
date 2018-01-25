@@ -34,6 +34,11 @@
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4SDManager.hh"
+#include "globals.hh"
+#include "G4LogicalVolume.hh"
+#include "G4LogicalVolumeStore.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4PhysicalVolumeStore.hh"
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
@@ -41,7 +46,7 @@
 #include "PhotonSD.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
-G4LogicalVolume* logicContainer;
+//G4LogicalVolume* logicContainer;
 
 DetectorConstruction::DetectorConstruction(G4String fname) {
     gdmlFile = fname;
@@ -54,41 +59,93 @@ DetectorConstruction::~DetectorConstruction() {
 
 G4VPhysicalVolume* DetectorConstruction::Construct() {
     ReadGDML();
-    logicTarget = G4LogicalVolumeStore::GetInstance()->GetVolume("volTPCActiveInner");
-    logicContainer = G4LogicalVolumeStore::GetInstance()->GetVolume("volContainer");
-    G4VPhysicalVolume* worldPhysVol = parser.GetWorldVolume();
-    PrepareLArTest();
-    if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
-        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
-        logicTarget->SetUserLimits(fStepLimit);
+    const G4GDMLAuxMapType* auxmap = parser->GetAuxMap();
+    std::cout << "Found " << auxmap->size()
+            << " volume(s) with auxiliary information."
+            << std::endl << std::endl;
+    for (G4GDMLAuxMapType::const_iterator iter = auxmap->begin();
+            iter != auxmap->end(); iter++) {
+        G4cout << "Volume " << ((*iter).first)->GetName()
+                << " has the following list of auxiliary information: "
+                << G4endl;
+        for (G4GDMLAuxListType::const_iterator vit = (*iter).second.begin();
+                vit != (*iter).second.end(); vit++) {
+            std::cout << "--> Type: " << (*vit).type
+                    << " Value: " << (*vit).value << std::endl;
+            if ((*vit).type == "StepLimit") {
+                G4UserLimits *fStepLimit = new G4UserLimits(atof((*vit).value));
+                ((*iter).first)->SetUserLimits(fStepLimit);
+            }
+        }
     }
+    //   logicTarget = G4LogicalVolumeStore::GetInstance()->GetVolume("volTPCActiveInner");
+    //    logicContainer = G4LogicalVolumeStore::GetInstance()->GetVolume("volContainer");
+    G4VPhysicalVolume* worldPhysVol = parser->GetWorldVolume();
+    //    PrepareLArTest();
+    //    if (ConfigurationManager::getInstance()->GetstepLimit()) {
+    //        G4double mxStep = ConfigurationManager::getInstance()->Getlimitval();
+    //        G4UserLimits *fStepLimit = new G4UserLimits(mxStep);
+    //        logicTarget->SetUserLimits(fStepLimit);
+    //    }
     return worldPhysVol;
 }
 
 void DetectorConstruction::ConstructSDandField() {
-    if (ConfigurationManager::getInstance()->GetwriteHits()) {
-        std::cout << "Writing Tracker Sensitive Hits" << std::endl;
-        G4String SDname = "TrackerSD";
-        TrackerSD* aTrackerSD = new TrackerSD(SDname, "HitsCollection");
-        G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
-        // Setting aTrackerSD to all logical volumes with the same name 
-        // of "volTPCActiveInner".
-        SetSensitiveDetector("volTPCActiveInner", aTrackerSD);
-        G4String SDname2 = "PhotonSD";
-        PhotonSD* aPhotonSD = new PhotonSD(SDname2, "HitsCollection");
-        G4SDManager::GetSDMpointer()->AddNewDetector(aPhotonSD);
-        // Setting aTrackerSD to all logical volumes with the same name 
-        // of "volTPCActiveInner".
-        SetSensitiveDetector("volContainer", aPhotonSD);
+    G4SDManager* SDman = G4SDManager::GetSDMpointer();
+    const G4GDMLAuxMapType* auxmap = parser->GetAuxMap();
+    std::cout << "Found " << auxmap->size()
+            << " volume(s) with auxiliary information."
+            << std::endl << std::endl;
+    for (G4GDMLAuxMapType::const_iterator iter = auxmap->begin();
+            iter != auxmap->end(); iter++) {
+        G4cout << "Volume " << ((*iter).first)->GetName()
+                << " has the following list of auxiliary information: "
+                << G4endl;
+        for (G4GDMLAuxListType::const_iterator vit = (*iter).second.begin();
+                vit != (*iter).second.end(); vit++) {
+            std::cout << "--> Type: " << (*vit).type
+                    << " Value: " << (*vit).value << std::endl;
+            if ((*vit).type == "SensDet") {
+                if ((*vit).value == "PhotonDetector") {
+                    //G4String name = ((*iter).first)->GetName();
+                    PhotonSD* aPhotonSD = new PhotonSD(((*iter).first)->GetName());
+                    SDman->AddNewDetector(aPhotonSD);
+                    ((*iter).first)->SetSensitiveDetector(aPhotonSD);
+                    std::cout << "Attaching sensitive Detector: " << (*vit).value
+                            << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
+                    DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
+                } else if ((*vit).value == "Tracker") {
+                    G4String name = ((*iter).first)->GetName() + "_Tracker";
+                    TrackerSD* aTrackerSD = new TrackerSD(name);
+                    SDman->AddNewDetector(aTrackerSD);
+                    ((*iter).first)->SetSensitiveDetector(aTrackerSD);
+                    std::cout << "Attaching sensitive Detector: " << (*vit).value
+                            << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
+                    DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
+                }
+            }
+        }
     }
 }
 
 void DetectorConstruction::ReadGDML() {
-
-    parser.Read(gdmlFile, false);
+    fReader = new ColorReader;
+    parser = new G4GDMLParser(fReader);
+    parser->Read(gdmlFile, false);
+    G4VPhysicalVolume *World = parser->GetWorldVolume();
+    std::cout << World->GetTranslation() << std::endl << std::endl;
+    std::cout << "Found World:  " << World-> GetName() << std::endl;
+    std::cout << "World LV:  " << World->GetLogicalVolume()->GetName() << std::endl;
+    G4LogicalVolumeStore *pLVStore = G4LogicalVolumeStore::GetInstance();
+    std::cout << "Found " << pLVStore->size()
+            << " logical volumes."
+            << std::endl << std::endl;
+    G4PhysicalVolumeStore *pPVStore = G4PhysicalVolumeStore::GetInstance();
+    std::cout << "Found " << pPVStore->size()
+            << " physical volumes."
+            << std::endl << std::endl;
 }
-
+/*
 void DetectorConstruction::PrepareLArTest() {
 
 
@@ -123,12 +180,12 @@ void DetectorConstruction::PrepareLArTest() {
     //LArMPT->AddConstProperty("RESOLUTIONSCALE", fano);
     LArMPT->AddConstProperty("RESOLUTIONSCALE", 1.0);
     G4cout << "**********************************************************************" << G4endl;
-    G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
+    //G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
     G4cout << "**********************************************************************" << G4endl;
-    logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
+    //logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
     logicContainer->GetMaterial()->SetMaterialPropertiesTable(LArMPT2);
 }
-
+*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void DetectorConstruction::UpdateGeometry() {

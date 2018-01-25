@@ -1,3 +1,16 @@
+// -----------------------------------------------------
+//  _    _        _____         _   
+// | |  / \   _ _|_   _|__  ___| |_ 
+// | | / _ \ | '__|| |/ _ \/ __| __|
+// | |/ ___ \| |   | |  __/\__ \ |_ 
+// |_/_/   \_\_|   |_|\___||___/\__|
+//                                  
+// lArTest: A Geant4 application to study and profile  
+//          simulation of physics processes relevant 
+//          to liquid Ar TPCs
+//
+// Author: Hans Wenzel, Fermilab
+// -----------------------------------------------------
 #include "ActionInitialization.hh"
 #include "PrimaryGeneratorAction.hh"
 #include "RunAction.hh"

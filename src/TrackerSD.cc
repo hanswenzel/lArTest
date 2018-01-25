@@ -34,8 +34,7 @@
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-TrackerSD::TrackerSD(const G4String& name,
-        const G4String& /* hitsCollectionName */)
+TrackerSD::TrackerSD(G4String name)
 : G4VSensitiveDetector(name) {
 }
 
@@ -56,6 +55,7 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
         G4TouchableHistory*) {
     G4double edep = aStep->GetTotalEnergyDeposit();
     if (edep == 0.) return false;
+    if (aStep->GetTrack()->GetDynamicParticle()->GetCharge()==0) return false;
     G4int photons = 0;
     G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
             ->GetTrackingManager()->GetSteppingManager();
