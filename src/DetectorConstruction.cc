@@ -39,6 +39,7 @@
 #include "G4LogicalVolumeStore.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4PhysicalVolumeStore.hh"
+#include "G4Colour.hh"
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
@@ -123,7 +124,15 @@ void DetectorConstruction::ConstructSDandField() {
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
                     DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
                 }
-            }
+            }else if((*vit).type == "Color") {
+                if ((*vit).value == "Blue") {
+                     ((*iter).first)->SetVisAttributes(G4Colour::Blue());
+                } else if ((*vit).value == "Green") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Green());
+                 } else if ((*vit).value == "Red") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Red());
+                }
+             } 
         }
     }
 }
@@ -133,6 +142,10 @@ void DetectorConstruction::ReadGDML() {
     parser = new G4GDMLParser(fReader);
     parser->Read(gdmlFile, false);
     G4VPhysicalVolume *World = parser->GetWorldVolume();
+    //----- GDML parser makes world invisible, this is a hack to make it
+    //visible again...
+    G4LogicalVolume* pWorldLogical = World->GetLogicalVolume();
+    pWorldLogical->SetVisAttributes(0);
     std::cout << World->GetTranslation() << std::endl << std::endl;
     std::cout << "Found World:  " << World-> GetName() << std::endl;
     std::cout << "World LV:  " << World->GetLogicalVolume()->GetName() << std::endl;
@@ -185,7 +198,7 @@ void DetectorConstruction::PrepareLArTest() {
     //logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
     logicContainer->GetMaterial()->SetMaterialPropertiesTable(LArMPT2);
 }
-*/
+ */
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void DetectorConstruction::UpdateGeometry() {

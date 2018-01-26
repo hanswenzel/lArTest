@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
     <define>
+        <constant name="TWOPI" value="2.*pi"/>
         <matrix name="SY"  coldim="1" values="51282/MeV" />
         <matrix name="RS"  coldim="1" values="1.0" />
         <matrix name="FTC" coldim="1" values="7.*ns" />
@@ -60,6 +61,7 @@
         <box name="WorldBox" lunit="cm" x="50" y="50" z="100"/>
         <box name="ArgonVolume"  lunit="cm" x="40" y="40" z="90"/>
         <box name="ArgonContainer"  lunit="cm" x="40.1" y="40.1" z="90.1"/>
+        <tube name="t1000"  lunit="cm" z="10.0" rmax="0.1" deltaphi="TWOPI" aunit="rad" />
     </solids>
     <structure>
         <volume name="volTPCActiveInner">
@@ -68,6 +70,11 @@
             <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
             <auxiliary auxtype="Color" auxvalue="Red"/>
             <auxiliary auxtype="StepLimit" auxvalue="0.01"/>
+        </volume>
+        <volume name="SenseWire">
+            <materialref ref="Iron"/>
+            <solidref ref="t1000"/>
+            <auxiliary auxtype="Color" auxvalue="Green"/>
         </volume>
         <volume name="volContainer">
             <materialref ref="Iron"/>
@@ -85,6 +92,10 @@
             <physvol name="pCalorimeterVolume">
                 <volumeref ref="volTPCActiveInner"/>
                 <position name="Calpos" x="0" y="0" z="0"/>
+            </physvol>
+            <physvol name="psenseWireVolume">
+                <volumeref ref="SenseWire"/>
+                <position name="wirepos" x="0" y="0" z="0"/>
             </physvol>
         </volume>
     </structure>
