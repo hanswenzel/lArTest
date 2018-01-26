@@ -108,7 +108,6 @@ void DetectorConstruction::ConstructSDandField() {
                     << " Value: " << (*vit).value << std::endl;
             if ((*vit).type == "SensDet") {
                 if ((*vit).value == "PhotonDetector") {
-                    //G4String name = ((*iter).first)->GetName();
                     PhotonSD* aPhotonSD = new PhotonSD(((*iter).first)->GetName());
                     SDman->AddNewDetector(aPhotonSD);
                     ((*iter).first)->SetSensitiveDetector(aPhotonSD);
@@ -131,6 +130,22 @@ void DetectorConstruction::ConstructSDandField() {
                       ((*iter).first)->SetVisAttributes(G4Colour::Green());
                  } else if ((*vit).value == "Red") {
                       ((*iter).first)->SetVisAttributes(G4Colour::Red());
+                } else if ((*vit).value == "Gray") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Gray());
+                 } else if ((*vit).value == "Grey") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Grey());
+                } else if ((*vit).value == "Black") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Black());
+                 } else if ((*vit).value == "Brown") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Brown());
+                } else if ((*vit).value == "Cyan") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Cyan());
+                 } else if ((*vit).value == "Magenta") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Magenta());
+                } else if ((*vit).value == "Yellow") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::Yellow());
+                }else if ((*vit).value == "White") {
+                      ((*iter).first)->SetVisAttributes(G4Colour::White());
                 }
              } 
         }

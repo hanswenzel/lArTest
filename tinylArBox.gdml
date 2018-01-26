@@ -2,6 +2,9 @@
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
     <define>
         <constant name="TWOPI" value="2.*pi"/>
+        <variable name="i" value="0"/>
+        <constant name="num" value="4"/>
+        <constant name="scale" value="2."/>
         <matrix name="SY"  coldim="1" values="51282/MeV" />
         <matrix name="RS"  coldim="1" values="1.0" />
         <matrix name="FTC" coldim="1" values="7.*ns" />
@@ -22,7 +25,6 @@
                                                  9.4*eV 1.5 
                                                  9.8*eV 1.5 
                                                  10.4*eV 1.5"/>
-        
         <matrix name="SCINT" coldim="2" values="6.7*eV 0.04
                                                  7.1*eV 0.12 
                                                  7.4*eV 0.27 
@@ -61,7 +63,7 @@
         <box name="WorldBox" lunit="cm" x="50" y="50" z="100"/>
         <box name="ArgonVolume"  lunit="cm" x="40" y="40" z="90"/>
         <box name="ArgonContainer"  lunit="cm" x="40.1" y="40.1" z="90.1"/>
-        <tube name="t1000"  lunit="cm" z="10.0" rmax="0.1" deltaphi="TWOPI" aunit="rad" />
+        <tube name="t1000"  lunit="cm" z="10.0" rmax="0.02" deltaphi="TWOPI" aunit="rad" />
     </solids>
     <structure>
         <volume name="volTPCActiveInner">
@@ -93,10 +95,12 @@
                 <volumeref ref="volTPCActiveInner"/>
                 <position name="Calpos" x="0" y="0" z="0"/>
             </physvol>
-            <physvol name="psenseWireVolume">
-                <volumeref ref="SenseWire"/>
-                <position name="wirepos" x="0" y="0" z="0"/>
-            </physvol>
+            <loop for="i" from="0" to="num" step="1">
+                <physvol name="psenseWireVolume">
+                    <volumeref ref="SenseWire"/>
+                    <position name="posijk"  lunit="cm" x="scale*i" y="0" z="0"/>
+                </physvol>
+            </loop>
         </volume>
     </structure>
     <setup version="1.0" name="Default">
