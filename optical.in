@@ -1,0 +1,18 @@
+/control/verbose 1 
+/run/verbose 1 
+/tracking/verbose 0 
+
+/testConfig/DoAnalysis true
+/testConfig/DoStepLimit true
+/testConfig/steplengthlimit 0.01 cm
+
+/Detector/Update 
+/run/initialize 
+/random/setSeeds 7 38 
+
+/gun/particle opticalphoton
+/gun/energy 8.0 eV
+/gun/position 0. 0. -0.4 m
+/gun/direction 1. 1. 1.
+/run/beamOn 1
+
