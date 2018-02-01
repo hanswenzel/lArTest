@@ -40,6 +40,10 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4PhysicalVolumeStore.hh"
 #include "G4Colour.hh"
+#include "G4ElectricField.hh"
+#include "G4UniformElectricField.hh"
+#include "G4FieldManager.hh"
+#include "G4EqMagElectricField.hh"
 // project headers
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
@@ -66,9 +70,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
             << std::endl << std::endl;
     for (G4GDMLAuxMapType::const_iterator iter = auxmap->begin();
             iter != auxmap->end(); iter++) {
-        G4cout << "Volume " << ((*iter).first)->GetName()
+        std::cout << "Volume " << ((*iter).first)->GetName()
                 << " has the following list of auxiliary information: "
-                << G4endl;
+                << std::endl;
         for (G4GDMLAuxListType::const_iterator vit = (*iter).second.begin();
                 vit != (*iter).second.end(); vit++) {
             std::cout << "--> Type: " << (*vit).type
@@ -99,9 +103,9 @@ void DetectorConstruction::ConstructSDandField() {
             << std::endl << std::endl;
     for (G4GDMLAuxMapType::const_iterator iter = auxmap->begin();
             iter != auxmap->end(); iter++) {
-        G4cout << "Volume " << ((*iter).first)->GetName()
+        std::cout << "Volume " << ((*iter).first)->GetName()
                 << " has the following list of auxiliary information: "
-                << G4endl;
+                << std::endl;
         for (G4GDMLAuxListType::const_iterator vit = (*iter).second.begin();
                 vit != (*iter).second.end(); vit++) {
             std::cout << "--> Type: " << (*vit).type
@@ -123,31 +127,53 @@ void DetectorConstruction::ConstructSDandField() {
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
                     DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
                 }
-            }else if((*vit).type == "Color") {
+            } else if ((*vit).type == "Color") {
                 if ((*vit).value == "Blue") {
-                     ((*iter).first)->SetVisAttributes(G4Colour::Blue());
+                    ((*iter).first)->SetVisAttributes(G4Colour::Blue());
                 } else if ((*vit).value == "Green") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Green());
-                 } else if ((*vit).value == "Red") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Red());
+                    G4VisAttributes * green = new G4VisAttributes(G4Colour::Green());
+                    green->SetForceSolid(true);
+                    ((*iter).first)->SetVisAttributes(green);
+                } else if ((*vit).value == "Red") {
+                    ((*iter).first)->SetVisAttributes(G4Colour::Red());
                 } else if ((*vit).value == "Gray") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Gray());
-                 } else if ((*vit).value == "Grey") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Grey());
+                    ((*iter).first)->SetVisAttributes(G4Colour::Gray());
+                } else if ((*vit).value == "Grey") {
+                    ((*iter).first)->SetVisAttributes(G4Colour::Grey());
                 } else if ((*vit).value == "Black") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Black());
-                 } else if ((*vit).value == "Brown") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Brown());
+                    ((*iter).first)->SetVisAttributes(G4Colour::Black());
+                } else if ((*vit).value == "Brown") {
+                    ((*iter).first)->SetVisAttributes(G4Colour::Brown());
                 } else if ((*vit).value == "Cyan") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Cyan());
-                 } else if ((*vit).value == "Magenta") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Magenta());
+                    ((*iter).first)->SetVisAttributes(G4Colour::Cyan());
+                } else if ((*vit).value == "Magenta") {
+                    ((*iter).first)->SetVisAttributes(G4Colour::Magenta());
                 } else if ((*vit).value == "Yellow") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::Yellow());
-                }else if ((*vit).value == "White") {
-                      ((*iter).first)->SetVisAttributes(G4Colour::White());
+                    G4VisAttributes * yellow = new G4VisAttributes(G4Colour::Yellow());
+                    ((*iter).first)->SetVisAttributes(yellow);
+                } else if ((*vit).value == "White") {
+                    ((*iter).first)->SetVisAttributes(G4Colour::White());
                 }
-             } 
+            } else if ((*vit).type == "Solid") {
+                if ((*vit).value == "True") {
+                    G4VisAttributes * visibility = new G4VisAttributes();
+                    visibility->SetForceSolid(true);
+                    //G4VisAttributes * visibility = ((*iter).first)->GetVisAttributes();
+                    //((*iter).first)->GetVisAttributes()->SetForceSolid(true);
+                    //visibility->SetForceSolid(true);
+                    ((*iter).first)->SetVisAttributes(visibility);
+                }
+            } else if ((*vit).type == "Efield") {
+                std::cout << "Setting E-Field of " << ((*iter).first)->GetName() << " to " << (*vit).value << " V/cm" << std::endl;
+                double E = atof((*vit).value.c_str());
+                std::cout << E << std::endl;
+//                G4ElectricField* fEMfield = new G4UniformElectricField(
+ //                       G4ThreeVector(0.0, E * volt / cm, 0.0));
+                //G4EqMagElectricField* fEquation = new G4EqMagElectricField(fEMfield);
+  //              G4FieldManager* fFieldManager = G4TransportationManager::GetTransportationManager()->GetFieldManager();
+ //               G4bool allLocal = true;
+ //               ((*iter).first)->SetFieldManager(fFieldManager, allLocal);
+            }
         }
     }
 }
@@ -191,7 +217,7 @@ void DetectorConstruction::PrepareLArTest() {
     const G4int num = sizeof (FastScintEnergies) / sizeof (G4double);
     for (int jj = 0; jj < num; jj++) {
         G4double lam = ((h_Planck * c_light) / FastScintEnergies[jj]) / nm;
-        G4cout << FastScintEnergies[jj] / eV << "  " << ((h_Planck * c_light) / FastScintEnergies[jj]) / nm << "   " << LArRefIndex(lam) << "  " << ArScintillationSpectrum(lam) << G4endl;
+        std::cout << FastScintEnergies[jj] / eV << "  " << ((h_Planck * c_light) / FastScintEnergies[jj]) / nm << "   " << LArRefIndex(lam) << "  " << ArScintillationSpectrum(lam) << std::endl;
     }
     LArMPT->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
     LArMPT2->AddProperty("RINDEX", FastScintEnergies, Rindex, num);
@@ -207,9 +233,9 @@ void DetectorConstruction::PrepareLArTest() {
     // Doke et al, NIM 134 (1976)353
     //LArMPT->AddConstProperty("RESOLUTIONSCALE", fano);
     LArMPT->AddConstProperty("RESOLUTIONSCALE", 1.0);
-    G4cout << "**********************************************************************" << G4endl;
-    //G4cout << logicTarget->GetMaterial()->GetName() << G4endl;
-    G4cout << "**********************************************************************" << G4endl;
+    std::cout << "**********************************************************************" << std::endl;
+    //std::cout << logicTarget->GetMaterial()->GetName() << std::endl;
+    std::cout << "**********************************************************************" << std::endl;
     //logicTarget->GetMaterial()->SetMaterialPropertiesTable(LArMPT);
     logicContainer->GetMaterial()->SetMaterialPropertiesTable(LArMPT2);
 }

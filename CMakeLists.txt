@@ -66,4 +66,4 @@ target_link_libraries(${name}  lAr  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 install (TARGETS ${name} DESTINATION bin)
 install (TARGETS lAr DESTINATION lib)
-install (FILES vis.mac init_vis.mac muons.in muons_tiny.in profile.in protodune.gdml lArBox.gdml tinylArBox.gdml scripts/Ana.C DESTINATION bin)
+install (FILES vis.mac init_vis.mac muons.in muons_tiny.in profile.in protodune.gdml lArBox.gdml tinylArBox.gdml tinylArBox_color.gdml scripts/Ana.C DESTINATION bin)

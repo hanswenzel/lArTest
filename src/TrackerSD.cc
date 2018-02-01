@@ -46,7 +46,7 @@ TrackerSD::~TrackerSD() {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void TrackerSD::Initialize(G4HCofThisEvent* /*hce*/) {
+void TrackerSD::Initialize(G4HCofThisEvent* hce) {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

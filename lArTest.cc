@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
     // Construct the default run manager
 #ifdef G4MULTITHREADED
     //the default number of threads
-    G4int nThreads = 4;
+    G4int nThreads = 1;
     //set it from the -t option is provided
     for (G4int i = 1; i < argc; i = i + 2) {
         if (G4String(argv[i]) == "-t") {
@@ -121,10 +121,10 @@ int main(int argc, char** argv) {
     opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(false);
     // Scintillation on by default, optical photons are not put on the stack 
-    opticalPhysics->Configure(kScintillation, true);
+    opticalPhysics->Configure(kScintillation, false);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
-    opticalPhysics->SetScintillationStackPhotons(false);
+    opticalPhysics->SetScintillationStackPhotons(true);
     opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
