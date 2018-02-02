@@ -55,6 +55,7 @@ using namespace std;
 
 DetectorConstruction::DetectorConstruction(G4String fname) {
     gdmlFile = fname;
+    sdnames = ConfigurationManager::getInstance()->getSDNames();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -112,20 +113,25 @@ void DetectorConstruction::ConstructSDandField() {
                     << " Value: " << (*vit).value << std::endl;
             if ((*vit).type == "SensDet") {
                 if ((*vit).value == "PhotonDetector") {
-                    PhotonSD* aPhotonSD = new PhotonSD(((*iter).first)->GetName());
+                    G4String name = ((*iter).first)->GetName() + "_Photondetector";
+                    PhotonSD* aPhotonSD = new PhotonSD(name);
                     SDman->AddNewDetector(aPhotonSD);
+                    sdnames->push_back(name);
+                    std::cout << "new size: " << sdnames->size() << std::endl;
                     ((*iter).first)->SetSensitiveDetector(aPhotonSD);
                     std::cout << "Attaching sensitive Detector: " << (*vit).value
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
-                    DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
+                    //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
                 } else if ((*vit).value == "Tracker") {
                     G4String name = ((*iter).first)->GetName() + "_Tracker";
                     TrackerSD* aTrackerSD = new TrackerSD(name);
                     SDman->AddNewDetector(aTrackerSD);
+                    sdnames->push_back(name);
+                    std::cout << "new size: " << sdnames->size() << std::endl;
                     ((*iter).first)->SetSensitiveDetector(aTrackerSD);
                     std::cout << "Attaching sensitive Detector: " << (*vit).value
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
-                    DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
+                    //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
                 }
             } else if ((*vit).type == "Color") {
                 if ((*vit).value == "Blue") {
@@ -158,21 +164,22 @@ void DetectorConstruction::ConstructSDandField() {
                 if ((*vit).value == "True") {
                     G4VisAttributes * visibility = new G4VisAttributes();
                     visibility->SetForceSolid(true);
-                    //G4VisAttributes * visibility = ((*iter).first)->GetVisAttributes();
-                    //((*iter).first)->GetVisAttributes()->SetForceSolid(true);
-                    //visibility->SetForceSolid(true);
-                    ((*iter).first)->SetVisAttributes(visibility);
+                    G4VisAttributes * visatt = new G4VisAttributes(((*iter).first)->GetVisAttributes()->GetColour());
+                    visatt->SetVisibility(true);
+                    visatt->SetForceSolid(true);
+                    visatt->SetForceAuxEdgeVisible(true);
+                    ((*iter).first)->SetVisAttributes(visatt);
                 }
             } else if ((*vit).type == "Efield") {
                 std::cout << "Setting E-Field of " << ((*iter).first)->GetName() << " to " << (*vit).value << " V/cm" << std::endl;
                 double E = atof((*vit).value.c_str());
                 std::cout << E << std::endl;
-//                G4ElectricField* fEMfield = new G4UniformElectricField(
- //                       G4ThreeVector(0.0, E * volt / cm, 0.0));
+                //                G4ElectricField* fEMfield = new G4UniformElectricField(
+                //                       G4ThreeVector(0.0, E * volt / cm, 0.0));
                 //G4EqMagElectricField* fEquation = new G4EqMagElectricField(fEMfield);
-  //              G4FieldManager* fFieldManager = G4TransportationManager::GetTransportationManager()->GetFieldManager();
- //               G4bool allLocal = true;
- //               ((*iter).first)->SetFieldManager(fFieldManager, allLocal);
+                //              G4FieldManager* fFieldManager = G4TransportationManager::GetTransportationManager()->GetFieldManager();
+                //               G4bool allLocal = true;
+                //               ((*iter).first)->SetFieldManager(fFieldManager, allLocal);
             }
         }
     }

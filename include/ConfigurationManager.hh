@@ -13,6 +13,8 @@
 // -----------------------------------------------------
 #ifndef ConfigurationManager_h
 #define ConfigurationManager_h 1
+#include <vector>
+#include "globals.hh"
 class ConfigurationManagerMessenger;
 
 class ConfigurationManager {
@@ -20,26 +22,28 @@ private:
 
     static ConfigurationManager* instance;
     bool writeHits;  // variable determines if hits are written
-    bool stepLimit;  // variable determines if step limits are applied
+    //bool stepLimit;  // variable determines if step limits are applied
     bool doAnalysis; // variable determines if analysis is done and root file written out
     bool debugEvent; // variable determines if debugging is done
     bool doProfile;  // variable determines if computing profiling is done
-    double limitval; // value of the step limit in mm
+    std::vector<G4String> *SDNames;
+    //double limitval; // value of the step limit in mm
     ConfigurationManagerMessenger* confMessenger;
 
 public:
     ConfigurationManager();
     ~ConfigurationManager();
     static ConfigurationManager* getInstance();
-
+/*
     bool GetstepLimit() {
         return stepLimit;
     }
-
+*/
+    /*
     void SetstepLimit(bool value) {
         stepLimit = value;
     }
-
+*/
     void SetwriteHits(bool value) {
         writeHits = value;
     }
@@ -71,7 +75,13 @@ public:
     void SetdoProfile(bool value) {
         doProfile = value;
     }
+    std::vector<G4String>* getSDNames()
+    {
+        return SDNames;
+    }
 
+
+/*
     double Getlimitval() {
         return limitval;
     }
@@ -79,6 +89,7 @@ public:
     void Setlimitval(double value) {
         limitval = value;
     }
+ */
 };
 
 #endif /* /CONFIGURATIONMANAGER */

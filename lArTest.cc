@@ -121,23 +121,23 @@ int main(int argc, char** argv) {
     opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(false);
     // Scintillation on by default, optical photons are not put on the stack 
-    opticalPhysics->Configure(kScintillation, false);
+    opticalPhysics->Configure(kScintillation, true);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
-    opticalPhysics->SetScintillationStackPhotons(true);
+    opticalPhysics->SetScintillationStackPhotons(false);
     opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
     // concerning the steplimiter the limits are actually applied to a specific material:
-    if (ConfigurationManager::getInstance()->GetstepLimit()) {
-        G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
+    //if (ConfigurationManager::getInstance()->GetstepLimit()) {
+    //    G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
         //   phys->RegisterPhysics(new G4StepLimiterPhysics());
-    }
+    //}
     G4NeutronTrackingCut * neutrcut = (G4NeutronTrackingCut*) phys->GetPhysics("neutronTrackingCut");
     
     neutrcut->SetTimeLimit(10000);
-    G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
+    //G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
     //    
     phys->DumpList();
     G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;

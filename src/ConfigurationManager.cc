@@ -28,9 +28,12 @@ ConfigurationManager::ConfigurationManager() {
     doAnalysis = true;      // by default we do analysis
     debugEvent = false;     // by default we do not debug event
     doProfile = false;      // by default we do not profile
-    stepLimit = true;       // by default we enable the step limiter
-    limitval = 0.1 * mm;
+    SDNames = new std::vector<G4String>();
+//    stepLimit = true;       // by default we enable the step limiter
+//    limitval = 0.1 * mm;
 }
+
+
 
 ConfigurationManager* ConfigurationManager::getInstance() {
     if (instance == 0) instance = new ConfigurationManager;

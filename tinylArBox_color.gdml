@@ -98,6 +98,7 @@
             <solidref ref="PaddleBox"/>
             <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
             <auxiliary auxtype="Color" auxvalue="Blue"/>
+            <auxiliary auxtype="Solid" auxvalue="True"/>
         </volume> 
         <volume name="SenseWire">
             <materialref ref="G4_W"/>
@@ -123,9 +124,7 @@
             <solidref ref="PhotoBox"/>
             <auxiliary auxtype="SensDet" auxvalue="PhotonDetector"/>
             <auxiliary auxtype="Color" auxvalue="Red"/>
-<!--
             <auxiliary auxtype="Solid" auxvalue="True"/>
-                        -->
         </volume>
         <volume name="volArgon">
             <materialref ref="LAr"/>

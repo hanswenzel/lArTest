@@ -81,10 +81,10 @@ void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command, G4String n
         mgr->SetdoAnalysis(anaCmd->GetNewBoolValue(newValue));
     else if (command == writeHitsCmd)
         mgr->SetwriteHits(writeHitsCmd->GetNewBoolValue(newValue));
-    else if (command == steplimitCmd)
-        mgr->SetstepLimit(newValue);
-    else if (command == slengthCmd)
-        mgr->Setlimitval(slengthCmd->GetNewDoubleValue(newValue));
+//    else if (command == steplimitCmd)
+//        mgr->SetstepLimit(newValue);
+//    else if (command == slengthCmd)
+//        mgr->Setlimitval(slengthCmd->GetNewDoubleValue(newValue));
     else if (command == debugEventCmd)
         mgr->SetdebugEvent(debugEventCmd->GetNewBoolValue(newValue));
     else if (command == profileCmd)
