@@ -29,9 +29,11 @@ ConfigurationManager::ConfigurationManager() {
     debugEvent = false;     // by default we do not debug event
     doProfile = false;      // by default we do not profile
     SDNames = new std::vector<G4String>();
+    mapOfntIDs = new std::map<G4String, int>();
 //    stepLimit = true;       // by default we enable the step limiter
 //    limitval = 0.1 * mm;
 }
+
 
 
 

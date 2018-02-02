@@ -87,32 +87,37 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
         // Book histograms, ntuple
         //
         std::vector<G4String> *sdnames = ConfigurationManager::getInstance()->getSDNames();
+        std::map<G4String, int> *mapOfntIDs = ConfigurationManager::getInstance()->getMapOfntIDs();
         std::cout << "size of  " << sdnames->size() << std::endl;
         for (unsigned int i = 0; i < sdnames->size(); i++) {
-            G4int TrackerNTID = analysisManager->CreateNtuple(sdnames->at(i).c_str() , "Event");
-//            G4int TrackerNTID = analysisManager->CreateNtuple("lArTest", "Event");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "Edep");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "x");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "y");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "z");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "t");
-            analysisManager->CreateNtupleDColumn(TrackerNTID, "steplength");
-            analysisManager->CreateNtupleIColumn(TrackerNTID, "NPhotons");
-            analysisManager->CreateNtupleIColumn(TrackerNTID, "Evt");
-            analysisManager->FinishNtuple(TrackerNTID);
-/*
-            G4int PhotonNTID = analysisManager->CreateNtuple("PhotonSD", "Photon Hits");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "E");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "x");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "y");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "z");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "t");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "px");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "py");
-            analysisManager->CreateNtupleDColumn(PhotonNTID, "pz");
-            analysisManager->CreateNtupleIColumn(PhotonNTID, "Evt");
-            analysisManager->FinishNtuple(PhotonNTID);
-             */
+            //G4int TrackerNTID = analysisManager->CreateNtuple(sdnames->at(i).c_str(), "Tracker Hits");
+            //mapOfntIDs->insert(std::make_pair(sdnames->at(i), TrackerNTID));
+            if (sdnames->at(i).contains("_Tracker")) {
+                G4int TrackerNTID = analysisManager->CreateNtuple(sdnames->at(i).c_str(), "Tracker Hits");
+                mapOfntIDs->insert(std::make_pair(sdnames->at(i), TrackerNTID));
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "Edep");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "x");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "y");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "z");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "t");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "steplength");
+                analysisManager->CreateNtupleIColumn(TrackerNTID, "NPhotons");
+                analysisManager->CreateNtupleIColumn(TrackerNTID, "Evt");
+                analysisManager->FinishNtuple(TrackerNTID);
+            } else if (sdnames->at(i).contains("_Photondetector")) {
+                G4int PhotonNTID = analysisManager->CreateNtuple(sdnames->at(i).c_str(), "Photon Hits");
+                mapOfntIDs->insert(std::make_pair(sdnames->at(i), PhotonNTID));
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "E");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "x");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "y");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "z");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "t");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "px");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "py");
+                analysisManager->CreateNtupleDColumn(PhotonNTID, "pz");
+                analysisManager->CreateNtupleIColumn(PhotonNTID, "Evt");
+                analysisManager->FinishNtuple(PhotonNTID);
+            }
         }
     }
 
@@ -122,33 +127,33 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
     // for (unsigned int i = 0; i < sdnames->size(); i++) {
     //     std::cout << sdnames->at(i) << std::endl;
 
-nEvts = aRun->GetNumberOfEventToBeProcessed();
+    nEvts = aRun->GetNumberOfEventToBeProcessed();
 #ifdef G4VIS_USE
-G4UImanager* UI = G4UImanager::GetUIpointer();
+    G4UImanager* UI = G4UImanager::GetUIpointer();
 
-G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
+    G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
 
-if (pVVisManager) {
-    UI->ApplyCommand("/vis/scene/notifyHandlers");
-}
+    if (pVVisManager) {
+        UI->ApplyCommand("/vis/scene/notifyHandlers");
+    }
 #endif
-// ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
+    // ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
 
-if (cfMgr->GetdoProfile()) {
-    //start benchmark
-    timer->Start();
+    if (cfMgr->GetdoProfile()) {
+        //start benchmark
+        timer->Start();
 #ifdef MEMCHECK
-    memory->Start();
+        memory->Start();
 #endif
-}
-if (cfMgr->GetdoAnalysis()) {
-    // Get analysis manager
-    auto analysisManager = G4AnalysisManager::Instance();
-    // Open an output file
-    //
-    G4String fileName = "lArTest";
-    analysisManager->OpenFile(fileName);
-}
+    }
+    if (cfMgr->GetdoAnalysis()) {
+        // Get analysis manager
+        auto analysisManager = G4AnalysisManager::Instance();
+        // Open an output file
+        //
+        G4String fileName = "lArTest";
+        analysisManager->OpenFile(fileName);
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
