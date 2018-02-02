@@ -82,7 +82,15 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep,
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
     std::map<G4String, int> *mapOfntIDs = cfMgr->getMapOfntIDs();
     const G4String name = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
-    G4int ID = mapOfntIDs[name];
+    //G4int ID = 0;
+    std::map<G4String, int>::iterator iter=mapOfntIDs->find(name);
+    G4int ID =  (*mapOfntIDs)[name];
+    //std::cout <<"ID:  "<<ID<<std::endl;
+    //for (std::map<G4String, int>::iterator ii = mapOfntIDs->begin(); ii != mapOfntIDs->end(); ++ii) {
+    //    std::cout << (*ii).first << ": " << (*ii).second << std::endl;
+    //}
+    //mapOfntIDs[name];
+
     if (cfMgr->GetdoAnalysis()) {
         // get analysis manager
         auto analysisManager = G4AnalysisManager::Instance();
