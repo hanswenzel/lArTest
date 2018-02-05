@@ -72,20 +72,26 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         theCreationProcessid = -1;
     }
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
+    std::map<G4String, int> *mapOfntIDs = cfMgr->getMapOfntIDs();
+    //const G4String name = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
+    const G4String name = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Photondetector";
+    
+    std::map<G4String, int>::iterator iter=mapOfntIDs->find(name);
+    G4int ID =  (*mapOfntIDs)[name];
     if (cfMgr->GetdoAnalysis()) {
         // get analysis manager
         auto analysisManager = G4AnalysisManager::Instance();
         // fill ntuple
-        analysisManager->FillNtupleDColumn(1, 0, theEdep / eV);
-        analysisManager->FillNtupleDColumn(1, 1, aStep->GetTrack()->GetPosition().x() / cm);
-        analysisManager->FillNtupleDColumn(1, 2, aStep->GetTrack()->GetPosition().y() / cm);
-        analysisManager->FillNtupleDColumn(1, 3, aStep->GetTrack()->GetPosition().z() / cm);
-        analysisManager->FillNtupleDColumn(1, 4, aStep->GetTrack()->GetGlobalTime() / ns);
-        analysisManager->FillNtupleDColumn(1, 5, aStep->GetTrack()->GetMomentumDirection().getX());
-        analysisManager->FillNtupleDColumn(1, 6, aStep->GetTrack()->GetMomentumDirection().getY());
-        analysisManager->FillNtupleDColumn(1, 7, aStep->GetTrack()->GetMomentumDirection().getZ());
-        analysisManager->FillNtupleIColumn(1, 8, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
-        analysisManager->AddNtupleRow(1);
+        analysisManager->FillNtupleDColumn(ID, 0, theEdep / eV);
+        analysisManager->FillNtupleDColumn(ID, 1, aStep->GetTrack()->GetPosition().x() / cm);
+        analysisManager->FillNtupleDColumn(ID, 2, aStep->GetTrack()->GetPosition().y() / cm);
+        analysisManager->FillNtupleDColumn(ID, 3, aStep->GetTrack()->GetPosition().z() / cm);
+        analysisManager->FillNtupleDColumn(ID, 4, aStep->GetTrack()->GetGlobalTime() / ns);
+        analysisManager->FillNtupleDColumn(ID, 5, aStep->GetTrack()->GetMomentumDirection().getX());
+        analysisManager->FillNtupleDColumn(ID, 6, aStep->GetTrack()->GetMomentumDirection().getY());
+        analysisManager->FillNtupleDColumn(ID, 7, aStep->GetTrack()->GetMomentumDirection().getZ());
+        analysisManager->FillNtupleIColumn(ID, 8, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
+        analysisManager->AddNtupleRow(ID);
     }
 
     /*
