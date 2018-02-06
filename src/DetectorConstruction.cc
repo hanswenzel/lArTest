@@ -180,7 +180,12 @@ void DetectorConstruction::ConstructSDandField() {
                 //              G4FieldManager* fFieldManager = G4TransportationManager::GetTransportationManager()->GetFieldManager();
                 //               G4bool allLocal = true;
                 //               ((*iter).first)->SetFieldManager(fFieldManager, allLocal);
-            }
+            } //else if ((*vit).type == "Spline") {
+            //  if ((*vit).value == "True") {
+            //      ((*iter).first)->GetMaterial()->GetMaterialPropertiesTable()->GetProperty("FASTCOMPONENT")->SetSpline(true);
+            //      ((*iter).first)->GetMaterial()->GetMaterialPropertiesTable()->GetProperty("SLOWCOMPONENT")->SetSpline(true);
+            //  }
+            // }
         }
     }
 }
