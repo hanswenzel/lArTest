@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="include">
+        <in>PhotonHit.hh</in>
+      </df>
+      <df name="scripts">
+        <in>Ana.C</in>
+        <in>LAr.C</in>
+        <in>lArRoot.C</in>
+      </df>
+      <df name="src">
+        <in>ActionInitialization.cc</in>
+        <in>ColorReader.cc</in>
+        <in>ConfigurationManager.cc</in>
+        <in>ConfigurationManagerMessenger.cc</in>
+        <in>DetectorConstruction.cc</in>
+        <in>EventAction.cc</in>
+        <in>MemoryService.cc</in>
+        <in>PhotonHit.cc</in>
+        <in>PhotonSD.cc</in>
+        <in>PrimaryGeneratorAction.cc</in>
+        <in>RootIO.cc</in>
+        <in>RunAction.cc</in>
+        <in>SimEnergyDeposit.cc</in>
+        <in>SimEnergyDepositSD.cc</in>
+        <in>SimStep.cc</in>
+        <in>SimTrajectory.cc</in>
+        <in>SteppingAction.cc</in>
+        <in>TrackerSD.cc</in>
+      </df>
+      <in>lArTest.cc</in>
+      <in>readHits.cc</in>
+    </df>
+    <logicalFolder name="lArTest-build"
+                   displayName="lArTest-build"
+                   projectFiles="true"
+                   root="../lArTest-build">
+      <itemPath>../lArTest-build/lArTestClasses.cxx</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>CMakeLists.txt</itemPath>
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-pedantic -std=c++11 -fPIC -fPIC -std=c++11"/>
+        <element flagsID="1" commonFlags="-pedantic -std=c++11 -fPIC -std=c++11"/>
+        <element flagsID="2" commonFlags="-std=c++14"/>
+      </flagsDictionary>
+      <codeAssistance>
+        <resolveSymbolicLinks>true</resolveSymbolicLinks>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>../lArTest-build</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile install</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>../lArTest-build</preBuildCommandWorkingDir>
+          <preBuildCommand>${CMAKE} -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=${IDE_CC} -DCMAKE_CXX_COMPILER=${IDE_CXX} -DCMAKE_C_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_CXX_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=../lArTest-install .</preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="../lArTest-build/lArTestClasses.cxx"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <folder path="0/scripts">
+        <ccTool>
+          <incDir>
+            <pElem>../../geant4.10.05.p01_install/include</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>.</pElem>
+            <pElem>../../geant4.10.05.p01-install/include/Geant4</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/src">
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>/usr/include/qt5</pElem>
+            <pElem>/usr/include/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/qt5/QtGui</pElem>
+            <pElem>/usr/include/qt5/QtCore</pElem>
+            <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4ANALYSIS_USE</Elem>
+            <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE</Elem>
+            <Elem>G4USE_STD11</Elem>
+            <Elem>G4VERBOSE</Elem>
+            <Elem>G4VIS_USE</Elem>
+            <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+            <Elem>lArTestClassesDict_EXPORTS</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="lArTest-build">
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>/usr/include/qt5</pElem>
+            <pElem>/usr/include/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/qt5/QtGui</pElem>
+            <pElem>/usr/include/qt5/QtCore</pElem>
+            <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4ANALYSIS_USE</Elem>
+            <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE</Elem>
+            <Elem>G4USE_STD11</Elem>
+            <Elem>G4VERBOSE</Elem>
+            <Elem>G4VIS_USE</Elem>
+            <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+            <Elem>lArTestClassesDict_EXPORTS</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <item path="include/PhotonHit.hh" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lArTest.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="1">
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>/usr/include/qt5</pElem>
+            <pElem>/usr/include/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/qt5/QtGui</pElem>
+            <pElem>/usr/include/qt5/QtCore</pElem>
+            <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4ANALYSIS_USE</Elem>
+            <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE</Elem>
+            <Elem>G4USE_STD11</Elem>
+            <Elem>G4VERBOSE</Elem>
+            <Elem>G4VIS_USE</Elem>
+            <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="readHits.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="1">
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../boost_1_63_0</pElem>
+            <pElem>../../root-install/include</pElem>
+            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>/usr/include/qt5</pElem>
+            <pElem>/usr/include/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/qt5/QtGui</pElem>
+            <pElem>/usr/include/qt5/QtCore</pElem>
+            <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>../lArTest-build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>G4ANALYSIS_USE</Elem>
+            <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE</Elem>
+            <Elem>G4USE_STD11</Elem>
+            <Elem>G4VERBOSE</Elem>
+            <Elem>G4VIS_USE</Elem>
+            <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="scripts/Ana.C" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="scripts/LAr.C" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="scripts/lArRoot.C" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="src/ActionInitialization.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/ColorReader.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/ConfigurationManager.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/ConfigurationManagerMessenger.cc"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/DetectorConstruction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/EventAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/MemoryService.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/PhotonHit.cc" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PhotonSD.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/PrimaryGeneratorAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/RootIO.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/RunAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SimEnergyDeposit.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SimEnergyDepositSD.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SimStep.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SimTrajectory.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SteppingAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/TrackerSD.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

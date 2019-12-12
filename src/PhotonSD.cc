@@ -13,6 +13,7 @@
 // -----------------------------------------------------
 
 #include "PhotonSD.hh"
+#include "RootIO.hh"
 #include "G4VProcess.hh"
 #include "G4OpticalPhoton.hh"
 #include "G4HCofThisEvent.hh"
@@ -28,16 +29,20 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
+#define UNUSED(expr) do { (void)(expr); } while (0)
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PhotonSD::PhotonSD(G4String name)
 : G4VSensitiveDetector(name) {
+    std::cout << "PhotonSD: constructor" << std::endl;
+    pVector = new std::vector<PhotonHit*>();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void PhotonSD::Initialize(G4HCofThisEvent* HCE) {
-
+void PhotonSD::Initialize(G4HCofThisEvent* ) {
+    pVector->clear();
+   // UNUSED(hce); // avoiding unused parameter ‘HCE’ compiler message 
 }
 
 
@@ -50,7 +55,7 @@ PhotonSD::~PhotonSD() {
 
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4Track* theTrack = aStep->GetTrack();
-
+    //aStep->GetPostStepPoint()->GetMaterial()->GetName()
     // we only deal with optical Photons:
     if (theTrack->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return false;
@@ -63,7 +68,8 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         processname = thisProcess->GetProcessName();
     else
         processname = "No Process";
-    G4int theCreationProcessid;
+    /*
+  G4int theCreationProcessid;
     if (processname == "Cerenkov") {
         theCreationProcessid = 0;
     } else if (processname == "Scintillation") {
@@ -71,13 +77,14 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     } else {
         theCreationProcessid = -1;
     }
+     */
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
     std::map<G4String, int> *mapOfntIDs = cfMgr->getMapOfntIDs();
     //const G4String name = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
     const G4String name = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Photondetector";
-    
-    std::map<G4String, int>::iterator iter=mapOfntIDs->find(name);
-    G4int ID =  (*mapOfntIDs)[name];
+
+    std::map<G4String, int>::iterator iter = mapOfntIDs->find(name);
+    G4int ID = (*mapOfntIDs)[name];
     if (cfMgr->GetdoAnalysis()) {
         // get analysis manager
         auto analysisManager = G4AnalysisManager::Instance();
@@ -94,17 +101,20 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         analysisManager->AddNtupleRow(ID);
     }
 
-    /*
+
     PhotonHit* newHit = new PhotonHit();
-    newHit->SetProcessID(theCreationProcessid);
-    newHit->SetEdep(theEdep);
-    newHit->SetPos(aStep->GetPostStepPoint()->GetPosition());
-    newHit->SetTime(theTrack->GetGlobalTime());
-    photonCollection->insert(newHit);
-     */
+    //    newHit->SetProcessID(theCreationProcessid);
+    newHit->SetEnergy(theEdep);
+    newHit->SetTime(aStep->GetTrack()->GetGlobalTime() / ns);
+    newHit->SetXpos(aStep->GetTrack()->GetMomentumDirection().getX());
+    newHit->SetYpos(aStep->GetTrack()->GetMomentumDirection().getY());
+    newHit->SetZpos(aStep->GetTrack()->GetMomentumDirection().getZ());
+    pVector->push_back(newHit);
+
     theTrack->SetTrackStatus(fStopAndKill);
     return true;
 }
 
 void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
+    RootIO::GetInstance()->Write(pVector);
 }

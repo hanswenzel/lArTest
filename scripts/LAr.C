@@ -237,6 +237,7 @@ void rayleigh(double emin=110, double emax=400)
       return;
     }
   TCanvas *canvas = new TCanvas("canvas", "rayleigh scattering length", 200, 10, 1000, 800);
+  canvas->SetLogy();
   TF1 *vp0  = new TF1("vp0",lrayleigh,emin,emax,1);
   vp0->SetParameters(0.,0.);
   vp0->SetLineWidth(2); 

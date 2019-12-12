@@ -13,7 +13,6 @@
 // -----------------------------------------------------
 
 #include "ColorReader.hh"
-
 #include "G4LogicalVolume.hh"
 #include "G4VisAttributes.hh"
 

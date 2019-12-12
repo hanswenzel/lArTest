@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+    <define>
+        <constant name="TWOPI" value="2.*pi"/>
+        <constant name="HALFPI" value="pi/2."/>
+        <variable name="i" value="0"/>
+        <constant name="num" value="77"/>
+        <constant name="scale" value="2."/>
+ 
+    </define>
+    <materials>
+    </materials>
+    <solids>
+        <box name="WorldBox" lunit="cm" x="100" y="100" z="410"/>
+        <box name="PaddleBox"  lunit="cm" x="20.0" y="5." z=".5"/>
+    </solids>
+    <structure>
+        <volume name="Paddle">
+            <materialref ref="G4_PLEXIGLASS"/>
+            <solidref ref="PaddleBox"/>
+            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
+            <auxiliary auxtype="Color" auxvalue="Blue"/>
+            <auxiliary auxtype="Solid" auxvalue="True"/>
+        </volume> 
+        <volume name="TOP">
+            <materialref ref="G4_AIR"/>
+            <solidref ref="WorldBox"/>
+            <physvol name="pPaddle" copynumber="1">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos1" unit="cm" x="0" y="0" z="0."/>
+            </physvol>
+     </volume> 
+    </structure>
+    <setup version="1.0" name="Default">
+        <world ref="TOP"/>
+    </setup>
+</gdml>

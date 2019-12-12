@@ -11,33 +11,34 @@
 //
 // Author: Hans Wenzel, Fermilab
 // -----------------------------------------------------
+#ifndef SimEnergyDepositSD_h
+#define SimEnergyDepositSD_h 1
 
-#ifndef PhotonSD_h
-#define PhotonSD_h 1
-
-#include <vector>
 #include "G4VSensitiveDetector.hh"
-#include "globals.hh"
-#include "PhotonHit.hh"
+#include "SimStep.hh"
+#include "SimEnergyDeposit.hh"
+#include <vector> 
 class G4Step;
 class G4HCofThisEvent;
+//class SimTrajectory;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-class PhotonSD : public G4VSensitiveDetector {
+/// B2Tracker sensitive detector class
+
+class SimEnergyDepositSD : public G4VSensitiveDetector {
 public:
-  
-  PhotonSD(G4String name); 
+    SimEnergyDepositSD(G4String name);
+    virtual ~SimEnergyDepositSD();
 
-    ~PhotonSD();
-
-    void Initialize(G4HCofThisEvent*);
-    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
-    virtual void   EndOfEvent(G4HCofThisEvent* hitCollection);
+    // methods from base class
+    virtual void Initialize(G4HCofThisEvent* hitCollection);
+    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
+    virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
 private:
-
-    std::vector<PhotonHit*>* pVector;
+    std::vector<SimEnergyDeposit*>* sedvec;
+    //std::vector<SimStep*> stVector;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

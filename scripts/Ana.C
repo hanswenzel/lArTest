@@ -1,7 +1,7 @@
 void Ana()
 {
   TFile *f = new TFile("lArTest.root");
-  TTree *evt = (TTree*)f->Get("ntuple/lArTest");
+  TTree *evt = (TTree*)f->Get("ntuple/Paddle_Tracker");
   Double_t edep;
   Double_t x;
   Double_t y;
@@ -9,6 +9,7 @@ void Ana()
   Double_t t;
   Double_t StepLength;
   Int_t    NrofPhotons;
+  Int_t Detid;
   Int_t eventID;
   evt->SetBranchAddress("Edep", &edep);
   evt->SetBranchAddress("x", &x);
@@ -17,6 +18,7 @@ void Ana()
   evt->SetBranchAddress("t", &t);
   evt->SetBranchAddress("steplength", &StepLength);
   evt->SetBranchAddress("NPhotons", &NrofPhotons);
+  evt->SetBranchAddress("ID", &Detid);
   evt->SetBranchAddress("Evt", &eventID);
   Double_t pE;
   Double_t px;
@@ -52,6 +54,7 @@ void Ana()
   Int_t nentries = (Int_t)evt->GetEntries();
   for (Int_t i=0;i<nentries;i++) {
     evt->GetEntry(i);
+    if (Detid==1) {
     sumEdep= sumEdep+edep;
     dEdx->Fill(z,edep);
     time->Fill(t);
@@ -60,6 +63,7 @@ void Ana()
       //     cout <<z<<endl;
     }
     steplength->Fill(StepLength);
+    }
     dEdxPh->Fill(z,NrofPhotons);
     sumphotons=sumphotons+NrofPhotons;
     if (eventID!=evtid)                                  // new event

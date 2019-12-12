@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
                        xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"          
                        xs:noNamespaceSchemaLocation="SimpleExtension.xsd"> 
-
     <extension>
         <color name="magenta"     R="0.0"  G="1.0"  B="0.0"  A="1.0" />
-        <color name="green"       R="0.0"  G="1.0"  B="0.0"  A="1.0" />
+        <color name="green"       R="1.0"  G="0.0"  B="0.0"  A="1.0" />
         <color name="red"         R="1.0"  G="0.0"  B="0.0"  A="1.0" />
         <color name="blue"        R="0.0"  G="0.0"  B="1.0"  A="1.0" />
-        <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" /> 
+        <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" />    
     </extension>
-
+    
+    
     <define>
         <constant name="TWOPI" value="2.*pi"/>
         <constant name="HALFPI" value="pi/2."/>
@@ -67,50 +67,122 @@
                                                  9.4*eV 0.13 
                                                  9.8*eV 0.04 
                                                 10.4*eV 0.01"/>
+        <variable name="ii" value="0"/>
+        <variable name="jj" value="0"/>
+        <variable name="kk" value="0"/>
+        <constant name="cell" value="5"/>
+        <constant name="cellsize" value="5.0*cm"/>
+        <constant name="spacing" value="5.0*cm"/>
+        <matrix name="RINDEX" coldim="2" values="1.56258*eV 1.74822
+					       1.59515*eV 1.74941
+					       1.63606*eV 1.75
+					       1.67667*eV 1.75178
+					       1.71167*eV 1.75296
+                                               1.76698*eV 1.75474
+					       1.80023*eV 1.75593
+					       1.84655*eV 1.7583
+					       1.9016*eV  1.7583 
+					       1.95004*eV 1.76067
+					       1.99407*eV 1.76244
+					       2.03291*eV 1.76422
+					       2.07329*eV 1.76422
+					       2.12313*eV 1.766
+					       2.155*eV   1.76778
+					       2.20466*eV 1.76955
+					       2.25223*eV 1.77192
+					       2.30652*eV 1.7737
+					       2.36837*eV 1.77666
+					       2.43363*eV 1.77903
+					       2.48095*eV 1.78081
+					       2.54136*eV 1.78437
+					       2.58717*eV 1.78614
+					       2.65907*eV 1.78911
+					       2.73508*eV 1.79266
+					       2.80182*eV 1.79563
+					       2.85761*eV 1.79977
+					       2.93054*eV 1.80451
+					       2.99162*eV 1.80925
+					       3.04721*eV 1.8134
+					       3.0799*eV  1.81696
+					       3.1133*eV  1.82051
+					       3.16479*eV 1.82525
+					       3.20902*eV 1.83059
+					       3.25449*eV 1.83533
+					       3.30128*eV 1.84007
+					       3.34944*eV 1.8454
+					       3.39901*eV 1.85192
+					       3.43974*eV 1.85725
+					       3.49205*eV 1.86258
+					       3.53505*eV 1.86673
+					       3.57914*eV 1.87206
+					       3.6358*eV  1.87799
+					       3.68244*eV 1.8851
+					       3.7303*eV  1.89102
+					       3.79189*eV 1.89873
+					       3.84266*eV 1.90465
+					       3.90805*eV 1.90999
+					       3.94837*eV 1.91473
+					       3.97571*eV 1.92065
+					       4.04576*eV 1.92658
+					       4.07447*eV 1.93191
+					       4.14807*eV 1.93665
+					       4.19353*eV 1.94198
+					       4.25569*eV 1.94672
+					       4.33605*eV 1.95206
+					       4.43657*eV 1.95798
+					       4.50622*eV 1.96628
+					       4.63351*eV 1.9722
+					       4.76822*eV 1.97694
+					       4.86931*eV 1.98109"/>
     </define>
 
     <materials>
         <material name="LAr" formula="LAr">
+            <property name="RINDEX" ref="ArINDEX"/>
+            <property name="SLOWCOMPONENT" ref="SCINT"/>
+            <property name="SCINTILLATIONYIELD" ref="SY" />
+            <property name="RESOLUTIONSCALE" ref="RS" />
+            <property name="SLOWTIMECONSTANT" ref="STC" />
+            <property name="YIELDRATIO" ref="YR" />
             <D value="1.40" unit="g/cm3"/>
             <fraction n="1.0000" ref="G4_Ar"/>
-            <property name="RINDEX" ref="ArINDEX"/>
-            <property name="SLOWCOMPONENT" ref="SCINT"/>
-            <property name="SCINTILLATIONYIELD" ref="SY" />
-            <property name="RESOLUTIONSCALE" ref="RS" />
-            <property name="SLOWTIMECONSTANT" ref="STC" />
-            <property name="YIELDRATIO" ref="YR" />
         </material>
-        <!--
-        <material name="Lh" formula="LH">
-            <D value="1.0" unit="g/cm3"/>
-            <fraction n="1.0000" ref="G4_H"/>
-            <property name="RINDEX" ref="ArINDEX"/>
-            <property name="SLOWCOMPONENT" ref="SCINT"/>
-            <property name="SCINTILLATIONYIELD" ref="SY" />
-            <property name="RESOLUTIONSCALE" ref="RS" />
-            <property name="SLOWTIMECONSTANT" ref="STC" />
-            <property name="YIELDRATIO" ref="YR" />
-        </material>
-        -->
         <material name="Iron" formula="Iron">
+            <property name="RINDEX" ref="ArINDEX"/>
             <D value="4.0" unit="g/cm3"/>
             <fraction n="1.0000" ref="G4_Fe"/>
-            <property name="RINDEX" ref="ArINDEX"/>
         </material>
         <material name="Silicon" formula="Si">
+            <property name="RINDEX" ref="ArINDEX"/>
             <D value="2.33" unit="g/cm3"/>
             <fraction n="1.0000" ref="G4_Si"/>
-            <property name="RINDEX" ref="ArINDEX"/>
+        </material>
+        <element name="Oxygen"   formula="O"  Z="8.">  
+            <atom value="16.0"/>   
+        </element>
+        <element name="Nitrogen" formula="N"  Z="7.">  
+            <atom value="14.01"/>  
+        </element>
+        <element name="Fluorine" formula="F"  Z="9.">  
+            <atom value="18.9984032"/>  
+        </element>
+        <element name="Lead"     formula="Pb" Z="82."> 
+            <atom value="207.20"/> 
+        </element>
+        <material name="PbF2">
+            <property name="RINDEX" ref="RINDEX"/>
+            <D value="7.77" unit="g/cm3"/>
+            <composite n="1" ref="Lead"/>
+            <composite n="2" ref="Fluorine"/>
         </material>
     </materials>
     <solids>
         <box name="WorldBox" lunit="cm" x="100" y="100" z="410"/>
+        <box name="CalorimeterCell"  lunit="mm" x="cellsize" y="cellsize" z="cellsize"/>
         <tube name="Cryostat"  lunit="cm" z="100.0" rmax="40." deltaphi="TWOPI" aunit="rad" />
         <tube name="ArgonVolume"  lunit="cm" z="99.0" rmax="39.5" deltaphi="TWOPI" aunit="rad" />
         <box name="PhotoBox"  lunit="cm" x="10.0" y="0.03" z="90.0"/>
-        <!--
         <box name="PaddleBox"  lunit="cm" x="20.0" y="5." z=".5"/>
-        -->        
         <box name="TPCVolume"  lunit="cm" x="40" y="40" z="90"/>
         <tube name="t1000"  lunit="cm" z="90.0" rmax="0.01" deltaphi="TWOPI" aunit="rad" />
         <opticalsurface name="surf" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
@@ -118,42 +190,43 @@
         </opticalsurface>
     </solids>
     <structure>
-        <!--
-<volume name="Paddle">
-    <materialref ref="G4_PLEXIGLASS"/>
-    <solidref ref="PaddleBox"/>
-    <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
-    <auxiliary auxtype="Color" auxvalue="Blue"/>
-    <auxiliary auxtype="Solid" auxvalue="True"/>
-</volume> 
-<volume name="SenseWire">
-    <materialref ref="G4_W"/>
-    <solidref ref="t1000"/>
-    <auxiliary auxtype="Color" auxvalue="Green"/>
-</volume>   
-        -->
+        <volume name="CalorimeterVolume">
+            <materialref ref="PbF2"/>
+            <solidref ref="CalorimeterCell"/>
+            <auxiliary auxtype="SensDet" auxvalue="Calorimeter"/>
+            <colorref ref="red"/> 
+        </volume>
+    
+        <volume name="Paddle">
+            <materialref ref="G4_PLEXIGLASS"/>
+            <solidref ref="PaddleBox"/>
+            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
+            <auxiliary auxtype="Solid" auxvalue="True"/>
+            <colorref ref="blue"/>    
+        </volume> 
+        <volume name="SenseWire">
+            <materialref ref="G4_W"/>
+            <solidref ref="t1000"/>
+            <colorref ref="green"/> 
+        </volume>   
         <volume name="volTPCActiveInner">
             <materialref ref="LAr"/>
-            <solidref ref="TPCVolume"/> 
-            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
-            <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
-            <auxiliary auxtype="Efield" auxvalue="1000."/>
-            <colorref ref="green"/> 
-            <!--
+            <solidref ref="TPCVolume"/>
             <loop for="i" from="0" to="num" step="1">
                 <physvol name="psenseWireVolume">
                     <volumeref ref="SenseWire"/>
                     <position name="posijk"  unit="mm" x="-200.0+(i+1)*5." y="-199.8" z="0"/>
                 </physvol>
             </loop>
-            -->
+            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
+            <auxiliary auxtype="StepLimit" auxvalue="0.01"/>
+            <auxiliary auxtype="Efield" auxvalue="1000."/>
+            <colorref ref="blue"/>
         </volume>
         <volume name="volPhotodetector">
             <materialref ref="Silicon"/>
             <solidref ref="PhotoBox"/>
-            <!--
             <auxiliary auxtype="SensDet" auxvalue="PhotonDetector"/>
-            -->
             <auxiliary auxtype="Solid" auxvalue="True"/>
             <colorref ref="red"/> 
         </volume>
@@ -168,6 +241,8 @@
                 <volumeref ref="volPhotodetector"/>
                 <position name="photondetectorpos" unit="mm" x="0" y="391." z="0"/>
             </physvol>
+
+            <auxiliary auxtype="Color" auxvalue="Yellow"/>
         </volume>
         <volume name="volCryostat">
             <materialref ref="Iron"/>
@@ -185,26 +260,35 @@
                 <volumeref ref="volCryostat"/>
                 <position name="Cryopos" x="0" y="0" z="0"/>
             </physvol>
-            <!--
-<physvol name="pPaddle" copynumber="1">
-    <volumeref ref="Paddle"/>
-    <position name="Paddlepos1" unit="cm" x="0" y="0" z="-110."/>
-</physvol>
-<physvol name="pPaddle" copynumber="2">
-    <volumeref ref="Paddle"/>
-    <position name="Paddlepos3" unit="cm" x="0" y="0" z="-111."/>
-    <rotation name="rotatebyz3" z="HALFPI"/>
-</physvol>
-<physvol name="pPaddle" copynumber="3">
-    <volumeref ref="Paddle"/>
-    <position name="Paddlepos2" unit="cm" x="0" y="0" z="110."/>
-</physvol>
-<physvol name="pPaddle" copynumber="4">
-    <volumeref ref="Paddle"/>
-    <position name="Paddlepos4" unit="cm" x="0" y="0" z="111."/>
-    <rotation name="rotatebyz4" z="HALFPI"/>
-</physvol>
-            -->
+            <physvol name="pPaddle1" copynumber="1">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos1" unit="cm" x="0" y="0" z="-70."/>
+            </physvol>
+            <physvol name="pPaddle2" copynumber="2">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos3" unit="cm" x="0" y="0" z="-71."/>
+                <rotation name="rotatebyz3" z="HALFPI"/>
+            </physvol>
+            <physvol name="pPaddle3" copynumber="3">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos2" unit="cm" x="0" y="0" z="70."/>
+            </physvol>
+            <physvol name="pPaddle4" copynumber="4">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos4" unit="cm" x="0" y="0" z="71."/>
+                <rotation name="rotatebyz4" z="HALFPI"/>
+            </physvol>
+            <loop for="ii" from="0" to="cell" step="1">
+                <loop for="jj" from="0" to="cell" step="1">
+                    <loop for="kk" from="0" to="cell" step="1">
+                        <physvol name="CaloCell" copynumber="ii+(jj*(cell+1))+kk*((cell+1)*(cell+1))" >
+                            <volumeref ref="CalorimeterVolume"/>
+                            <position name="posijk" unit="mm" x="spacing*(ii-cell/2)" y="spacing*(jj-cell/2)" z="1100+spacing*(kk-cell/2)"/>
+                        </physvol>
+                    </loop>
+                </loop>
+            </loop>
+
         </volume>
         <bordersurface name="bordersrf" surfaceproperty="surf" >
             <physvolref ref="pArgonVolume"/>
@@ -214,4 +298,4 @@
     <setup version="1.0" name="Default">
         <world ref="TOP"/>
     </setup>
-</gdml_simple_extension>
+</gdml>

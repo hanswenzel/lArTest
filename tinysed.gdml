@@ -135,7 +135,7 @@
         <volume name="volTPCActiveInner">
             <materialref ref="LAr"/>
             <solidref ref="TPCVolume"/> 
-            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
+            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
             <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
             <auxiliary auxtype="Efield" auxvalue="1000."/>
             <colorref ref="green"/> 

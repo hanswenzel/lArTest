@@ -1,0 +1,11 @@
+<lcgdict>    
+<class name="std::basic_string<char>" />
+<class name="SimTrajectory"/>
+<class name="std::map<int,SimTrajectory*>"/>
+<class name="SimStep"/>
+<class name="std::vector<SimStep*>"/>
+<class name="PhotonHit"/>
+<class name="std::vector<PhotonHit*>"/>
+<class name="SimEnergyDeposit"/>
+<class name="std::vector<SimEnergyDeposit*>"/>
+</lcgdict>

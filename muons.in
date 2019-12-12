@@ -1,12 +1,4 @@
-/control/verbose 1 
-/run/verbose 1 
-/tracking/verbose 0 
 
-/testConfig/DoAnalysis true
-/testConfig/DoStepLimit true
-/testConfig/steplengthlimit 0.01 cm
-
-/Detector/Update 
 /run/initialize 
 /random/setSeeds 7 38 
 
@@ -16,4 +8,6 @@
 /gun/position 0. 0. -4.55 m
 /gun/direction 0. 0. 1.
 /run/beamOn 1000
+
+
 

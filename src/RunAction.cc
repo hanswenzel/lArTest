@@ -38,8 +38,9 @@
 #ifdef MEMCHECK
 #include "MemoryService.hh"
 #endif
-
+#include "RootIO.hh"
 #include "Analysis.hh"
+#define UNUSED(expr) do { (void)(expr); } while (0)
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -102,7 +103,10 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
                 analysisManager->CreateNtupleDColumn(TrackerNTID, "t");
                 analysisManager->CreateNtupleDColumn(TrackerNTID, "steplength");
                 analysisManager->CreateNtupleIColumn(TrackerNTID, "NPhotons");
+                analysisManager->CreateNtupleIColumn(TrackerNTID, "ID");
                 analysisManager->CreateNtupleIColumn(TrackerNTID, "Evt");
+                analysisManager->CreateNtupleIColumn(TrackerNTID, "pId");
+                analysisManager->CreateNtupleDColumn(TrackerNTID, "kE");
                 analysisManager->FinishNtuple(TrackerNTID);
             } else if (sdnames->at(i).contains("_Photondetector")) {
                 G4int PhotonNTID = analysisManager->CreateNtuple(sdnames->at(i).c_str(), "Photon Hits");
@@ -159,11 +163,12 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void RunAction::EndOfRunAction(const G4Run* aRun) {
-
+   UNUSED(aRun); 
 #ifdef G4VIS_USE
     if (G4VVisManager::GetConcreteInstance())
         G4UImanager::GetUIpointer()->ApplyCommand("/vis/viewer/update");
 #endif
+   RootIO::GetInstance()->Close();
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
     if (cfMgr->GetdoAnalysis()) {
         // print histogram statistics

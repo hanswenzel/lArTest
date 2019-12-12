@@ -50,11 +50,10 @@ int main(int argc, char** argv) {
     }
     //
     // Detect interactive mode (if only one argument) and define UI session
-    //
-    G4UIExecutive* ui = 0;
+   G4UIExecutive* ui = 0;
     if (argc == 2) {
         ui = new G4UIExecutive(argc, argv);
-    }
+}
     //choose the Random engine
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
 
@@ -93,14 +92,19 @@ int main(int argc, char** argv) {
     G4cout<< "Available Physics Extensions:    "<< g4plr->AvailablePhysicsExtensions().size()<<G4endl;
     G4cout<< "Available Physics Lists Em:      "<< g4plr->AvailablePhysListsEM().size()<<G4endl;
      */
+
     g4plr->AddPhysicsExtension("OPTICAL", "G4OpticalPhysics");
     g4plr->AddPhysicsExtension("STEPLIMIT", "G4StepLimiterPhysics");
     g4plr->AddPhysicsExtension("NEUTRONLIMIT", "G4NeutronTrackingCut");
+
     g4pcr->PrintAvailablePhysicsConstructors();
     g4plr->PrintAvailablePhysLists();
     g4alt::G4PhysListFactory factory;
     G4VModularPhysicsList* phys = NULL;
+    //    G4String physName = "Shielding";
     G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
+    //    G4String physName = "FTFP_BERT+G4OpticalPhysics+STEPLIMIT+NEUTRONLIMIT";
+    //    G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics+G4NeutronTrackingCut";
     // 
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
@@ -116,29 +120,34 @@ int main(int argc, char** argv) {
         phys->RegisterPhysics(opticalPhysics);
         // Cerenkov off by default
      */
+    
     G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
+    //G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("G4OpticalPhysics");
     opticalPhysics->Configure(kCerenkov, false);
-    opticalPhysics->SetCerenkovStackPhotons(false);
+    opticalPhysics->SetCerenkovStackPhotons(true);
     // Scintillation on by default, optical photons are not put on the stack 
-    opticalPhysics->Configure(kScintillation, true);
+    opticalPhysics->Configure(kWLS,false);
+    opticalPhysics->Configure(kScintillation, false);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
+    opticalPhysics->Configure(kRayleigh, true);
+    opticalPhysics->Configure(kBoundary, true);
+    opticalPhysics->Configure(kAbsorption, true);
     opticalPhysics->SetScintillationStackPhotons(false);
     opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
-    // concerning the steplimiter the limits are actually applied to a specific material:
-    //if (ConfigurationManager::getInstance()->GetstepLimit()) {
-    //    G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
-        //   phys->RegisterPhysics(new G4StepLimiterPhysics());
-    //}
+     
+
+    /*
     G4NeutronTrackingCut * neutrcut = (G4NeutronTrackingCut*) phys->GetPhysics("neutronTrackingCut");
-    
+    //    G4NeutronTrackingCut * neutrcut = (G4NeutronTrackingCut*) phys->GetPhysics("G4NeutronTrackingCut");
     neutrcut->SetTimeLimit(10000);
     //G4cout << "step limiter enabled limit: " << ConfigurationManager::getInstance()->Getlimitval() * cm << " cm" << G4endl;
-    //    
+    //
+     */
     phys->DumpList();
     G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
     //set mandatory initialization classes

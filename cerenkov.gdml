@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
+                       xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"          
+                       xs:noNamespaceSchemaLocation="SimpleExtension.xsd"> 
+    <extension>
+        <color name="magenta"     R="0.0"  G="1.0"  B="0.0"  A="1.0" />
+        <color name="green"       R="1.0"  G="0.0"  B="0.0"  A="1.0" />
+        <color name="red"         R="1.0"  G="0.0"  B="0.0"  A="1.0" />
+        <color name="blue"        R="0.0"  G="0.0"  B="1.0"  A="1.0" />
+        <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" />    
+    </extension>
+    
+   
+
+    <define>
+        <matrix coldim="2" name="RINDEX0x56292cef8de0" values="2.034e-06 1.49 4.136e-06 1.49"/>
+        <matrix coldim="2" name="EFFICIENCY0x56292cef9da0" values="2.034e-06 0.5 4.136e-06 0.5"/>
+        <matrix coldim="2" name="GROUPVEL0x56292cef9cc0" values="2.034e-06 201.203 4.136e-06 201.203"/>
+        <matrix coldim="2" name="RINDEX0x56292cee8560" values="2.034e-06 1.3435 2.068e-06 1.344 2.103e-06 1.3445 2.139e-06 1.345 2.177e-06 1.3455 2.216e-06 1.346 2.256e-06 1.3465 2.298e-06 1.347 2.341e-06 1.3475 2.386e-06 1.348 2.433e-06 1.3485 2.481e-06 1.3492 2.532e-06 1.35 2.585e-06 1.3505 2.64e-06 1.351 2.697e-06 1.3518 2.757e-06 1.3522 2.82e-06 1.353 2.885e-06 1.3535 2.954e-06 1.354 3.026e-06 1.3545 3.102e-06 1.355 3.181e-06 1.3555 3.265e-06 1.356 3.353e-06 1.3568 3.446e-06 1.3572 3.545e-06 1.358 3.649e-06 1.3585 3.76e-06 1.359 3.877e-06 1.3595 4.002e-06 1.36 4.136e-06 1.3608"/>
+        <matrix coldim="2" name="GROUPVEL0x56292cee84c0" values="2.034e-06 218.243 2.051e-06 218.204 2.0855e-06 218.183 2.121e-06 218.157 2.158e-06 218.246 2.1965e-06 218.204 2.236e-06 218.158 2.277e-06 218.212 2.3195e-06 218.155 2.3635e-06 218.188 2.4095e-06 218.208 2.457e-06 216.507 2.5065e-06 215.846 2.5585e-06 218.128 2.6125e-06 218.11 2.6685e-06 215.856 2.727e-06 218.798 2.7885e-06 215.988 2.8525e-06 218.001 2.9195e-06 218.046 2.99e-06 218.029 3.064e-06 218.046 3.1415e-06 218.01 3.223e-06 218.041 3.309e-06 216.226 3.3995e-06 218.568 3.4955e-06 216.325 3.597e-06 217.945 3.7045e-06 217.962 3.8185e-06 217.941 3.9395e-06 217.951 4.136e-06 216.443"/>
+        <matrix coldim="2" name="RINDEX0x56292cee6c70" values="2.034e-06 1 2.068e-06 1 2.103e-06 1 2.139e-06 1 2.177e-06 1 2.216e-06 1 2.256e-06 1 2.298e-06 1 2.341e-06 1 2.386e-06 1 2.433e-06 1 2.481e-06 1 2.532e-06 1 2.585e-06 1 2.64e-06 1 2.697e-06 1 2.757e-06 1 2.82e-06 1 2.885e-06 1 2.954e-06 1 3.026e-06 1 3.102e-06 1 3.181e-06 1 3.265e-06 1 3.353e-06 1 3.446e-06 1 3.545e-06 1 3.649e-06 1 3.76e-06 1 3.877e-06 1 4.002e-06 1 4.136e-06 1"/>
+        <matrix coldim="2" name="GROUPVEL0x56292cee52b0" values="2.034e-06 299.792 2.051e-06 299.792 2.0855e-06 299.792 2.121e-06 299.792 2.158e-06 299.792 2.1965e-06 299.792 2.236e-06 299.792 2.277e-06 299.792 2.3195e-06 299.792 2.3635e-06 299.792 2.4095e-06 299.792 2.457e-06 299.792 2.5065e-06 299.792 2.5585e-06 299.792 2.6125e-06 299.792 2.6685e-06 299.792 2.727e-06 299.792 2.7885e-06 299.792 2.8525e-06 299.792 2.9195e-06 299.792 2.99e-06 299.792 3.064e-06 299.792 3.1415e-06 299.792 3.223e-06 299.792 3.309e-06 299.792 3.3995e-06 299.792 3.4955e-06 299.792 3.597e-06 299.792 3.7045e-06 299.792 3.8185e-06 299.792 3.9395e-06 299.792 4.136e-06 299.792"/>
+    </define>
+
+    <materials>
+        <isotope N="12" Z="6" name="C120x56292cef8300">
+            <atom unit="g/mole" value="12"/>
+        </isotope>
+        <isotope N="13" Z="6" name="C130x56292cef8350">
+            <atom unit="g/mole" value="13.0034"/>
+        </isotope>
+        <element name="C0x56292cef81a0">
+            <fraction n="0.9893" ref="C120x56292cef8300"/>
+            <fraction n="0.0107" ref="C130x56292cef8350"/>
+        </element>
+        <isotope N="1" Z="1" name="H10x56292cef7bf0">
+            <atom unit="g/mole" value="1.00782503081372"/>
+        </isotope>
+        <isotope N="2" Z="1" name="H20x56292cee8880">
+            <atom unit="g/mole" value="2.01410199966617"/>
+        </isotope>
+        <element name="H0x56292cef7ff0">
+            <fraction n="0.999885" ref="H10x56292cef7bf0"/>
+            <fraction n="0.000115" ref="H20x56292cee8880"/>
+        </element>
+        <material name="Glass0x56292cef8440" state="solid">
+            <property name="RINDEX" ref="RINDEX0x56292cef8de0"/>
+            <property name="EFFICIENCY" ref="EFFICIENCY0x56292cef9da0"/>
+            <property name="GROUPVEL" ref="GROUPVEL0x56292cef9cc0"/>
+            <T unit="K" value="293.15"/>
+            <MEE unit="eV" value="64.8080829273023"/>
+            <D unit="g/cm3" value="1.032"/>
+            <fraction n="0.91533" ref="C0x56292cef81a0"/>
+            <fraction n="0.08467" ref="H0x56292cef7ff0"/>
+        </material>
+        <isotope N="1" Z="1" name="H10x56292cee80c0">
+            <atom unit="g/mole" value="1.00782503081372"/>
+        </isotope>
+        <isotope N="2" Z="1" name="H20x56292ced0930">
+            <atom unit="g/mole" value="2.01410199966617"/>
+        </isotope>
+        <element name="Hydrogen0x56292cee8000">
+            <fraction n="0.999885" ref="H10x56292cee80c0"/>
+            <fraction n="0.000115" ref="H20x56292ced0930"/>
+        </element>
+        <isotope N="16" Z="8" name="O160x56292cee5370">
+            <atom unit="g/mole" value="15.9949"/>
+        </isotope>
+        <isotope N="17" Z="8" name="O170x56292ced0be0">
+            <atom unit="g/mole" value="16.9991"/>
+        </isotope>
+        <isotope N="18" Z="8" name="O180x56292cee7f30">
+            <atom unit="g/mole" value="17.9992"/>
+        </isotope>
+        <element name="Oxygen0x56292cee7e70">
+            <fraction n="0.99757" ref="O160x56292cee5370"/>
+            <fraction n="0.00038" ref="O170x56292ced0be0"/>
+            <fraction n="0.00205" ref="O180x56292cee7f30"/>
+        </element>
+        <material name="Water0x56292cee8190" state="solid">
+            <property name="RINDEX" ref="RINDEX0x56292cee8560"/>
+            <property name="GROUPVEL" ref="GROUPVEL0x56292cee84c0"/>
+            <T unit="K" value="293.15"/>
+            <MEE unit="eV" value="68.9984174679527"/>
+            <D unit="g/cm3" value="1"/>
+            <fraction n="0.112097669256382" ref="Hydrogen0x56292cee8000"/>
+            <fraction n="0.887902330743618" ref="Oxygen0x56292cee7e70"/>
+        </material>
+        <isotope N="14" Z="7" name="N140x56292cecae10">
+            <atom unit="g/mole" value="14.0031"/>
+        </isotope>
+        <isotope N="15" Z="7" name="N150x56292cecae80">
+            <atom unit="g/mole" value="15.0001"/>
+        </isotope>
+        <element name="Nitrogen0x56292ceaf610">
+            <fraction n="0.99632" ref="N140x56292cecae10"/>
+            <fraction n="0.00368" ref="N150x56292cecae80"/>
+        </element>
+        <isotope N="16" Z="8" name="O160x56292ceca740">
+            <atom unit="g/mole" value="15.9949"/>
+        </isotope>
+        <isotope N="17" Z="8" name="O170x56292ceca790">
+            <atom unit="g/mole" value="16.9991"/>
+        </isotope>
+        <isotope N="18" Z="8" name="O180x56292ceca7e0">
+            <atom unit="g/mole" value="17.9992"/>
+        </isotope>
+        <element name="Oxygen0x56292cec5fe0">
+            <fraction n="0.99757" ref="O160x56292ceca740"/>
+            <fraction n="0.00038" ref="O170x56292ceca790"/>
+            <fraction n="0.00205" ref="O180x56292ceca7e0"/>
+        </element>
+        <material name="Air0x56292ced0a00" state="gas">
+            <property name="RINDEX" ref="RINDEX0x56292cee6c70"/>
+            <property name="GROUPVEL" ref="GROUPVEL0x56292cee52b0"/>
+            <T unit="K" value="293.15"/>
+            <MEE unit="eV" value="85.7030667332999"/>
+            <D unit="g/cm3" value="0.00129"/>
+            <fraction n="0.7" ref="Nitrogen0x56292ceaf610"/>
+            <fraction n="0.3" ref="Oxygen0x56292cec5fe0"/>
+        </material>
+    </materials>
+
+    <solids>
+        <box lunit="mm" name="Det0x56292cef9e80" x="800" y="800" z="20"/>
+        <box lunit="mm" name="Obj0x56292cef7e20" x="1000" y="1000" z="1000"/>
+        <box lunit="mm" name="World0x56292cee5530" x="2000" y="2000" z="2000"/>
+    </solids>
+
+    <structure>
+        <volume name="Det0x56292cef8820">
+            <materialref ref="Glass0x56292cef8440"/>
+            <solidref ref="Det0x56292cef9e80"/>
+            <auxiliary auxtype="SensDet" auxvalue="PhotonDetector"/>
+            <colorref ref="green"/> 
+        </volume>
+        <volume name="Obj0x56292cef7ea0">
+            <materialref ref="Water0x56292cee8190"/>
+            <solidref ref="Obj0x56292cef7e20"/>
+            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
+            <colorref ref="blue"/>   
+            <physvol name="Det0x56292cef9f40">
+                <volumeref ref="Det0x56292cef8820"/>
+                <position name="Det0x56292cef9f40_pos" unit="mm" x="0" y="0" z="100"/>
+            </physvol>
+        </volume>
+        <volume name="World0x56292cee7700">
+            <materialref ref="Air0x56292ced0a00"/>
+            <solidref ref="World0x56292cee5530"/>
+            <physvol name="Obj0x56292cef7f90">
+                <volumeref ref="Obj0x56292cef7ea0"/>
+            </physvol>
+        </volume>
+    </structure>
+
+    <setup name="Default" version="1.0">
+        <world ref="World0x56292cee7700"/>
+    </setup>
+
+</gdml>

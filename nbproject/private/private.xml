@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <code-assistance-data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <code-model-enabled>true</code-model-enabled>
+    </code-assistance-data>
+    <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <activeConfTypeElem>0</activeConfTypeElem>
+        <activeConfIndexElem>0</activeConfIndexElem>
+    </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/wenzel/trajectory/lArTest/tinylArBox_color.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/DetectorConstruction.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/TrackerSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDepositSD.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDeposit.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimTrajectory.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDepositSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/TrackerSD.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimStep.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/lArDet_split.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/SimStep.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDeposit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/CMakeLists.txt</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/SimTrajectory.cc</file>
+        </group>
+    </open-files>
+    <preferences xmlns="http://www.netbeans.org/ns/auxiliary-configuration-preferences/1">
+        <module name="org-netbeans-modules-cnd-discovery">
+            <property name="rootFolder" value="/home/wenzel/trajectory/lArTest"/>
+            <property name="exec-log-file" value="/home/wenzel/trajectory/lArTest"/>
+            <property name="model-folder" value="/home/wenzel/trajectory/lArTest"/>
+        </module>
+    </preferences>
+</project-private>

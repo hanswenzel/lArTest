@@ -17,7 +17,6 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "G4GDMLParser.hh"
 
-class G4LogicalVolume;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -27,7 +26,7 @@ public:
     DetectorConstruction(G4String fname);
     virtual ~DetectorConstruction();
 
-    void PrepareLArTest();
+    //void PrepareLArTest();
     void ReadGDML();
 
     G4VPhysicalVolume* Construct();
@@ -36,20 +35,7 @@ public:
     void SetWorldMaterial(const G4String&);
     void SetTargetMaterial(const G4String&);
     void SetMaxStepLength(G4double val);
-
     void UpdateGeometry();
-
-    // calculates the scintillation emission spectrum of  LAr 
-    G4double ArScintillationSpectrum(const G4double k);
-
-    // Calculates the dielectric constant of LAr from the Bideau-Sellmeier formula.
-    // See : A. Bideau-Mehu et al., "Measurement of refractive indices of Ne, Ar,
-    // Kr and Xe ...", J. Quant. Spectrosc. Radiat. Transfer, Vol. 25 (1981), 395
-    G4double LArEpsilon(const G4double lambda);
-
-    // Calculates the refractive index of LAr
-    G4double LArRefIndex(const G4double lam);
-
 
 private:
 
@@ -57,11 +43,7 @@ private:
     DetectorConstruction(const DetectorConstruction&);
 
     G4String gdmlFile;
-    //   G4LogicalVolume* logicTarget;
-    //   G4LogicalVolume* logicWorld;
-    //std::vector<std::pair<std::string, std::string> > DetectorList;
     std::vector<G4String> *sdnames;
-    // GDMLparser
     G4GDMLParser *parser;
     ColorReader* fReader;
 };

@@ -31,23 +31,37 @@
 #include "TrackerSD.hh"
 #include "Analysis.hh"
 #include "ConfigurationManager.hh"
+//#include "SimStep.hh"
+//#include "SimTrajectory.hh"
+#include "RootIO.hh"
+#define UNUSED(expr) do { (void)(expr); } while (0)
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TrackerSD::TrackerSD(G4String name)
 : G4VSensitiveDetector(name) {
+    //   std::vector<SimStep*> stVector;
+    std::cout << "TrackerSD: constructor" << std::endl;
+    tmap = new std::map<int, SimTrajectory*>();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TrackerSD::~TrackerSD() {
-
+    //RootIO::GetInstance()->Close();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void TrackerSD::Initialize(G4HCofThisEvent* hce) {
-
+void TrackerSD::Initialize(G4HCofThisEvent*) {
+    //  UNUSED(hce); // avoiding unused parameter ‘HCE’ compiler message 
+    //std::cout << "TrackerSD: Initialize" << std::endl;
+    //stVector.clear();
+    //tmap->clear();
+    for (auto itr = tmap->begin(); itr != tmap->end(); itr++) {
+        delete (itr->second);
+    }
+    tmap->clear();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -55,63 +69,72 @@ void TrackerSD::Initialize(G4HCofThisEvent* hce) {
 G4bool TrackerSD::ProcessHits(G4Step* aStep,
         G4TouchableHistory*) {
     G4double edep = aStep->GetTotalEnergyDeposit();
-    //std::cout<<"TrackerDS:  "<<aStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()<<" Coy: "<<aStep->GetPostStepPoint()->GetPhysicalVolume()->GetCopyNo()<<std::endl;
-    //std::cout<<"TrackerDS:  "<<aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()<<std::endl;
-    if (edep == 0.) return false;
-    if (aStep->GetTrack()->GetDynamicParticle()->GetCharge() == 0) return false;
-    G4int photons = 0;
-    G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
-            ->GetTrackingManager()->GetSteppingManager();
-    G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();
-    if (stepStatus != fAtRestDoItProc) {
-        G4ProcessVector* procPost = fpSteppingManager->GetfPostStepDoItVector();
-        size_t MAXofPostStepLoops = fpSteppingManager->GetMAXofPostStepLoops();
-        for (size_t i3 = 0; i3 < MAXofPostStepLoops; i3++) {
-            /*
-            if ((*procPost)[i3]->GetProcessName() == "Cerenkov") {
-                G4Cerenkov* proc =(G4Cerenkov*) (*procPost)[i3];
-                photons+=proc->GetNumPhotons();
-            }
-             */
-            if ((*procPost)[i3]->GetProcessName() == "Scintillation") {
-                G4Scintillation* proc1 = (G4Scintillation*) (*procPost)[i3];
-                photons += proc1->GetNumPhotons();
-            }
-        }
-    }
-    ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
-    std::map<G4String, int> *mapOfntIDs = cfMgr->getMapOfntIDs();
-    //const G4String name = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
-     const G4String name = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
-    //G4int ID = 0;
-    std::map<G4String, int>::iterator iter=mapOfntIDs->find(name);
-    G4int ID =  (*mapOfntIDs)[name];
-    //std::cout <<"ID:  "<<ID<<std::endl;
-    //for (std::map<G4String, int>::iterator ii = mapOfntIDs->begin(); ii != mapOfntIDs->end(); ++ii) {
-    //    std::cout << (*ii).first << ": " << (*ii).second << std::endl;
-    //}
-    //mapOfntIDs[name];
 
-    if (cfMgr->GetdoAnalysis()) {
-        // get analysis manager
-        auto analysisManager = G4AnalysisManager::Instance();
-        // fill ntuple
-        analysisManager->FillNtupleDColumn(ID, 0, edep / MeV);
-        analysisManager->FillNtupleDColumn(ID, 1, aStep->GetTrack()->GetPosition().x() / cm);
-        analysisManager->FillNtupleDColumn(ID, 2, aStep->GetTrack()->GetPosition().y() / cm);
-        analysisManager->FillNtupleDColumn(ID, 3, aStep->GetTrack()->GetPosition().z() / cm);
-        analysisManager->FillNtupleDColumn(ID, 4, aStep->GetTrack()->GetGlobalTime() / ns);
-        analysisManager->FillNtupleDColumn(ID, 5, aStep->GetStepLength() / cm);
-        analysisManager->FillNtupleIColumn(ID, 6, photons);
-        analysisManager->FillNtupleIColumn(ID, 7, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());
-        analysisManager->AddNtupleRow(ID);
+    if (edep == 0.) return false;
+
+    //  ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
+    /* 
+        std::map<G4String, int> *mapOfntIDs = cfMgr->getMapOfntIDs();
+        //const G4String name = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
+        const G4String name = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() + "_Tracker";
+        //G4int ID = 0;
+        std::map<G4String, int>::iterator iter = mapOfntIDs->find(name);
+        G4int ID = (*mapOfntIDs)[name];
+#include "SimTrajectory.hh"
+     */
+    G4Track* aTrack = aStep->GetTrack();
+    /*
+        std::cout << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName()
+                << " Track ID: " << aTrack->GetTrackID() << "  Parent ID:  " << aTrack->GetParentID()
+                << " step number:  " << aTrack->GetCurrentStepNumber() << " Edep:  " << edep * MeV
+                << " First:  " << aStep->IsFirstStepInVolume()
+                << " Last:  " << aStep->IsLastStepInVolume()
+                << " pos:  " << aStep->GetPostStepPoint()->GetPosition().getX() << ","
+                << aStep->GetPostStepPoint()->GetPosition().getY() << ","
+                << aStep->GetPostStepPoint()->GetPosition().getZ()
+                << std::endl;
+     */
+    float xpos = (float) aStep->GetPostStepPoint()->GetPosition().getX();
+    float ypos = (float) aStep->GetPostStepPoint()->GetPosition().getY();
+    float zpos = (float) aStep->GetPostStepPoint()->GetPosition().getZ();
+    ///SimStep* st = new SimStep(xpos, ypos, zpos, (float) aStep->GetStepLength(), (float) aStep->GetPostStepPoint()->GetGlobalTime(), (float) aStep->GetTotalEnergyDeposit());
+    ///stVector.push_back(st);
+    //G4Track* aTrack = aStep->GetTrack();
+
+    auto itr = tmap->find(aTrack->GetTrackID());
+    if (itr == tmap->end()) // new track
+    {
+        SimTrajectory* simtr = new SimTrajectory(aTrack->GetTrackID());
+        std::vector<SimStep*>* simsteps = simtr->GetTrajectory();
+        SimStep* st = new SimStep(xpos, ypos, zpos, (float) aStep->GetStepLength(), (float) aStep->GetPostStepPoint()->GetGlobalTime(), (float) aStep->GetTotalEnergyDeposit());
+        simsteps->push_back(st);
+        tmap->insert(std::make_pair(aTrack->GetTrackID(), simtr));
+    } else {
+        SimTrajectory* simtr = itr->second;
+        std::vector<SimStep*>* simsteps = simtr->GetTrajectory();
+        SimStep* st = new SimStep(xpos, ypos, zpos, (float) aStep->GetStepLength(), (float) aStep->GetPostStepPoint()->GetGlobalTime(), (float) aStep->GetTotalEnergyDeposit());
+        simsteps->push_back(st);
     }
+
     return true;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void TrackerSD::EndOfEvent(G4HCofThisEvent*) {
+    RootIO::GetInstance()->Write(tmap);
+    //RootIO::GetInstance()->Write(&stVector);
+    //std::cout<<"****************:   "<<stVector.size()<<std::endl;
+    for (auto itr = tmap->begin(); itr != tmap->end(); itr++) {
+        for (auto itr2=(itr->second)->GetTrajectory()->begin();itr2!=(itr->second)->GetTrajectory()->end();itr2++)
+        {delete *itr2;
+        }
+        itr->second->GetTrajectory()->clear();
+        delete (itr->second);
+    }
+    tmap->clear();
+    //    for (auto itr = tmap->begin(); itr != tmap->end(); itr++)
+    //        cout << "ID:  " << itr->first << "  steps:  " << (itr->second)->GetTrajectory()->size() << '\n';
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
