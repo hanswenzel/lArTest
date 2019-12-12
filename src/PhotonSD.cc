@@ -40,9 +40,9 @@ PhotonSD::PhotonSD(G4String name)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void PhotonSD::Initialize(G4HCofThisEvent* ) {
+void PhotonSD::Initialize(G4HCofThisEvent*) {
     pVector->clear();
-   // UNUSED(hce); // avoiding unused parameter ‘HCE’ compiler message 
+    // UNUSED(hce); // avoiding unused parameter ‘HCE’ compiler message 
 }
 
 
@@ -102,13 +102,13 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     }
 
 
-    PhotonHit* newHit = new PhotonHit();
-    //    newHit->SetProcessID(theCreationProcessid);
-    newHit->SetEnergy(theEdep);
-    newHit->SetTime(aStep->GetTrack()->GetGlobalTime() / ns);
-    newHit->SetXpos(aStep->GetTrack()->GetMomentumDirection().getX());
-    newHit->SetYpos(aStep->GetTrack()->GetMomentumDirection().getY());
-    newHit->SetZpos(aStep->GetTrack()->GetMomentumDirection().getZ());
+    PhotonHit* newHit = new PhotonHit(
+            (float) aStep->GetTrack()->GetMomentumDirection().getX()/ CLHEP::cm,
+            (float) aStep->GetTrack()->GetMomentumDirection().getY()/ CLHEP::cm,
+            (float) aStep->GetTrack()->GetMomentumDirection().getZ()/ CLHEP::cm,
+            (float) theEdep/CLHEP::MeV,
+            (float) (aStep->GetTrack()->GetGlobalTime())/CLHEP::ns);
+
     pVector->push_back(newHit);
 
     theTrack->SetTrackStatus(fStopAndKill);

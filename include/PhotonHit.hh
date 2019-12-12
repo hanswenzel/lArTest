@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /* 
  * File:   PhotonHit.hh
@@ -17,10 +12,16 @@
 class PhotonHit {
 public:
     PhotonHit();
-
+    PhotonHit(float xp,
+            float yp,
+            float zp,
+            float en,
+            float ti);
     PhotonHit(const PhotonHit& orig);
     virtual ~PhotonHit();
-
+    const PhotonHit& operator=(const PhotonHit&);
+    bool operator==(const PhotonHit&) const;
+    
     void SetTime(float t) {
         this->time = t;
     }
