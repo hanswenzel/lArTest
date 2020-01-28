@@ -6,6 +6,8 @@
 <class name="std::vector<SimStep*>"/>
 <class name="PhotonHit"/>
 <class name="std::vector<PhotonHit*>"/>
+<class name="AuxDetHit"/>
+<class name="std::vector<AuxDetHit*>"/>
 <class name="SimEnergyDeposit"/>
 <class name="std::vector<SimEnergyDeposit*>"/>
 </lcgdict>

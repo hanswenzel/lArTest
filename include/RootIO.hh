@@ -9,6 +9,7 @@
 #include "TSystem.h"
 #pragma GCC diagnostic pop
 #include "SimStep.hh"
+#include "AuxDetHit.hh"
 #include "SimTrajectory.hh"
 #include "SimEnergyDeposit.hh"
 #include "PhotonHit.hh"
@@ -19,8 +20,10 @@ public:
 
     static RootIO* GetInstance();
     void Write(std::vector<PhotonHit*>* );
+    void Write(std::vector<AuxDetHit*>* );
     void Write(std::vector<SimEnergyDeposit*>* );
     void Write(std::map<int,SimTrajectory*>*);
+    
     void Close();
 
 protected:

@@ -16,6 +16,7 @@
 #include "RunAction.hh"
 #include "EventAction.hh"
 #include "SteppingAction.hh"
+#include "HadStackingAction.hh"
 #include "DetectorConstruction.hh"
 
 //ActionInitialization::ActionInitialization
@@ -23,20 +24,22 @@
 // : G4VUserActionInitialization(),
 //   fDetConstruction(detConstruction)
 //{}
-ActionInitialization::ActionInitialization(): G4VUserActionInitialization(){}
-ActionInitialization::~ActionInitialization()
-{}
 
-void ActionInitialization::BuildForMaster() const
-{
-  SetUserAction(new RunAction);
+ActionInitialization::ActionInitialization() : G4VUserActionInitialization() {
 }
 
-void ActionInitialization::Build() const
-{
-  SetUserAction(new PrimaryGeneratorAction);
-  SetUserAction(new RunAction);
-  EventAction* eventAction = new EventAction;
-  SetUserAction(eventAction);
-  SetUserAction(new SteppingAction);
-}  
+ActionInitialization::~ActionInitialization() {
+}
+
+void ActionInitialization::BuildForMaster() const {
+    SetUserAction(new RunAction);
+}
+
+void ActionInitialization::Build() const {
+    SetUserAction(new PrimaryGeneratorAction);
+    SetUserAction(new RunAction);
+    EventAction* eventAction = new EventAction;
+    SetUserAction(eventAction);
+    SetUserAction(new SteppingAction);
+    //SetUserAction(new HadStackingAction);
+}

@@ -1,5 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
+                       xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"          
+                       xs:noNamespaceSchemaLocation="SimpleExtension.xsd"> 
+
+    <extension>
+        <color name="magenta"     R="0.0"  G="1.0"  B="0.0"  A="1.0" />
+        <color name="green"       R="0.0"  G="1.0"  B="0.0"  A="1.0" />
+        <color name="red"         R="1.0"  G="0.0"  B="0.0"  A="1.0" />
+        <color name="blue"        R="0.0"  G="0.0"  B="1.0"  A="1.0" />
+        <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" /> 
+    </extension>
     <define>
         <constant name="TWOPI" value="2.*pi"/>
         <constant name="HALFPI" value="pi/2."/>
@@ -18,8 +28,8 @@
         <volume name="Paddle">
             <materialref ref="G4_PLEXIGLASS"/>
             <solidref ref="PaddleBox"/>
-            <auxiliary auxtype="SensDet" auxvalue="Tracker"/>
-            <auxiliary auxtype="Color" auxvalue="Blue"/>
+            <auxiliary auxtype="SensDet" auxvalue="AuxDet"/>
+            <colorref ref="blue"/> 
             <auxiliary auxtype="Solid" auxvalue="True"/>
         </volume> 
         <volume name="TOP">
@@ -29,7 +39,19 @@
                 <volumeref ref="Paddle"/>
                 <position name="Paddlepos1" unit="cm" x="0" y="0" z="0."/>
             </physvol>
-     </volume> 
+            <physvol name="pPaddle" copynumber="2">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos1" unit="cm" x="0" y="0" z="2."/>
+            </physvol>
+            <physvol name="pPaddle" copynumber="3">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos1" unit="cm" x="0" y="0" z="4."/>
+            </physvol>
+            <physvol name="pPaddle" copynumber="4">
+                <volumeref ref="Paddle"/>
+                <position name="Paddlepos1" unit="cm" x="0" y="0" z="6."/>
+            </physvol>
+        </volume> 
     </structure>
     <setup version="1.0" name="Default">
         <world ref="TOP"/>

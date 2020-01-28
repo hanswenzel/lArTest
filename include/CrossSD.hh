@@ -11,24 +11,25 @@
 //
 // Author: Hans Wenzel, Fermilab
 // -----------------------------------------------------
-#ifndef TrackerSD_h
-#define TrackerSD_h 1
+#ifndef CrossSD_h
+#define CrossSD_h 1
 
 #include "G4VSensitiveDetector.hh"
-#include <vector> 
+#include "SimStep.hh"
+#include "SimTrajectory.hh"
+#include <map> 
 class G4Step;
 class G4HCofThisEvent;
-class SimCluster;
-//class SimCluster;
+//class SimTrajectory;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-/// B2Tracker sensitive detector class
+/// B2Cross sensitive detector class
 
-class TrackerSD : public G4VSensitiveDetector {
+class CrossSD : public G4VSensitiveDetector {
 public:
-    TrackerSD(G4String name);
-    virtual ~TrackerSD();
+    CrossSD(G4String name);
+    virtual ~CrossSD();
 
     // methods from base class
     virtual void Initialize(G4HCofThisEvent* hitCollection);
@@ -36,7 +37,8 @@ public:
     virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
 private:
-    std::vector<SimCluster*> scVector;
+    std::map<int, SimTrajectory*>* tmap;
+    //std::vector<SimStep*> stVector;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

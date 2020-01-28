@@ -5,22 +5,28 @@
       <df name="include">
         <in>ActionInitialization.hh</in>
         <in>Analysis.hh</in>
+        <in>AuxDetHit.hh</in>
+        <in>AuxDetSD.hh</in>
         <in>ColorReader.hh</in>
         <in>ConfigurationManager.hh</in>
         <in>ConfigurationManagerMessenger.hh</in>
+        <in>CrossSD.hh</in>
         <in>DetectorConstruction.hh</in>
         <in>EventAction.hh</in>
+        <in>HadStackingAction.hh</in>
         <in>MemoryService.hh</in>
         <in>PhotonHit.hh</in>
         <in>PhotonSD.hh</in>
         <in>PrimaryGeneratorAction.hh</in>
         <in>RootIO.hh</in>
         <in>RunAction.hh</in>
+        <in>SimCluster.hh</in>
         <in>SimEnergyDeposit.hh</in>
         <in>SimEnergyDepositSD.hh</in>
         <in>SimStep.hh</in>
         <in>SimTrajectory.hh</in>
         <in>SteppingAction.hh</in>
+        <in>TempHit.hh</in>
         <in>TrackerSD.hh</in>
         <in>lArTestClasses.hh</in>
       </df>
@@ -31,17 +37,21 @@
       </df>
       <df name="src">
         <in>ActionInitialization.cc</in>
+        <in>AuxDetSD.cc</in>
         <in>ColorReader.cc</in>
         <in>ConfigurationManager.cc</in>
         <in>ConfigurationManagerMessenger.cc</in>
+        <in>CrossSD.cc</in>
         <in>DetectorConstruction.cc</in>
         <in>EventAction.cc</in>
+        <in>HadStackingAction.cc</in>
         <in>MemoryService.cc</in>
         <in>PhotonHit.cc</in>
         <in>PhotonSD.cc</in>
         <in>PrimaryGeneratorAction.cc</in>
         <in>RootIO.cc</in>
         <in>RunAction.cc</in>
+        <in>SimCluster.cc</in>
         <in>SimEnergyDeposit.cc</in>
         <in>SimEnergyDepositSD.cc</in>
         <in>SimStep.cc</in>

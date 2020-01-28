@@ -14,7 +14,7 @@
 #include "SimTrajectory.hh"
 #include "SimStep.hh"
 
-SimTrajectory::SimTrajectory() : TrackID(0),trajectory(0) {
+SimTrajectory::SimTrajectory() : TrackID(0), trajectory(0) {
     trajectory = new std::vector<SimStep*>();
 }
 
@@ -28,6 +28,9 @@ SimTrajectory::SimTrajectory(const SimTrajectory& orig) {
 }
 
 SimTrajectory::~SimTrajectory() {
+    for (auto step = trajectory->begin(); step != trajectory->end(); ++step) {
+        delete *step;
+    }
     delete trajectory;
 }
 

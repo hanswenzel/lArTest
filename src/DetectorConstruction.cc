@@ -49,6 +49,7 @@
 #include "TrackerSD.hh"
 #include "SimEnergyDepositSD.hh"
 #include "PhotonSD.hh"
+#include "AuxDetSD.hh"
 #include <stdlib.h>   
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
@@ -95,6 +96,16 @@ void DetectorConstruction::ConstructSDandField() {
                     std::cout << "Attaching sensitive Detector: " << (*vit).value
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
                     //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
+                } else if ((*vit).value == "AuxDet") {
+                    G4String name = ((*iter).first)->GetName() + "_AuxDet";
+                    AuxDetSD* aAuxDetSD = new AuxDetSD(name);
+                    SDman->AddNewDetector(aAuxDetSD);
+                    sdnames->push_back(name);
+                    std::cout << "new size: " << sdnames->size() << std::endl;
+                    ((*iter).first)->SetSensitiveDetector(aAuxDetSD);
+                    std::cout << "Attaching sensitive Detector: " << (*vit).value
+                            << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
+                    //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));  
                 } else if ((*vit).value == "Tracker") {
                     G4String name = ((*iter).first)->GetName() + "_Tracker";
                     TrackerSD* aTrackerSD = new TrackerSD(name);
@@ -105,7 +116,7 @@ void DetectorConstruction::ConstructSDandField() {
                     std::cout << "Attaching sensitive Detector: " << (*vit).value
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
                     //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));                
-               } else if ((*vit).value == "SimEnergyDeposit") {
+                } else if ((*vit).value == "SimEnergyDeposit") {
                     G4String name = ((*iter).first)->GetName() + "_SimEnergyDeposit";
                     SimEnergyDepositSD* aSimEnergyDepositSD = new SimEnergyDepositSD(name);
                     SDman->AddNewDetector(aSimEnergyDepositSD);
@@ -115,7 +126,7 @@ void DetectorConstruction::ConstructSDandField() {
                     std::cout << "Attaching sensitive Detector: " << (*vit).value
                             << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
                     //DetectorList.push_back(std::make_pair((*iter).first->GetName(), (*vit).value));
-                } 
+                }
             } else if ((*vit).type == "StepLimit") {
                 G4double value = atof((*vit).value);
                 G4double val_unit = 1; //--no unit
@@ -125,7 +136,7 @@ void DetectorConstruction::ConstructSDandField() {
                     val_unit = G4UnitDefinition::GetValueOf((*vit).unit);
                     value *= val_unit; //-- Now do something with the value, making sure that the unit is appropriate
                     provided_category = G4UnitDefinition::GetCategory((*vit).unit);
-                    std::cout << "AuxUnit provided_category:  " <<provided_category<<std::endl;
+                    std::cout << "AuxUnit provided_category:  " << provided_category << std::endl;
                 }
                 G4UserLimits *fStepLimit = new G4UserLimits(atof((*vit).value));
                 G4String steplimit_category = "Length";

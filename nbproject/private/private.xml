@@ -10,18 +10,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wenzel/trajectory/lArTest/tinylArBox_color.gdml</file>
-            <file>file:/home/wenzel/trajectory/lArTest/src/DetectorConstruction.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/PhotonHit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/ColorReader.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/PhotonSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/TrackerSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/PhotonHit.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDepositSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDeposit.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SimTrajectory.hh</file>
-            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDepositSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/ColorReader.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/pi+.in</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/TrackerSD.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/PhotonSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/ActionInitialization.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SteppingAction.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/RootIO.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDeposit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/paddle.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/HadStackingAction.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/lArTest.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/readHits.C</file>
+            <file>file:/home/wenzel/trajectory/lArTest/tinylArBox_color.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/DetectorConstruction.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/lArTub_sm.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/HadStackingAction.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDepositSD.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/vis.mac</file>
+            <file>file:/home/wenzel/trajectory/lArTest/lArTarget.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/muons.in</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SimStep.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/lArDet_split.gdml</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimStep.cc</file>
-            <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDeposit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/SimpleExtension.xsd</file>
             <file>file:/home/wenzel/trajectory/lArTest/CMakeLists.txt</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimTrajectory.cc</file>
         </group>
