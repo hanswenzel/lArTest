@@ -197,7 +197,7 @@ public:
             bool iislastinVolume, // Geant4  is last in Vol/home/wenzel/trajectory/lArTest/include/TempHit.hh:15:18: error: ‘ int TempHit::ID’ is privateume
          */
         std::cout << "Begin position x,y,z (cm) time (ns) of particle: " << entryX << "  " << entryY << "  " << entryZ << "  " << entryT << std::endl;
-        std::cout << "end position x,y,z (cm) time (ns) of particle: " << exitX << "  " << exitY << "  " << exitZ << "  " << exitT << std::endl;
+        std::cout << "AuxDetSD.ccend position x,y,z (cm) time (ns) of particle: " << exitX << "  " << exitY << "  " << exitZ << "  " << exitT << std::endl;
         std::cout << "end momentum px,py,pz (MeV) of particle: " << exitMomentumX << "  " << exitMomentumY << "  " << exitMomentumZ << std::endl;
     }
 

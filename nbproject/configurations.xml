@@ -118,6 +118,7 @@
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
@@ -149,6 +150,7 @@
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
@@ -181,6 +183,7 @@
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
@@ -212,6 +215,7 @@
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>

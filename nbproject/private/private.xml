@@ -11,10 +11,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/wenzel/trajectory/lArTest/include/PhotonHit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/RootIO.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/ColorReader.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/PhotonSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/TrackerSD.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/PhotonHit.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/CrossSD.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDepositSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimEnergyDeposit.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SimTrajectory.hh</file>
@@ -24,12 +26,21 @@
             <file>file:/home/wenzel/trajectory/lArTest/include/PhotonSD.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/ActionInitialization.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SteppingAction.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/CrossSD.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/readHits.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/muons_tiny.in</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/RootIO.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/xml/selection.xml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/AuxDetSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SimEnergyDeposit.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/EventAction.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/paddle.gdml</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/HadStackingAction.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/src/SimCluster.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/lArTest.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/lArTestClasses.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/readHits.C</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/SimCluster.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/tinylArBox_color.gdml</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/DetectorConstruction.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/lArTub_sm.gdml</file>
@@ -40,9 +51,12 @@
             <file>file:/home/wenzel/trajectory/lArTest/muons.in</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SimStep.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/lArDet_split.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/AuxDetHit.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimStep.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/TempHit.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/SimpleExtension.xsd</file>
             <file>file:/home/wenzel/trajectory/lArTest/CMakeLists.txt</file>
+            <file>file:/home/wenzel/trajectory/lArTest/include/AuxDetSD.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SimTrajectory.cc</file>
         </group>
     </open-files>
