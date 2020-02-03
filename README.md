@@ -27,7 +27,7 @@ mkdir lArTest-build
 
 cd lArTest-build
 
-cmake ../lArTest/ -DCMAKE_INSTALL_PREFIX=../lArTest-install
+cmake ../lArTest/ -DCMAKE_INSTALL_PREFIX=../lArTest-install -DWITH_GEANT4_UIVIS=ON 
 
 make install
 
