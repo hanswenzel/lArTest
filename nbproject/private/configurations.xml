@@ -26,6 +26,7 @@
         <in>SimStep.hh</in>
         <in>SimTrajectory.hh</in>
         <in>SteppingAction.hh</in>
+        <in>SteppingKillAction.hh</in>
         <in>TempHit.hh</in>
         <in>TrackerSD.hh</in>
         <in>lArTestClasses.hh</in>
@@ -57,6 +58,7 @@
         <in>SimStep.cc</in>
         <in>SimTrajectory.cc</in>
         <in>SteppingAction.cc</in>
+        <in>SteppingKillAction.cc</in>
         <in>TrackerSD.cc</in>
       </df>
       <df name="xml">

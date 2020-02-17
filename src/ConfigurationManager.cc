@@ -25,7 +25,7 @@ ConfigurationManager* ConfigurationManager::instance = 0;
 ConfigurationManager::ConfigurationManager() {
     confMessenger = new ConfigurationManagerMessenger(this);
     writeHits = true;       // by default we write hits
-    doAnalysis = true;      // by default we do analysis
+    doAnalysis = false;      // by default we do not doanalysis
     debugEvent = false;     // by default we do not debug event
     doProfile = false;      // by default we do not profile
     SDNames = new std::vector<G4String>();

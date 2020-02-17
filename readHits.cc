@@ -13,12 +13,19 @@
 #include "include/SimStep.hh"
 #include "include/SimTrajectory.hh"
 #include "include/AuxDetHit.hh"
-
+#include "include/PhotonHit.hh"
+//h = Planck's constant = 4.135667516 x 10-15 eV*s
+//c = speed of light = 299792458 m/s
+double h=4.135667516e-15;
+double c=2.99792458*1e17;
+double hc=h*c;
 int main(int argc, char** argv) {
     // initialize ROOT
     TH1F *hpx = new TH1F("hpx", "CRT MIP energy deposit distribution", 100, 0, 3);
     TH1F *ez = new TH1F("ez", "entry z", 100, -1, 10.);
     TH1F *exz = new TH1F("exz", "exit z", 100, -1, 10.);
+    TH2F *xy = new TH2F("xy", "xy", 100, -.15, 0.15, 100, -0.15, 0.15);
+    TH1F *lam = new TH1F("lam", "lambda", 100, 0, 800.);
     TSystem ts;
     gSystem->Load("liblArTestClassesDict");
     if (argc < 2) std::cout << "Missing name of the file to read!" << std::endl;
@@ -28,6 +35,7 @@ int main(int argc, char** argv) {
     std::map<int, SimTrajectory*>* tmap;
     std::vector<SimStep*>* trajectory;
     std::vector<AuxDetHit*>* hitmap;
+    std::vector<PhotonHit*>* Photonhitmap;
     fo.GetListOfKeys()->Print();
     TIter next(fo.GetListOfKeys());
     TKey *key;
@@ -95,11 +103,31 @@ int main(int argc, char** argv) {
                  */
             }
         }
+        fo.GetObject(key->GetName(), Photonhitmap);
+        std::cout << "Collection: " << key->GetName() << std::endl;
+        key->Print();
+
+        Collectionname = key->GetName();
+        std::string s5(Collectionname);
+        std::string s6("PhotonHit");
+        found = s5.find(s6);
+        if (found == 0) {
+            std::cout << "Number of PhotonHits: " << Photonhitmap->size() << std::endl;
+            for (auto itr = Photonhitmap->begin(); itr != Photonhitmap->end(); itr++) {
+                xy->Fill((*itr)->GetXpos(), (*itr)->GetYpos());
+                double lambda = hc/((*itr)->GetEnergy()*1.e6);
+                std::cout << hc<< "  "<<(*itr)->GetEnergy()*1.e6<<"  "<<lambda << std::endl;
+                lam->Fill(lambda);
+            }
+
+        }
     }
     TFile hfile("hsimple.root", "RECREATE", "Demo ROOT file with histograms");
     hpx->Write();
     ez->Write();
     exz->Write();
+    xy->Write();
+    lam->Write();
     hfile.Write();
     hfile.Close();
 

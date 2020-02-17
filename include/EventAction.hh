@@ -44,7 +44,7 @@ public: // Without description
   void InstanciateSteppingAction();      
 
   //IgProf Service
-  void (*dump_)(const char *);
+  //void (*dump_)(const char *);
   
 private:
 

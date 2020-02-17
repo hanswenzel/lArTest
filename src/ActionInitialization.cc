@@ -16,6 +16,7 @@
 #include "RunAction.hh"
 #include "EventAction.hh"
 #include "SteppingAction.hh"
+#include "SteppingKillAction.hh"
 #include "HadStackingAction.hh"
 #include "DetectorConstruction.hh"
 
@@ -40,6 +41,6 @@ void ActionInitialization::Build() const {
     SetUserAction(new RunAction);
     EventAction* eventAction = new EventAction;
     SetUserAction(eventAction);
-    SetUserAction(new SteppingAction);
+    SetUserAction(new SteppingKillAction);
     //SetUserAction(new HadStackingAction);
 }

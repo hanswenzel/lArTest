@@ -68,12 +68,13 @@ void RootIO::Write(std::vector<SimEnergyDeposit*>* pc) {
 }
 
 void RootIO::Write(std::vector<PhotonHit*>* pc) {
+    fNevents++;
     std::ostringstream os;
     os << fNevents;
     std::string stevt = "PhotonHit_" + os.str();
     const char* chevt = stevt.c_str();
     if (pc->size() != 0) {
-       // G4cout << "writing " << stevt << G4endl;
+        G4cout << "*********************************************************writing " << stevt << G4endl;
         fFile->WriteObject(pc, chevt);
     }
 }

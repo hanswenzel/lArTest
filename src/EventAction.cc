@@ -46,7 +46,7 @@ EventAction::EventAction():
 #ifdef MEMCHECK
   eventMemory = new MemoryService();
 #endif
-
+/*
   //instantiate igprof service
   if (void *sym = dlsym(0, "igprof_dump_now")) {
     dump_ = __extension__ (void(*)(const char *)) sym;
@@ -55,6 +55,7 @@ EventAction::EventAction():
     G4cout << "Heap profile requested but application is not "
   		<< "currently being profiled with igprof" << G4endl;
   }
+ */
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -118,13 +119,13 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 
 
     // igprof service: snapshot live memory on the heap for every 25 events.
-
+/*
     if ( dump_ && evt->GetEventID() % 25 == 0 ) { 
       char outfile[256];
       sprintf(outfile,"|gzip -9c > IgProf.%d.gz",evt->GetEventID()+1);
       dump_(outfile);
     }
-
+*/
     // emulating the framework printout, here note the +1s
 
     double eventCpuTime = eventTimer->GetUserElapsed() 

@@ -29,6 +29,7 @@
         <in>SimStep.cc</in>
         <in>SimTrajectory.cc</in>
         <in>SteppingAction.cc</in>
+        <in>SteppingKillAction.cc</in>
         <in>TrackerSD.cc</in>
       </df>
       <in>lArTest.cc</in>
@@ -75,6 +76,12 @@
           <buildCommand>${MAKE} -f Makefile install</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath>/home/wenzel/trajectory/lArTest-build/CMakeFiles/feature_tests.bin</executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>/home/wenzel/geant4.10.05.p01_install/include/Geant4</pElem>
+              <pElem>/home/wenzel/trajectory/lArTest/include</pElem>
+            </incDir>
+          </ccTool>
         </makeTool>
         <preBuild>
           <preBuildCommandWorkingDir>../lArTest-build</preBuildCommandWorkingDir>
@@ -92,8 +99,8 @@
         <ccTool>
           <incDir>
             <pElem>../../geant4.10.05.p01_install/include</pElem>
-            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>include</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>.</pElem>
             <pElem>../../geant4.10.05.p01-install/include/Geant4</pElem>
           </incDir>
@@ -105,27 +112,35 @@
             <pElem>include</pElem>
             <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
-            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
             <pElem>/usr/include/qt5/QtWidgets</pElem>
             <pElem>/usr/include/qt5/QtGui</pElem>
             <pElem>/usr/include/qt5/QtCore</pElem>
             <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
             <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>/usr/include/qt5/QtOpenGL</pElem>
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
-            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
             <Elem>G4VIS_USE</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
             <Elem>lArTestClassesDict_EXPORTS</Elem>
@@ -138,26 +153,34 @@
             <pElem>include</pElem>
             <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
-            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
             <pElem>/usr/include/qt5/QtWidgets</pElem>
             <pElem>/usr/include/qt5/QtGui</pElem>
             <pElem>/usr/include/qt5/QtCore</pElem>
             <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
             <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>/usr/include/qt5/QtOpenGL</pElem>
           </incDir>
           <preprocessorList>
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
-            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
             <Elem>G4VIS_USE</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
             <Elem>lArTestClassesDict_EXPORTS</Elem>
@@ -170,27 +193,35 @@
             <pElem>include</pElem>
             <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
-            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
             <pElem>/usr/include/qt5/QtWidgets</pElem>
             <pElem>/usr/include/qt5/QtGui</pElem>
             <pElem>/usr/include/qt5/QtCore</pElem>
             <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
             <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>/usr/include/qt5/QtOpenGL</pElem>
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
-            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
             <Elem>G4VIS_USE</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
           </preprocessorList>
@@ -202,27 +233,35 @@
             <pElem>include</pElem>
             <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
-            <pElem>../../geant4.10.05.p01_st_install/include/Geant4</pElem>
+            <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
             <pElem>/usr/include/qt5/QtWidgets</pElem>
             <pElem>/usr/include/qt5/QtGui</pElem>
             <pElem>/usr/include/qt5/QtCore</pElem>
             <pElem>/usr/lib64/qt5/mkspecs/linux-g++</pElem>
             <pElem>/usr/include/qt5/QtPrintSupport</pElem>
+            <pElem>/usr/include/qt5/QtOpenGL</pElem>
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
             <Elem>G4ANALYSIS_USE</Elem>
             <Elem>G4FPE_DEBUG</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
-            <Elem>G4MULTITHREADED</Elem>
             <Elem>G4UI_USE</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
             <Elem>G4USE_STD11</Elem>
             <Elem>G4VERBOSE</Elem>
             <Elem>G4VIS_USE</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
           </preprocessorList>
@@ -324,6 +363,10 @@
         </ccTool>
       </item>
       <item path="src/SteppingAction.cc" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/SteppingKillAction.cc" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>

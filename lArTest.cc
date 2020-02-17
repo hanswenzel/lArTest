@@ -40,6 +40,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 int main(int argc, char** argv) {
+    bool interactive = false;
     if (argc < 2) {
         G4cout << "Error! Mandatory input file is not specified!" << G4endl;
         G4cout << G4endl;
@@ -50,10 +51,16 @@ int main(int argc, char** argv) {
     }
     //
     // Detect interactive mode (if only one argument) and define UI session
-   G4UIExecutive* ui = 0;
+
+#ifdef G4UI_USE
+    G4UIExecutive* ui = nullptr;
+#endif
     if (argc == 2) {
+        interactive = true;
+#ifdef G4UI_USE
         ui = new G4UIExecutive(argc, argv);
-}
+#endif
+    }
     //choose the Random engine
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
 
@@ -64,7 +71,7 @@ int main(int argc, char** argv) {
     // Construct the default run manager
 #ifdef G4MULTITHREADED
     //the default number of threads
-    G4int nThreads = 1;
+    G4int nThreadcs = 1;
     //set it from the -t option is provided
     for (G4int i = 1; i < argc; i = i + 2) {
         if (G4String(argv[i]) == "-t") {
@@ -100,12 +107,9 @@ int main(int argc, char** argv) {
     g4pcr->PrintAvailablePhysicsConstructors();
     g4plr->PrintAvailablePhysLists();
     g4alt::G4PhysListFactory factory;
-    G4VModularPhysicsList* phys = NULL;
-    //    G4String physName = "Shielding";
+    G4VModularPhysicsList* phys = nullptr;
     G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
-    //    G4String physName = "FTFP_BERT+G4OpticalPhysics+STEPLIMIT+NEUTRONLIMIT";
-    //    G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics+G4NeutronTrackingCut";
-    // 
+    //
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
     // using the name doesn't work either
@@ -120,14 +124,13 @@ int main(int argc, char** argv) {
         phys->RegisterPhysics(opticalPhysics);
         // Cerenkov off by default
      */
-    
+
     G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
     //G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("G4OpticalPhysics");
-    opticalPhysics->Configure(kCerenkov, false);
+    opticalPhysics->Configure(kCerenkov, true);
     opticalPhysics->SetCerenkovStackPhotons(true);
-    // Scintillation on by default, optical photons are not put on the stack 
-    opticalPhysics->Configure(kWLS,false);
+    opticalPhysics->Configure(kWLS, false);
     opticalPhysics->Configure(kScintillation, false);
     opticalPhysics->SetScintillationYieldFactor(1.0);
     opticalPhysics->SetScintillationExcitationRatio(0.0);
@@ -139,7 +142,7 @@ int main(int argc, char** argv) {
     opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); // only relevant if we actually stack and trace the optical photons
     opticalPhysics->SetMaxNumPhotonsPerStep(100);
     opticalPhysics->SetMaxBetaChangePerStep(10.0);
-     
+
 
     /*
     G4NeutronTrackingCut * neutrcut = (G4NeutronTrackingCut*) phys->GetPhysics("neutronTrackingCut");
@@ -154,42 +157,42 @@ int main(int argc, char** argv) {
     DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
     runManager->SetUserInitialization(detConstruction);
     runManager->SetUserInitialization(phys);
-    //set user action classes
-    //ActionInitialization* actionInitialization = 
-    //  new ActionInitialization(detConstruction);
     ActionInitialization* actionInitialization = new ActionInitialization();
     runManager->SetUserInitialization(actionInitialization);
 
-#ifdef G4VIS_USE
     //
     // Initialize visualization
     //
-    G4VisManager* visManager = new G4VisExecutive;
-    visManager->Initialize();
-
-    //get the pointer to the User Interface manager
+#ifdef G4UI_USE
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
 #endif
-    // Process macro or start UI session
-    //
-    if (!ui) {
-        // batch mode
-        G4String command = "/control/execute ";
-        G4String fileName = argv[2];
-        UImanager->ApplyCommand(command + fileName);
-    } else {
-        // interactive mode
+    if (interactive) {
+#ifdef G4VIS_USE
+        G4VisManager* visManager = new G4VisExecutive;
+        visManager->Initialize();
+#endif
+        //get the pointer to the User Interface manager
+#ifdef G4UI_USE
         UImanager->ApplyCommand("/control/execute init_vis.mac");
         ui->SessionStart();
         delete ui;
+#endif
+#ifdef G4VIS_USE
+        delete visManager;
+#endif
+    } else {
+        // batch mode
+        G4String command = "/control/execute ";
+        G4String fileName = argv[2];
+#ifdef G4UI_USE
+        UImanager->ApplyCommand(command + fileName);
+#endif
     }
     // Job termination
     // Free the store: user actions, physics_list and detector_description are
     // owned and deleted by the run manager, so they should not be deleted 
     // in the main() program !
-#ifdef G4VIS_USE
-    delete visManager;
-#endif
+
     delete runManager;
 
     //stop time - the total elapsed time including initialization
