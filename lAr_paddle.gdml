@@ -10,40 +10,30 @@
         <color name="blue"        R="0.0"  G="0.0"  B="1.0"  A="1.0" />
         <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" /> 
     </extension>
+    <materials>
+    </materials>
     <solids>
         <box name="WorldBox" lunit="cm" x="100" y="100" z="410"/>
-        <box name="PaddleBox"  lunit="cm" x="20.0" y="5." z=".5"/>
+        <box name="PaddleBox"  lunit="cm" x="20.0" y="20." z=".5"/>
     </solids>
     <structure>
         <volume name="Paddle">
-            <materialref ref="G4_PLEXIGLASS"/>
+            <materialref ref="G4_lAr"/>
             <solidref ref="PaddleBox"/>
+            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
             <colorref ref="blue"/> 
-            <auxiliary auxtype="SensDet" auxvalue="AuxDet"/>
             <auxiliary auxtype="Solid" auxvalue="True"/>
         </volume> 
         <volume name="TOP">
-            <materialref ref="G4_AIR"/>
+            <materialref ref="G4_Galactic"/>
             <solidref ref="WorldBox"/>
-            <physvol name="pPaddle1" copynumber="1">
+            <physvol name="pPaddle" copynumber="1">
                 <volumeref ref="Paddle"/>
                 <position name="Paddlepos1" unit="cm" x="0" y="0" z="0."/>
             </physvol>
-            <physvol name="pPaddle2" copynumber="2">
-                <volumeref ref="Paddle"/>
-                <position name="Paddlepos2" unit="cm" x="0" y="0" z="2."/>
-            </physvol>
-            <physvol name="pPaddle3" copynumber="3">
-                <volumeref ref="Paddle"/>
-                <position name="Paddlepos3" unit="cm" x="0" y="0" z="4."/>
-            </physvol>
-            <physvol name="pPaddle4" copynumber="4">
-                <volumeref ref="Paddle"/>
-                <position name="Paddlepos4" unit="cm" x="0" y="0" z="6."/>
-            </physvol>
         </volume> 
     </structure>
-    <setup version="1.0">
+    <setup version="1.0" name="Default">
         <world ref="TOP"/>
     </setup>
 </gdml_simple_extension>

@@ -49,6 +49,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>nbproject/private/launcher.properties</itemPath>
     </logicalFolder>
+    <itemPath>/home/wenzel/trajectory/lArTest/scan.sh</itemPath>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
@@ -63,8 +64,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <flagsDictionary>
-        <element flagsID="0" commonFlags="-pedantic -std=c++11 -fPIC -fPIC -std=c++11"/>
-        <element flagsID="1" commonFlags="-pedantic -std=c++11 -fPIC -std=c++11"/>
+        <element flagsID="0"
+                 commonFlags="-pedantic -std=c++11 -O3 -fPIC -fPIC -std=c++11"/>
+        <element flagsID="1" commonFlags="-pedantic -std=c++11 -O3 -fPIC -std=c++11"/>
         <element flagsID="2" commonFlags="-std=c++14"/>
       </flagsDictionary>
       <codeAssistance>
@@ -76,16 +78,10 @@
           <buildCommand>${MAKE} -f Makefile install</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath>/home/wenzel/trajectory/lArTest-build/CMakeFiles/feature_tests.bin</executablePath>
-          <ccTool>
-            <incDir>
-              <pElem>/home/wenzel/geant4.10.05.p01_install/include/Geant4</pElem>
-              <pElem>/home/wenzel/trajectory/lArTest/include</pElem>
-            </incDir>
-          </ccTool>
         </makeTool>
         <preBuild>
           <preBuildCommandWorkingDir>../lArTest-build</preBuildCommandWorkingDir>
-          <preBuildCommand>${CMAKE} -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=${IDE_CC} -DCMAKE_CXX_COMPILER=${IDE_CXX} -DCMAKE_C_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_CXX_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=../lArTest-install .</preBuildCommand>
+          <preBuildCommand>${CMAKE} -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=${IDE_CC} -DCMAKE_CXX_COMPILER=${IDE_CXX} -DCMAKE_C_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_CXX_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=../lArTest-install ../lArTest</preBuildCommand>
         </preBuild>
       </makefileType>
       <item path="../lArTest-build/lArTestClasses.cxx"
@@ -98,9 +94,9 @@
       <folder path="0/scripts">
         <ccTool>
           <incDir>
-            <pElem>../../geant4.10.05.p01_install/include</pElem>
-            <pElem>include</pElem>
             <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
+            <pElem>include</pElem>
+            <pElem>../../geant4.10.05.p01_install/include</pElem>
             <pElem>.</pElem>
             <pElem>../../geant4.10.05.p01-install/include/Geant4</pElem>
           </incDir>
@@ -110,7 +106,6 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
             <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
@@ -123,8 +118,6 @@
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>G4ANALYSIS_USE</Elem>
-            <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4INTY_USE_QT</Elem>
             <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
@@ -138,8 +131,10 @@
             <Elem>G4VIS_USE_OPENGLQT</Elem>
             <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>NDEBUG</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NO_DEBUG</Elem>
             <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
@@ -151,7 +146,6 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
             <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
@@ -163,8 +157,6 @@
             <pElem>/usr/include/qt5/QtOpenGL</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>G4ANALYSIS_USE</Elem>
-            <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4INTY_USE_QT</Elem>
             <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
@@ -178,8 +170,10 @@
             <Elem>G4VIS_USE_OPENGLQT</Elem>
             <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>NDEBUG</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NO_DEBUG</Elem>
             <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
@@ -191,7 +185,6 @@
         <ccTool flags="1">
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
             <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
@@ -204,8 +197,6 @@
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>G4ANALYSIS_USE</Elem>
-            <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4INTY_USE_QT</Elem>
             <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
@@ -219,8 +210,10 @@
             <Elem>G4VIS_USE_OPENGLQT</Elem>
             <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>NDEBUG</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NO_DEBUG</Elem>
             <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>
@@ -231,7 +224,6 @@
         <ccTool flags="1">
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../boost_1_63_0</pElem>
             <pElem>../../root-install/include</pElem>
             <pElem>../../geant4.10.05.p01_install/include/Geant4</pElem>
             <pElem>/usr/include/qt5</pElem>
@@ -244,8 +236,6 @@
             <pElem>../lArTest-build</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>G4ANALYSIS_USE</Elem>
-            <Elem>G4FPE_DEBUG</Elem>
             <Elem>G4INTY_USE_QT</Elem>
             <Elem>G4INTY_USE_XT</Elem>
             <Elem>G4LIB_BUILD_DLL</Elem>
@@ -259,8 +249,10 @@
             <Elem>G4VIS_USE_OPENGLQT</Elem>
             <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>G4_STORE_TRAJECTORY</Elem>
+            <Elem>NDEBUG</Elem>
             <Elem>QT_CORE_LIB</Elem>
             <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NO_DEBUG</Elem>
             <Elem>QT_OPENGL_LIB</Elem>
             <Elem>QT_PRINTSUPPORT_LIB</Elem>
             <Elem>QT_WIDGETS_LIB</Elem>

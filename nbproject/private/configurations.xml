@@ -34,7 +34,9 @@
       <df name="scripts">
         <in>Ana.C</in>
         <in>LAr.C</in>
+        <in>dEdx.C</in>
         <in>lArRoot.C</in>
+        <in>read.C</in>
       </df>
       <df name="src">
         <in>ActionInitialization.cc</in>
@@ -67,6 +69,7 @@
       <in>readHits.C</in>
       <in>readHits.cc</in>
     </df>
+    <itemPath>/home/wenzel/trajectory/lArTest/scan.sh</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

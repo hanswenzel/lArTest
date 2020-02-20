@@ -123,6 +123,7 @@ int main(int argc, char** argv) {
         }
     }
     TFile hfile("hsimple.root", "RECREATE", "Demo ROOT file with histograms");
+    std::cout << "Mean: "<< hpx->GetMean()<<std::endl;
     hpx->Write();
     ez->Write();
     exz->Write();

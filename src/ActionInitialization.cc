@@ -41,6 +41,6 @@ void ActionInitialization::Build() const {
     SetUserAction(new RunAction);
     EventAction* eventAction = new EventAction;
     SetUserAction(eventAction);
-    SetUserAction(new SteppingKillAction);
+    //SetUserAction(new SteppingKillAction);
     //SetUserAction(new HadStackingAction);
 }

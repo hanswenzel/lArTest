@@ -45,18 +45,16 @@ RootIO* RootIO::GetInstance() {
 
 void RootIO::Write(std::map<int, SimTrajectory*>* hcont) {
     fNevents++;
-
     std::ostringstream os;
     os << fNevents;
     std::string stevt = "Simtrajectory_" + os.str();
     const char* chevt = stevt.c_str();
     //G4cout << "writing " << stevt << G4endl;
     fFile->WriteObject(hcont, chevt);
-
 }
 
 void RootIO::Write(std::vector<SimEnergyDeposit*>* pc) {
-     fNevents++;
+    fNevents++;
     std::ostringstream os;
     os << fNevents;
     std::string stevt = "SimEnergyDeposit_" + os.str();
@@ -74,7 +72,6 @@ void RootIO::Write(std::vector<PhotonHit*>* pc) {
     std::string stevt = "PhotonHit_" + os.str();
     const char* chevt = stevt.c_str();
     if (pc->size() != 0) {
-        G4cout << "*********************************************************writing " << stevt << G4endl;
         fFile->WriteObject(pc, chevt);
     }
 }
@@ -85,8 +82,9 @@ void RootIO::Write(std::vector<AuxDetHit*>* pc) {
     os << fNevents;
     std::string stevt = "AuxDetHit_" + os.str();
     const char* chevt = stevt.c_str();
+    G4cout << "pc->size(): " << pc->size() <<G4endl;
     if (pc->size() != 0) {
-        //G4cout << "writing " << stevt << G4endl;
+        G4cout << "writing " << stevt << G4endl;
         fFile->WriteObject(pc, chevt);
     }
 }

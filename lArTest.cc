@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
     G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
     //G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("G4OpticalPhysics");
-    opticalPhysics->Configure(kCerenkov, true);
+    opticalPhysics->Configure(kCerenkov, false);
     opticalPhysics->SetCerenkovStackPhotons(true);
     opticalPhysics->Configure(kWLS, false);
     opticalPhysics->Configure(kScintillation, false);

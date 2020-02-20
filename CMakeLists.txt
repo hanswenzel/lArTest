@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 set(name lArTest)
-#set(Boost_NO_BOOST_CMAKE  ON)
 project(${name})
 
 #----------------------------------------------------------------------------
@@ -16,22 +15,17 @@ if(WITH_GEANT4_UIVIS)
 else()
    find_package(Geant4 REQUIRED)
 endif()
-
-if(WITH_GEANT4_UIVIliblArTestClassesDict.soS)
-  find_package(Geant4 REQUIRED ui_all vis_all)
-else()
-  find_package(Geant4 REQUIRED)
-endif()
-add_definitions(-DG4ANALYSIS_USE) 
+ 
 
 include(${Geant4_USE_FILE})
 
-
-#find_package(Boost REQUIRED)
-#if(NOT BOOST_FOUND)
-#  message(STATUS "lArTest: BOOST package not found. --> lArTest disabled")
-#  return()
-#endif()
+#----------------------------------------------------------------------------
+#
+##find_package(Boost REQUIRED)
+##if(NOT BOOST_FOUND)
+##  message(STATUS "lArTest: BOOST package not found. --> lArTest disabled")
+##  return()
+##endif()
 
 
 #----------------------------------------------------------------------------
@@ -46,25 +40,20 @@ if(ROOT_FOUND)
     message(FATAL_ERROR "lArTest requires ROOT 6")
   endif()
 endif()
-
 # Include ROOT's CMake functions for dictionary generation
+message(STATUS "Root Dir:  " ${ROOT_DIR})
 include("${ROOT_DIR}/modules/RootNewMacros.cmake")
 
 #----------------------------------------------------------------------------
-# P01 requires shared libraries
+#  lArTest requires shared libraries
 #
 if(NOT Geant4_shared_FOUND)
   message(FATAL_ERROR "lArTest must use shared libraries")
 endif()
 
-
-
-
-
-message(STATUS "${ROOT_USE_FILE}=${${ROOT_USE_FILE}}")
+message(STATUS "${ROOT_USE_FILE}")
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include
-                   /home/wenzel/boost_1_63_0  
                     ${Geant4_INCLUDE_DIR}
                     ${ROOT_INCLUDE_DIRS})
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
@@ -80,8 +69,7 @@ set_target_properties(lArTestClassesDict PROPERTIES ${ROOT_LIBRARY_PROPERTIES})
 target_link_libraries(lArTestClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 
-link_directories( /home/wenzel/boost_1_63_0/stage/lib
-                  ${ROOT_LIBRARY_DIR} )
+link_directories( ${ROOT_LIBRARY_DIR} )
 
 
 
@@ -111,4 +99,4 @@ install (TARGETS  readHits DESTINATION bin)
 install(TARGETS lArTestClassesDict DESTINATION lib)
 #install (TARGETS lAr DESTINATION lib)
 install(FILES ${PROJECT_BINARY_DIR}/lArTestClasses_rdict.pcm DESTINATION lib)
-install (FILES vis.mac init_vis.mac muons.in pi+.in muons_tiny.in profile.in protodune.gdml paddle.gdml lArTarget.gdml  tinysed.gdml CerenkovMinimal.gdml CerenkovMinimalG4.gdml tinylArBox_color.gdml materials.xml lArDet_split.gdml SimpleExtension.xsd scripts/Ana.C DESTINATION bin)
+install (FILES scan.sh vis.mac init_vis.mac muons.in pi+.in muons_tiny.in profile.in protodune.gdml paddle.gdml lAr_paddle.gdml lArTarget.gdml  tinysed.gdml CerenkovMinimal.gdml CerenkovMinimalG4.gdml tinylArBox_color.gdml materials.xml lArDet_split.gdml SimpleExtension.xsd scripts/Ana.C DESTINATION bin)

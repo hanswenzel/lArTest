@@ -27,7 +27,7 @@
 #include "G4VSolid.hh"
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
-//#define _verbose_ 1
+#define _verbose_ 1
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 AuxDetSD::AuxDetSD(G4String name)
