@@ -82,9 +82,9 @@ void RootIO::Write(std::vector<AuxDetHit*>* pc) {
     os << fNevents;
     std::string stevt = "AuxDetHit_" + os.str();
     const char* chevt = stevt.c_str();
-    G4cout << "pc->size(): " << pc->size() <<G4endl;
+    //G4cout << "pc->size(): " << pc->size() <<G4endl;
     if (pc->size() != 0) {
-        G4cout << "writing " << stevt << G4endl;
+       // G4cout << "writing " << stevt << G4endl;
         fFile->WriteObject(pc, chevt);
     }
 }

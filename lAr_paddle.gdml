@@ -20,7 +20,7 @@
         <volume name="Paddle">
             <materialref ref="G4_lAr"/>
             <solidref ref="PaddleBox"/>
-            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+            <auxiliary auxtype="SensDet" auxvalue="AuxDet"/>
             <colorref ref="blue"/> 
             <auxiliary auxtype="Solid" auxvalue="True"/>
         </volume> 

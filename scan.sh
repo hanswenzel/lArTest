@@ -15,7 +15,7 @@ rm -f run_mu_$i.mac
 /gun/energy $i MeV
 /gun/position 0. 0. -1. cm
 /gun/direction 0. 0. 1.
-/run/beamOn 100000
+/run/beamOn 10000
 EOF+
 ./lArTest lAr_paddle.gdml run_mu_$i.mac
 mv hits.root hits_$i.root

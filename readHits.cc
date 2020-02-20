@@ -21,7 +21,7 @@ double c=2.99792458*1e17;
 double hc=h*c;
 int main(int argc, char** argv) {
     // initialize ROOT
-    TH1F *hpx = new TH1F("hpx", "CRT MIP energy deposit distribution", 100, 0, 3);
+    TH1F *hpx = new TH1F("hpx", "CRT MIP energy deposit distribution", 200, 0, 5.);
     TH1F *ez = new TH1F("ez", "entry z", 100, -1, 10.);
     TH1F *exz = new TH1F("exz", "exit z", 100, -1, 10.);
     TH2F *xy = new TH2F("xy", "xy", 100, -.15, 0.15, 100, -0.15, 0.15);
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     std::vector<SimStep*>* trajectory;
     std::vector<AuxDetHit*>* hitmap;
     std::vector<PhotonHit*>* Photonhitmap;
-    fo.GetListOfKeys()->Print();
+    //fo.GetListOfKeys()->Print();
     TIter next(fo.GetListOfKeys());
     TKey *key;
     //double tot_en;
@@ -53,8 +53,8 @@ int main(int argc, char** argv) {
 
         fo.GetObject(key->GetName(), tmap);
 
-        std::cout << "Collection: " << key->GetName() << std::endl;
-        key->Print();
+        //std::cout << "Collection: " << key->GetName() << std::endl;
+        //key->Print();
 
         const char* Collectionname = key->GetName();
         std::string s(Collectionname);
@@ -79,8 +79,8 @@ int main(int argc, char** argv) {
             }
         }
         fo.GetObject(key->GetName(), hitmap);
-        std::cout << "Collection: " << key->GetName() << std::endl;
-        key->Print();
+        //std::cout << "Collection: " << key->GetName() << std::endl;
+        //key->Print();
 
         Collectionname = key->GetName();
         std::string s3(Collectionname);
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
         found = s3.find(s4);
         //s.compare(0, 13, s)
         if (found == 0) {
-            std::cout << "Number of AuxDetHits: " << hitmap->size() << std::endl;
+        //    std::cout << "Number of AuxDetHits: " << hitmap->size() << std::endl;
             for (auto itr = hitmap->begin(); itr != hitmap->end(); itr++) {
                 hpx->Fill((*itr)->GetEnergyDeposited());
                 ez->Fill((*itr)->GetEntryZ());
@@ -104,15 +104,15 @@ int main(int argc, char** argv) {
             }
         }
         fo.GetObject(key->GetName(), Photonhitmap);
-        std::cout << "Collection: " << key->GetName() << std::endl;
-        key->Print();
+       // std::cout << "Collection: " << key->GetName() << std::endl;
+        //key->Print();
 
         Collectionname = key->GetName();
         std::string s5(Collectionname);
         std::string s6("PhotonHit");
         found = s5.find(s6);
         if (found == 0) {
-            std::cout << "Number of PhotonHits: " << Photonhitmap->size() << std::endl;
+           // std::cout << "Number of PhotonHits: " << Photonhitmap->size() << std::endl;
             for (auto itr = Photonhitmap->begin(); itr != Photonhitmap->end(); itr++) {
                 xy->Fill((*itr)->GetXpos(), (*itr)->GetYpos());
                 double lambda = hc/((*itr)->GetEnergy()*1.e6);
