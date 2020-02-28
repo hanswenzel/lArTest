@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
     g4plr->PrintAvailablePhysLists();
     g4alt::G4PhysListFactory factory;
     G4VModularPhysicsList* phys = nullptr;
-    G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
+    G4String physName = "FTFP_BERT_EMZ+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
     //
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";

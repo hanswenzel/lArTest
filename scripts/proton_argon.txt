@@ -5,7 +5,7 @@ ARGON
 Kinetic   Electron. Nuclear   Total     CSDA      Projected Detour 
 Energy    Stp. Pow. Stp. Pow. Stp. Pow. Range     Range     Factor 
 MeV       MeV cm2/g MeV cm2/g MeV cm2/g g/cm2     g/cm2            
-
+-----------------------
 1.000E-03 8.608E+01 7.470E+00 9.355E+01 1.741E-05 4.206E-06 0.2416 
 1.500E-03 1.054E+02 6.891E+00 1.123E+02 2.223E-05 6.141E-06 0.2762 
 2.000E-03 1.217E+02 6.398E+00 1.281E+02 2.639E-05 8.047E-06 0.3049 

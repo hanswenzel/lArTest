@@ -6,6 +6,7 @@
 #include "TKey.h"
 #include "TH1.h"
 #include "TH2.h"
+#include "TF1.h"
 //
 #include <iostream>
 #include <map>
@@ -14,14 +15,16 @@
 #include "include/SimTrajectory.hh"
 #include "include/AuxDetHit.hh"
 #include "include/PhotonHit.hh"
+#include "include/SimEnergyDepositSD.hh"
 //h = Planck's constant = 4.135667516 x 10-15 eV*s
 //c = speed of light = 299792458 m/s
-double h=4.135667516e-15;
-double c=2.99792458*1e17;
-double hc=h*c;
+double h = 4.135667516e-15;
+double c = 2.99792458 * 1e17;
+double hc = h*c;
+
 int main(int argc, char** argv) {
     // initialize ROOT
-    TH1F *hpx = new TH1F("hpx", "CRT MIP energy deposit distribution", 200, 0, 5.);
+    TH1F *hpx = new TH1F("hpx", "CRT MIP energy deposit distribution", 200, 0, 15);
     TH1F *ez = new TH1F("ez", "entry z", 100, -1, 10.);
     TH1F *exz = new TH1F("exz", "exit z", 100, -1, 10.);
     TH2F *xy = new TH2F("xy", "xy", 100, -.15, 0.15, 100, -0.15, 0.15);
@@ -36,6 +39,7 @@ int main(int argc, char** argv) {
     std::vector<SimStep*>* trajectory;
     std::vector<AuxDetHit*>* hitmap;
     std::vector<PhotonHit*>* Photonhitmap;
+    std::vector<SimEnergyDeposit*>* sedvec;
     //fo.GetListOfKeys()->Print();
     TIter next(fo.GetListOfKeys());
     TKey *key;
@@ -50,7 +54,6 @@ int main(int argc, char** argv) {
         // {
         //   (*hits)[i]->Print();
         // }   
-
         fo.GetObject(key->GetName(), tmap);
 
         //std::cout << "Collection: " << key->GetName() << std::endl;
@@ -78,6 +81,27 @@ int main(int argc, char** argv) {
                 }
             }
         }
+        fo.GetObject(key->GetName(), sedvec);
+
+        //std::cout << "Collection: " << key->GetName() << std::endl;
+        //key->Print();
+
+        Collectionname = key->GetName();
+        std::string se(Collectionname);
+        std::string se2("SimEnergyDeposit");
+        found = se.find(se2);
+        //s.compare(0, 13, s)
+        if (found == 0) {
+            //            std::cout << "Number of SimEnergyDeposit: " << sedvec->size() << std::endl;
+            double totE = 0.0;
+            for (auto itr = sedvec->begin(); itr != sedvec->end(); itr++) {
+                if ((*itr)->GetZe() > 0.0 && (*itr)->GetZe() < .5) {
+                    totE = totE + (*itr)->GetEdep();
+                }
+            }
+            hpx->Fill(totE);
+        }
+
         fo.GetObject(key->GetName(), hitmap);
         //std::cout << "Collection: " << key->GetName() << std::endl;
         //key->Print();
@@ -88,7 +112,7 @@ int main(int argc, char** argv) {
         found = s3.find(s4);
         //s.compare(0, 13, s)
         if (found == 0) {
-        //    std::cout << "Number of AuxDetHits: " << hitmap->size() << std::endl;
+            //    std::cout << "Number of AuxDetHits: " << hitmap->size() << std::endl;
             for (auto itr = hitmap->begin(); itr != hitmap->end(); itr++) {
                 hpx->Fill((*itr)->GetEnergyDeposited());
                 ez->Fill((*itr)->GetEntryZ());
@@ -104,7 +128,7 @@ int main(int argc, char** argv) {
             }
         }
         fo.GetObject(key->GetName(), Photonhitmap);
-       // std::cout << "Collection: " << key->GetName() << std::endl;
+        // std::cout << "Collection: " << key->GetName() << std::endl;
         //key->Print();
 
         Collectionname = key->GetName();
@@ -112,19 +136,23 @@ int main(int argc, char** argv) {
         std::string s6("PhotonHit");
         found = s5.find(s6);
         if (found == 0) {
-           // std::cout << "Number of PhotonHits: " << Photonhitmap->size() << std::endl;
+            // std::cout << "Number of PhotonHits: " << Photonhitmap->size() << std::endl;
             for (auto itr = Photonhitmap->begin(); itr != Photonhitmap->end(); itr++) {
                 xy->Fill((*itr)->GetXpos(), (*itr)->GetYpos());
-                double lambda = hc/((*itr)->GetEnergy()*1.e6);
-                std::cout << hc<< "  "<<(*itr)->GetEnergy()*1.e6<<"  "<<lambda << std::endl;
+                double lambda = hc / ((*itr)->GetEnergy()*1.e6);
+                std::cout << hc << "  " << (*itr)->GetEnergy()*1.e6 << "  " << lambda << std::endl;
                 lam->Fill(lambda);
             }
 
         }
     }
     TFile hfile("hsimple.root", "RECREATE", "Demo ROOT file with histograms");
-    std::cout << "Mean: "<< hpx->GetMean()<<std::endl;
-    std::cout << "Mean: "<< hpx->Fit("landau")<<std::endl;
+    std::cout << "Mean: " << hpx->GetMean() << std::endl;
+    hpx->Fit("landau");
+    TF1 *g = (TF1*) hpx->GetListOfFunctions()->FindObject("landau");
+    std::cout << "0: " << g->GetParameter(0) << std::endl;
+    std::cout << "1: " << g->GetParameter(1) << std::endl;
+    std::cout << "2: " << g->GetParameter(2) << std::endl;
     hpx->Write();
     ez->Write();
     exz->Write();

@@ -49,7 +49,7 @@ public:
     inline float GetZ() const {
         return z;
     };
-    
+
     void SetY(float y);
 
     inline float GetY() const {
@@ -59,9 +59,26 @@ public:
 
     inline float GetX() const {
         return x;
+    }
+
+    double GetTe() const {
+        return te;
     };
+
+    float GetZe() const {
+        return ze;
+    };
+
+    float GetYe() const {
+        return ye;
+    };
+
+    float GetXe() const {
+        return xe;
+    }
+    ;
 private:
-    
+
     unsigned int nph;
     unsigned int nelec;
     unsigned int tid;

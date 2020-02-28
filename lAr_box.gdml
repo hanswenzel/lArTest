@@ -2,7 +2,6 @@
 <gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
                        xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"          
                        xs:noNamespaceSchemaLocation="SimpleExtension.xsd"> 
-
     <extension>
         <color name="magenta"     R="0.0"  G="1.0"  B="0.0"  A="1.0" />
         <color name="green"       R="0.0"  G="1.0"  B="0.0"  A="1.0" />
@@ -14,16 +13,16 @@
     </materials>
     <solids>
         <box name="WorldBox" lunit="cm" x="100" y="100" z="410"/>
-        <box name="PaddleBox"  lunit="cm" x="20.0" y="20." z="1."/>
+        <box name="PaddleBox"  lunit="cm" x="20.0" y="20." z="20."/>
     </solids>
     <structure>
         <volume name="Paddle">
             <materialref ref="G4_lAr"/>
             <solidref ref="PaddleBox"/>
-            <auxiliary auxtype="SensDet" auxvalue="AuxDet"/>
+            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
             <colorref ref="blue"/> 
-            <auxiliary auxtype="Solid" auxvalue="True"/>
             <auxiliary auxtype="StepLimit" auxvalue="0.1" auxunit="mm"/>
+            <auxiliary auxtype="Solid" auxvalue="True"/>
         </volume> 
         <volume name="TOP">
             <materialref ref="G4_Galactic"/>

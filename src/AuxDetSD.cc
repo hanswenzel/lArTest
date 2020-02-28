@@ -13,6 +13,7 @@
 // Author: Hans Wenzel (Fermilab)
 //=============================================================================
 #include<algorithm>
+#include <cmath>        // std::abs
 #include<unordered_set>
 #include "AuxDetSD.hh"
 #include "RootIO.hh"
@@ -116,7 +117,7 @@ void AuxDetSD::EndOfEvent(G4HCofThisEvent*) {
                     ));
         } else {
             trackId = it->GetTrackID();
-            std::cout << " N" << std::endl;
+            //std::cout << " N" << std::endl;
             counter++;
             setofIDs.clear();
             setofIDs.insert(it->GetTrackID());
@@ -146,10 +147,15 @@ void AuxDetSD::EndOfEvent(G4HCofThisEvent*) {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4bool AuxDetSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
-    G4double edep = step->GetTotalEnergyDeposit() / CLHEP::MeV;
-    if (edep == 0.) return false;
+    //    G4double edep = step->GetTotalEnergyDeposit() / CLHEP::MeV;
     G4Track * track = step->GetTrack();
     unsigned int trackID = track->GetTrackID();
+    //std::cout<<trackID<<std::endl;
+    if (trackID != 1) return false;
+    G4double edep = std::abs(step->GetDeltaEnergy());
+    if (edep == 0.) return false;
+
+
     const unsigned int ID = step->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
     TempHit tmpHit = TempHit(
             ID,

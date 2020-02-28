@@ -14,6 +14,7 @@
             <file>file:/home/wenzel/trajectory/lArTest/include/RootIO.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/ColorReader.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/PhotonSD.cc</file>
+            <file>file:/home/wenzel/trajectory/lArTest/scripts/proton_argon.txt</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/TrackerSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/PhotonSD.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/ActionInitialization.cc</file>
@@ -23,6 +24,7 @@
             <file>file:/home/wenzel/trajectory/lArTest/src/AuxDetSD.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/EventAction.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/SteppingKillAction.hh</file>
+            <file>file:/home/wenzel/trajectory/lArTest/scripts/scan_p.sh</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/lArTestClasses.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/DetectorConstruction.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/lArTub_sm.gdml</file>
@@ -32,6 +34,7 @@
             <file>file:/home/wenzel/trajectory/lArTest/src/EventAction.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/SteppingKillAction.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/CerenkovMinimal.gdml</file>
+            <file>file:/home/wenzel/trajectory/lArTest/lAr_box.gdml</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/Analysis.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/SimpleExtension.xsd</file>
             <file>file:/home/wenzel/trajectory/lArTest/CMakeLists.txt</file>
@@ -44,6 +47,7 @@
             <file>file:/home/wenzel/trajectory/lArTest/include/SimTrajectory.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/include/ColorReader.hh</file>
             <file>file:/home/wenzel/trajectory/lArTest/pi+.in</file>
+            <file>file:/home/wenzel/trajectory/lArTest/scripts/scanp.sh</file>
             <file>file:/home/wenzel/trajectory/lArTest/readHits.cc</file>
             <file>file:/home/wenzel/trajectory/lArTest/muons_tiny.in</file>
             <file>file:/home/wenzel/trajectory/lArTest/src/RootIO.cc</file>

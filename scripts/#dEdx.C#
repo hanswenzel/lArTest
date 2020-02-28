@@ -57,7 +57,7 @@ void dEdx() {
     string mmi = "Minimum ionization";
     string mce = "Muon critical energy";
     string header = "-----------------------";
-    ifstream myfilepdg("muE_liquid_argon.txt");
+    ifstream myfile("muE_liquid_argon.txt");
     bool head = true;
     vector<double> kinE;
     vector<double> momentum;
@@ -80,8 +80,8 @@ void dEdx() {
     const double A = 39.948; // Atomic mass
     const double I = 0.000188; // Mean excitation energy in MeV
 
-    if (myfilepdg.is_open()) {
-        while (getline(myfilepdg, line)) {
+    if (myfile.is_open()) {
+        while (getline(myfile, line)) {
 
             if (!head) {
                 std::size_t foundmmi = line.find(mmi);
@@ -99,8 +99,10 @@ void dEdx() {
                     ss.str("");
                     ss.clear();
                     ss << results.at(1);
+//                    double val;
                     ss >> val;
                     momentum.push_back(val);
+                    //                cout<<val<<endl;
                     ss.str("");
                     ss.clear();
                     ss << results.at(2);
@@ -152,7 +154,6 @@ void dEdx() {
         cout << "Unable to open file";
         exit(EXIT_FAILURE);
     }
-    myfilepdg.close();
     for (std::vector<double>::iterator it = momentum.begin(); it != momentum.end(); ++it) {
         //std::cout << *it<<"    "<<stoppingPower(mumass, mucharge,*it, density, Z, A, I)<<endl;
         bbion.push_back(stoppingPower(mumass, mucharge, *it, density, Z, A, I));
@@ -623,9 +624,5 @@ Double_t dEdxG4[nr]
     dEdxgrE->Write();
     ve->Write();
     _file0->Close();
-
-
-
-
 }
 
