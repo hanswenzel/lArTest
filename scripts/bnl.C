@@ -330,42 +330,115 @@ void bnl() {
         4.98638,
         2.30268
     };
-    */
-        Double_t loss_mup_emz[nbnl] = {
-    2.33644,
-2.23298,
-2.17515,
-2.14066,
-2.11962,
-2.10701,
-2.10248,
-2.10406,
-2.10694,
-2.11299,
-2.11336,
-2.12812,
-2.12655,
-2.13776,
-2.13811,
-2.14306,
-2.11282,
-2.14412,
-2.15401,
-2.16576,
-2.15677,
-2.17764,
-2.17979,
-2.2063,
-2.22711,
-2.2456,
-2.25909,
-2.26393,
-2.27984,
-2.28003,
-2.28989,
-2.28597,
-2.29926,
-2.30583};
+     */
+    Double_t loss_mup_MVP[nbnl] = {
+        0.983119,
+        0.932243,
+        0.896737,
+        0.877143,
+        0.862945,
+        0.849699,
+        0.842589,
+        0.836637,
+        0.832809,
+        0.828239,
+        0.826408,
+        0.825627,
+        0.826593,
+        0.826812,
+        0.828313,
+        0.829273,
+        0.830568,
+        0.832534,
+        0.83332,
+        0.835558,
+        0.837176,
+        0.83801,
+        0.840471,
+        0.852652,
+        0.863683,
+        0.870154,
+        0.874706,
+        0.880618,
+        0.884075,
+        0.886921,
+        0.889413,
+        0.891756,
+        0.892572,
+        0.894003
+    };
+    Double_t loss_p_MVP[nbnl] = {
+        3.47576,
+        2.95537,
+        2.64308,
+        2.34778,
+        2.12053,
+        1.9201,
+        1.78162,
+        1.68369,
+        1.61602,
+        1.46019,
+        1.3571,
+        1.27516,
+        1.23026,
+        1.168,
+        1.12096,
+        1.09337,
+        1.05956,
+        1.03621,
+        1.01819,
+        0.996382,
+        0.979871,
+        0.965543,
+        0.955225,
+        0.880099,
+        0.850591,
+        0.835162,
+        0.829018,
+        0.826159,
+        0.827859,
+        0.830084,
+        0.83352,
+        0.837088,
+        0.840872,
+        0.844135
+    };
+    Double_t loss_mup_emz[nbnl] = {
+        2.33644,
+        2.23298,
+        2.17515,
+        2.14066,
+        2.11962,
+        2.10701,
+        2.10248,
+        2.10406,
+        2.10694,
+        2.11299,
+        2.11336,
+        2.12812,
+        2.12655,
+        2.13776,
+        2.13811,
+        2.14306,
+        2.11282,
+        2.14412,
+        2.15401,
+        2.16576,
+        2.15677,
+        2.17764,
+        2.17979,
+        2.2063,
+        2.22711,
+        2.2456,
+        2.25909,
+        2.26393,
+        2.27984,
+        2.28003,
+        2.28989,
+        2.28597,
+        2.29926,
+        2.30583
+    };
     /*  // 1cm paddle
         Double_t loss_p1_emz[nbnl] = {
             7.47642,
@@ -523,6 +596,9 @@ void bnl() {
         dEdx_mup_emz[i] = (dEdx_mup_emz[i]*2.0) / rho;
         loss_mup_emz[i] = loss_mup_emz[i] / rho;
         loss_p_emz[i] = loss_p_emz[i] / rho;
+        loss_mup_MVP[i] = (loss_mup_MVP[i]*2.0) / rho;
+        loss_p_MVP[i] = (loss_p_MVP[i]*2.0) / rho;
+
         //        pbnl[i] = sqrt((kinEbnl[i] + pmass)*(kinEbnl[i] + pmass) - pmass * pmass);
     }
 
@@ -795,15 +871,15 @@ void bnl() {
     for (int i = 0; i < nr; i++) {
         dEdxG4[i] = (dEdxG4[i]*2.0) / rho;
     }
-/*
-    TGraph *ve = new TGraph(nr, kinEG4, dEdxG4);
-    ve-> SetTitle("Geant4 dEdx ");
-    ve->SetLineColor(2);
-    ve->SetMarkerColor(2);
-    ve->SetMarkerStyle(22);
-    ve->SetMarkerSize(2);
-    ve->Draw();
-*/
+    /*
+        TGraph *ve = new TGraph(nr, kinEG4, dEdxG4);
+        ve-> SetTitle("Geant4 dEdx ");
+        ve->SetLineColor(2);
+        ve->SetMarkerColor(2);
+        ve->SetMarkerStyle(22);
+        ve->SetMarkerSize(2);
+        ve->Draw();
+     */
     ifstream myfilepdg("muE_liquid_argon.txt");
     bool head = true;
     vector<double> pdgkinE;
@@ -1121,4 +1197,37 @@ void bnl() {
     mg->Draw("AC*");
     TLegend *leg = c->BuildLegend(.55, .55, 0.9, .85);
     leg->Draw();
+    //
+    TCanvas* cc = new TCanvas("dEdx (MVP) canvas", "dE/dx", 200, 10, 700, 500);
+    cc->SetGrid();
+    cc->GetFrame()->SetBorderSize(12);
+    cc->SetLogx();
+    cc->SetLogy();
+    TMultiGraph *mg2 = new TMultiGraph();
+    mg2->SetTitle("stopping power (MVP);kinetic Energy [MeV/c^{2}];(MVP) -dE/dx[MeVg^{-1}cm^{2}]");
+    mg2->GetXaxis()->SetLimits(100, 10000.);
+    mg2->SetMinimum(1.);
+    mg2->SetMaximum(6.);
+    TGraph* losspmvp = new TGraph(pkinE.size(), pkinEarr, loss_p_MVP);
+    losspmvp->SetTitle("proton Geant4 high precision em physics (MVP all losses)");
+    losspmvp->SetName("");
+    losspmvp->SetMarkerColor(2);
+    losspmvp->SetLineColor(2);
+    losspmvp->SetMarkerStyle(24);
+    losspmvp->SetMarkerSize(1);
+    losspmvp->SetLineWidth(1);
+    mg2->Add(losspmvp);
+    TGraph* lossmupmvp = new TGraph(pkinE.size(), pkinEarr, loss_mup_MVP);
+    lossmupmvp->SetTitle("#mu^{+} Geant4 high precision em physics (MVP all losses)");
+    lossmupmvp->SetName("");
+    lossmupmvp->SetMarkerColor(4);
+    lossmupmvp->SetLineColor(4);
+    lossmupmvp->SetMarkerStyle(22);
+    lossmupmvp->SetMarkerSize(1);
+    lossmupmvp->SetLineWidth(1);
+    mg2->Add(lossmupmvp);
+    //
+    mg2->Draw("AC*");
+    TLegend *leg2 = cc->BuildLegend(.55, .55, 0.9, .85);
+    leg2->Draw();
 }
