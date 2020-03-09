@@ -33,9 +33,11 @@
       </df>
       <df name="scripts">
         <in>Ana.C</in>
+        <in>Cerenkov.C</in>
         <in>LAr.C</in>
         <in>bnl.C</in>
         <in>dEdx.C</in>
+        <in>dEdxTable.C</in>
         <in>dedx_vs_residualrange.C</in>
         <in>lArRoot.C</in>
         <in>losses.C</in>

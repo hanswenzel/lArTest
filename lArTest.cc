@@ -26,6 +26,8 @@
 #include "G4StepLimiterPhysics.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Timer.hh"
+#include "G4EmCalculator.hh"
+#include "G4ParticleDefinition.hh"
 #ifdef G4UI_USE
 #include "G4UIExecutive.hh"
 #endif
@@ -108,7 +110,7 @@ int main(int argc, char** argv) {
     g4plr->PrintAvailablePhysLists();
     g4alt::G4PhysListFactory factory;
     G4VModularPhysicsList* phys = nullptr;
-    G4String physName = "FTFP_BERT_EMZ+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
+    G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
     //
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
@@ -152,13 +154,15 @@ int main(int argc, char** argv) {
     //
      */
     phys->DumpList();
-    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
+
+    //    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
     //set mandatory initialization classes
     DetectorConstruction* detConstruction = new DetectorConstruction(argv[1]);
     runManager->SetUserInitialization(detConstruction);
     runManager->SetUserInitialization(phys);
     ActionInitialization* actionInitialization = new ActionInitialization();
     runManager->SetUserInitialization(actionInitialization);
+    G4cout << "Analysis set to:  " << ConfigurationManager::getInstance()->GetdoAnalysis() << G4endl;
 
     //
     // Initialize visualization
@@ -192,7 +196,10 @@ int main(int argc, char** argv) {
     // Free the store: user actions, physics_list and detector_description are
     // owned and deleted by the run manager, so they should not be deleted 
     // in the main() program !
-
+    G4EmCalculator emCalculator;
+    static const G4ParticleDefinition* pd = G4ParticleTable::GetParticleTable()->FindParticle("proton");
+    G4cout << "##### DEDX Table for " << pd->GetParticleName() << G4endl;
+    emCalculator.PrintDEDXTable(pd);
     delete runManager;
 
     //stop time - the total elapsed time including initialization

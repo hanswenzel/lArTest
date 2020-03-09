@@ -47,10 +47,33 @@ double stoppingPower(double m, double q, double plab, double ro, double Z, doubl
     b2 = 1 - (1 / (g * g));
     //printf("\n Beta squared  =  %lf", b2);
 
-    T = (1.022 * b2 * g * g) / (1 + 2 * g * (0.511 / m) + pow(0.511 / m, 2));
+    T = (1.022 * b2 * g * g) / (1 + 2 * g * (0.511 / m) + pow(0.511 / m, 2)); //WMax
     //printf("\n Maximum kinetic energy transferred  =  %lf MeV ", T);
 
     SP = ((ro * k * q * q * Z) / (A * b2))*(0.5 * log((1.022 * b2 * g * g * T) / (I * I)) - b2);
+    //printf("\n Stopping Power  =  %lf MeV/cm \n", SP);
+    //printf("\n Stopping Power  =  %lf MeV cm^2/g \n", SP/ro);
+    return SP / ro;
+}
+
+double restrictedEnergy(double m, double q, double plab, double ro, double Z, double A, double I, double TCut) {
+
+    const double k = 0.307075;
+    double g, b2, T, SP;
+    double E = sqrt(plab * plab + m * m) - m;
+
+    //printf("\n|******** Stopping-Power values for this material ********|\n");
+
+    g = 1 + (E / m);
+    //printf("\n Gamma  =  %lf", g);
+
+    b2 = 1 - (1 / (g * g));
+    //printf("\n Beta squared  =  %lf", b2);
+
+    T = (1.022 * b2 * g * g) / (1 + 2 * g * (0.511 / m) + pow(0.511 / m, 2));
+    //printf("\n Maximum kinetic energy transferred  =  %lf MeV ", T);
+
+    SP = ((ro * k * q * q * Z) / (A * b2))*(0.5 * log((1.022 * b2 * g * g * TCut * T) / (I * I)) - 0.5 * b2 * (1 + TCut));
     //printf("\n Stopping Power  =  %lf MeV/cm \n", SP);
     //printf("\n Stopping Power  =  %lf MeV cm^2/g \n", SP/ro);
     return SP / ro;
@@ -68,6 +91,181 @@ void bnl() {
     const double mucharge = 1;
     const double mumass = 105.6583755; // muon mass in MerV
 
+    const Int_t nrg4 = 85;
+    const Double_t energy[nrg4] = {
+        0.0001,
+        0.000138949549437,
+        0.000193069772888,
+        0.000268269579528,
+        0.000372759372031,
+        0.000517947467923,
+        0.000719685673001,
+        0.001,
+        0.00138949549437,
+        0.00193069772888,
+        0.00268269579528,
+        0.00372759372031,
+        0.00517947467923,
+        0.00719685673001,
+        0.01,
+        0.0138949549437,
+        0.0193069772888,
+        0.0268269579528,
+        0.0372759372031,
+        0.0517947467923,
+        0.0719685673001,
+        0.1,
+        0.138949549437,
+        0.193069772888,
+        0.268269579528,
+        0.372759372031,
+        0.517947467923,
+        0.719685673001,
+        1,
+        1.38949549437,
+        1.93069772888,
+        2.68269579528,
+        3.72759372031,
+        5.17947467923,
+        7.19685673001,
+        10,
+        13.8949549437,
+        19.3069772888,
+        26.8269579528,
+        37.2759372031,
+        51.7947467923,
+        71.9685673001,
+        100,
+        138.949549437,
+        193.069772888,
+        268.269579528,
+        372.759372031,
+        517.947467923,
+        719.685673001,
+        1000,
+        1389.49549437,
+        1930.69772888,
+        2682.69579528,
+        3727.59372031,
+        5179.47467923,
+        7196.85673001,
+        10000,
+        13894.9549437,
+        19306.9772888,
+        26826.9579528,
+        37275.9372031,
+        51794.7467923,
+        71968.5673001,
+        100000,
+        138949.549437,
+        193069.772888,
+        268269.579528,
+        372759.372031,
+        517947.467923,
+        719685.673001,
+        1000000,
+        1389495.49437,
+        1930697.72888,
+        2682695.79528,
+        3727593.72031,
+        5179474.67923,
+        7196856.73001,
+        10000000,
+        13894954.9437,
+        19306977.2888,
+        26826957.9528,
+        37275937.2031,
+        51794746.7923,
+        71968567.3001,
+        100000000
+    };
+    Double_t rdEdx[nrg4] = {
+        3.80033350118,
+        4.47971393294,
+        5.280546277,
+        6.2245423259,
+        7.33729525972,
+        8.64897351638,
+        10.1951387043,
+        12.017709732,
+        14.1660992941,
+        16.6985535252,
+        19.683731142,
+        23.2025648859,
+        27.3504557342,
+        32.2398593668,
+        38.0033350118,
+        43.7414494638,
+        50.0210181476,
+        56.6055840371,
+        62.9114336081,
+        67.8630962883,
+        69.930076567,
+        67.7717930954,
+        61.4559860404,
+        52.8752929622,
+        44.3272060977,
+        36.9833611348,
+        30.8982699349,
+        25.7542138339,
+        21.3031540286,
+        17.4320437623,
+        14.0992667498,
+        11.1008814649,
+        8.79283631369,
+        6.96568321197,
+        5.46442483621,
+        4.27097070537,
+        3.3135947722,
+        2.56790738319,
+        1.97961929687,
+        1.52457664192,
+        1.18755496149,
+        0.926452910432,
+        0.727135128506,
+        0.570903367405,
+        0.451093642147,
+        0.363914395759,
+        0.301094388501,
+        0.2564977823,
+        0.225575108069,
+        0.204865394789,
+        0.191561483934,
+        0.18369005078,
+        0.179701909759,
+        0.178367110778,
+        0.178732154741,
+        0.180088109611,
+        0.181935361529,
+        0.183942387997,
+        0.185903360793,
+        0.187698393988,
+        0.189270653766,
+        0.190597625173,
+        0.191679189391,
+        0.192529008645,
+        0.193168882546,
+        0.193625367034,
+        0.193927780615,
+        0.194107039961,
+        0.194194983512,
+        0.194223979599,
+        0.194226657891,
+        0.194226571715,
+        0.194226527063,
+        0.194226503933,
+        0.194226491956,
+        0.194226485755,
+        0.194226482546,
+        0.194226480887,
+        0.194226480029,
+        0.194226479586,
+        0.194226479357,
+        0.194226479239,
+        0.194226479179,
+        0.194226479148,
+        0.194226479132
+    };
 
     const Int_t nbnl = 34;
     Double_t pbnl[nbnl];
@@ -330,42 +528,43 @@ void bnl() {
         4.98638,
         2.30268
     };
-    */
-        Double_t loss_mup_emz[nbnl] = {
-    2.33644,
-2.23298,
-2.17515,
-2.14066,
-2.11962,
-2.10701,
-2.10248,
-2.10406,
-2.10694,
-2.11299,
-2.11336,
-2.12812,
-2.12655,
-2.13776,
-2.13811,
-2.14306,
-2.11282,
-2.14412,
-2.15401,
-2.16576,
-2.15677,
-2.17764,
-2.17979,
-2.2063,
-2.22711,
-2.2456,
-2.25909,
-2.26393,
-2.27984,
-2.28003,
-2.28989,
-2.28597,
-2.29926,
-2.30583};
+     */
+    Double_t loss_mup_emz[nbnl] = {
+        2.33644,
+        2.23298,
+        2.17515,
+        2.14066,
+        2.11962,
+        2.10701,
+        2.10248,
+        2.10406,
+        2.10694,
+        2.11299,
+        2.11336,
+        2.12812,
+        2.12655,
+        2.13776,
+        2.13811,
+        2.14306,
+        2.11282,
+        2.14412,
+        2.15401,
+        2.16576,
+        2.15677,
+        2.17764,
+        2.17979,
+        2.2063,
+        2.22711,
+        2.2456,
+        2.25909,
+        2.26393,
+        2.27984,
+        2.28003,
+        2.28989,
+        2.28597,
+        2.29926,
+        2.30583
+    };
     /*  // 1cm paddle
         Double_t loss_p1_emz[nbnl] = {
             7.47642,
@@ -791,19 +990,21 @@ void bnl() {
         1.07743,
         1.07772
     };
-
+    for (int i = 0; i < nrg4; i++) {
+        rdEdx[i] = (rdEdx[i]*10.) / rho;
+    }
     for (int i = 0; i < nr; i++) {
         dEdxG4[i] = (dEdxG4[i]*2.0) / rho;
     }
-/*
-    TGraph *ve = new TGraph(nr, kinEG4, dEdxG4);
-    ve-> SetTitle("Geant4 dEdx ");
-    ve->SetLineColor(2);
-    ve->SetMarkerColor(2);
-    ve->SetMarkerStyle(22);
-    ve->SetMarkerSize(2);
-    ve->Draw();
-*/
+    /*
+        TGraph *ve = new TGraph(nr, kinEG4, dEdxG4);
+        ve-> SetTitle("Geant4 dEdx ");
+        ve->SetLineColor(2);
+        ve->SetMarkerColor(2);
+        ve->SetMarkerStyle(22);
+        ve->SetMarkerSize(2);
+        ve->Draw();
+     */
     ifstream myfilepdg("muE_liquid_argon.txt");
     bool head = true;
     vector<double> pdgkinE;
@@ -931,16 +1132,7 @@ void bnl() {
     vector<double> pnstop;
     vector<double> ptstop;
     vector<double> pcdsa;
-    /*
-        // liquid Argon properties
-        const double density = 1.396; // density of liquid Ar in g/cm^3 
-        const double Z = 18.; // Atomic number
-        const double A = 39.948; // Atomic mass
-        const double I = 0.000188; // Mean excitation energy in MeV
-        const double mucharge = 1;
-        charge 105.6583755
-     */
-    //    string line;
+
     if (myfilenist.is_open()) {
         while (getline(myfilenist, line)) {
 
@@ -993,6 +1185,8 @@ void bnl() {
     }
     vector<double> bbion;
     vector<double> bbionp;
+    vector<double> bbionpre;
+    vector<double> bbionpre50;
     for (std::vector<double>::iterator it = pkinE.begin(); it != pkinE.end(); ++it) {
         // convert to momentum
         double pb = sqrt((*it + mumass)*(*it + mumass) - mumass * mumass);
@@ -1000,6 +1194,8 @@ void bnl() {
         bbion.push_back(stoppingPower(mumass, mucharge, pb, density, Z, A, I));
         pb = sqrt((*it + pmass)*(*it + pmass) - pmass * pmass);
         bbionp.push_back(stoppingPower(pmass, mucharge, pb, density, Z, A, I));
+        bbionpre.push_back(restrictedEnergy(pmass, mucharge, pb, density, Z, A, I, 1.));
+        bbionpre50.push_back(restrictedEnergy(pmass, mucharge, pb, density, Z, A, I, .5));
     }
     double pkinEarr[pkinE.size()];
     std::copy(pkinE.begin(), pkinE.end(), pkinEarr);
@@ -1011,6 +1207,10 @@ void bnl() {
     std::copy(bbion.begin(), bbion.end(), bbionarr);
     double bbionparr[pkinE.size()];
     std::copy(bbionp.begin(), bbionp.end(), bbionparr);
+    double bbionprearr[pkinE.size()];
+    std::copy(bbionpre.begin(), bbionpre.end(), bbionprearr);
+    double bbionpre50arr[pkinE.size()];
+    std::copy(bbionpre50.begin(), bbionpre50.end(), bbionpre50arr);
     TCanvas* c = new TCanvas("dEdx canvas", "dE/dx", 200, 10, 700, 500);
     c->SetGrid();
     c->GetFrame()->SetBorderSize(12);
@@ -1115,10 +1315,85 @@ void bnl() {
     muppdg->SetMarkerSize(1);
     muppdg->SetLineWidth(1);
     mg->Add(muppdg);
-
-
-
     mg->Draw("AC*");
     TLegend *leg = c->BuildLegend(.55, .55, 0.9, .85);
     leg->Draw();
+    TCanvas* cc = new TCanvas("dEdx canvas2", "dE/dx", 200, 10, 700, 500);
+    cc->cd();
+    cc->SetGrid();
+    cc->GetFrame()->SetBorderSize(12);
+    cc->SetLogx();
+    cc->SetLogy();
+    TMultiGraph *mg2 = new TMultiGraph();
+    mg2->SetTitle("stopping power;kinetic Energy [MeV/c^{2}];-dE/dx[MeVg^{-1}cm^{2}]");
+    // mg->GetXaxis()->SetLimits(100, 10000.);
+    // mg->SetMinimum(1.);
+
+    TGraph *ve = new TGraph(nrg4, energy, rdEdx);
+    ve->SetTitle("proton Geant4 dE/dx table");
+    //   mg->SetMinimum(1.);
+    //ve->SetMaximum(1.);
+    //-> SetTitle("Geant4 restricted dEdx Table");
+    ve->SetLineColor(2);
+    ve->SetMarkerColor(2);
+    ve->SetMarkerStyle(22);
+    ve->SetMarkerSize(2);
+    mg2->Add(ve);
+    mg2->Add(dEdxgr);
+    //ve->Draw();
+    mg2->Add(protonbb);
+    mg2->Add(lossp);
+    TGraph* protonbbre = new TGraph(pkinE.size(), pkinEarr, bbionprearr);
+    protonbbre->SetTitle("restricted energy 1.");
+    protonbbre->SetName("");
+    protonbbre->SetMarkerColor(3);
+    protonbbre->SetLineColor(3);
+    protonbbre->SetMarkerStyle(22);
+    protonbbre->SetMarkerSize(1);
+    protonbbre->SetLineWidth(1);
+    mg2->Add(protonbbre);
+    TGraph* protonbbre50 = new TGraph(pkinE.size(), pkinEarr, bbionpre50arr);
+    protonbbre50->SetTitle("restricted energy 0.5");
+    protonbbre50->SetName("");
+    protonbbre50->SetMarkerColor(11);
+    protonbbre50->SetLineColor(11);
+    protonbbre50->SetMarkerStyle(22);
+    protonbbre50->SetMarkerSize(1);
+    protonbbre50->SetLineWidth(1);
+    mg2->Add(protonbbre50);
+    mg2->GetXaxis()->SetLimits(100, 10000.);
+    mg2->SetMinimum(1.);
+    mg2->SetMaximum(6.);
+    mg2->Draw("AC*");
+    TLegend *leg2 = cc->BuildLegend(.55, .55, 0.9, .85);
+    leg2->Draw();
+    TCanvas* cc2 = new TCanvas("dEdx canvas3", "dE/dx", 200, 10, 700, 500);
+    cc2->cd();
+    cc2->SetGrid();
+    cc2->GetFrame()->SetBorderSize(12);
+    cc2->SetLogx();
+    cc2->SetLogy();
+    ve->SetTitle("proton stopping power in liquid Argon;kinetic Energy [MeV/c^{2}];-dE/dx[MeVg^{-1}cm^{2}]");
+    ve->Draw();
+    TCanvas* cc3 = new TCanvas("dEdx canvas4", "dE/dx", 200, 10, 700, 500);
+    cc3->cd();
+    cc3->SetGrid();
+    cc3->GetFrame()->SetBorderSize(12);
+    cc3->SetLogx();
+    cc3->SetLogy();
+    TMultiGraph *mg3 = new TMultiGraph();
+    mg3->SetTitle("stopping power/restricted Energy;kinetic Energy [MeV/c^{2}];-dE/dx[MeVg^{-1}cm^{2}]");
+    /*    TGraph* protonbbre = new TGraph(pkinE.size(), pkinEarr, bbionprearr);
+        protonbbre->SetTitle("proton Bethe Bloch prediction");
+        protonbbre->SetName("");
+        protonbbre->SetMarkerColor(2);
+        protonbbre->SetLineColor(2);
+        protonbbre->SetMarkerStyle(22);
+        protonbbre->SetMarkerSize(1);
+        protonbbre->SetLineWidth(1);
+
+     */
+    mg3->Add(protonbbre);
+    mg3->Add(protonbb);
+    mg3->Draw("AC*");
 }

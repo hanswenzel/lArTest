@@ -5,6 +5,7 @@
       <df name="scripts">
         <in>Ana.C</in>
         <in>LAr.C</in>
+        <in>dEdxTable.C</in>
         <in>lArRoot.C</in>
       </df>
       <df name="src">
@@ -259,6 +260,10 @@
         </ccTool>
       </item>
       <item path="scripts/LAr.C" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="scripts/dEdxTable.C" ex="false" tool="1" flavor2="11">
         <ccTool flags="2">
         </ccTool>
       </item>
