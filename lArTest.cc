@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
     // Construct the default run manager
 #ifdef G4MULTITHREADED
     //the default number of threads
-    G4int nThreadcs = 1;
+    G4int nThreads = 1;
     //set it from the -t option is provided
     for (G4int i = 1; i < argc; i = i + 2) {
         if (G4String(argv[i]) == "-t") {
