@@ -22,7 +22,7 @@ using namespace std;
 //
 // m:    mass of particle in MeV
 // q:    charge of particle
-// plab: momentum
+// plab: momentumMVP
 // ro:   density of material in g/cm3
 // Z:    Z of material
 // A:    Atomic number of material
@@ -529,6 +529,81 @@ void bnl() {
         2.30268
     };
      */
+
+    Double_t loss_mup_MPV[nbnl] = {
+        0.983119,
+        0.932243,
+        0.896737,
+        0.877143,
+        0.862945,
+        0.849699,
+        0.842589,
+        0.836637,
+        0.832809,
+        0.828239,
+        0.826408,
+        0.825627,
+        0.826593,
+        0.826812,
+        0.828313,
+        0.829273,
+        0.830568,
+        0.832534,
+        0.83332,
+        0.835558,
+        0.837176,
+        0.83801,
+        0.840471,
+        0.852652,
+        0.863683,
+        0.870154,
+        0.874706,
+        0.880618,
+        0.884075,
+        0.886921,
+        0.889413,
+        0.891756,
+        0.892572,
+        0.894003
+    };
+    Double_t loss_p_MPV[nbnl] = {
+        3.47576,
+        2.95537,
+        2.64308,
+        2.34778,
+        2.12053,
+        1.9201,
+        1.78162,
+        1.68369,
+        1.61602,
+        1.46019,
+        1.3571,
+        1.27516,
+        1.23026,
+        1.168,
+        1.12096,
+        1.09337,
+        1.05956,
+        1.03621,
+        1.01819,
+        0.996382,
+        0.979871,
+        0.965543,
+        0.955225,
+        0.880099,
+        0.850591,
+        0.835162,
+        0.829018,
+        0.826159,
+        0.827859,
+        0.830084,
+        0.83352,
+        0.837088,
+        0.840872,
+        0.844135
+    };
+
+
     Double_t loss_mup_emz[nbnl] = {
         2.33644,
         2.23298,
@@ -722,6 +797,9 @@ void bnl() {
         dEdx_mup_emz[i] = (dEdx_mup_emz[i]*2.0) / rho;
         loss_mup_emz[i] = loss_mup_emz[i] / rho;
         loss_p_emz[i] = loss_p_emz[i] / rho;
+        loss_mup_MPV[i] = (loss_mup_MPV[i]*2.0) / rho;
+        loss_p_MPV[i] = (loss_p_MPV[i]*2.0) / rho;
+
         //        pbnl[i] = sqrt((kinEbnl[i] + pmass)*(kinEbnl[i] + pmass) - pmass * pmass);
     }
 
@@ -1396,4 +1474,36 @@ void bnl() {
     mg3->Add(protonbbre);
     mg3->Add(protonbb);
     mg3->Draw("AC*");
+    TCanvas* cc4 = new TCanvas("dEdx (MPV) canvas", "dE/dx", 200, 10, 700, 500);
+    cc4->SetGrid();
+    cc4->GetFrame()->SetBorderSize(12);
+    cc4->SetLogx();
+    cc4->SetLogy();
+    TMultiGraph *mg4 = new TMultiGraph();
+    mg4->SetTitle("stopping power (MPV);kinetic Energy [MeV/c^{2}];(MPV) -dE/dx[MeVg^{-1}cm^{2}]");
+    mg4->GetXaxis()->SetLimits(100, 10000.);
+    mg4->SetMinimum(1.);
+    mg4->SetMaximum(6.);
+    TGraph* losspmvp = new TGraph(pkinE.size(), pkinEarr, loss_p_MPV);
+    losspmvp->SetTitle("proton Geant4 high precision em physics (MPV all losses)");
+    losspmvp->SetName("");
+    losspmvp->SetMarkerColor(2);
+    losspmvp->SetLineColor(2);
+    losspmvp->SetMarkerStyle(24);
+    losspmvp->SetMarkerSize(1);
+    losspmvp->SetLineWidth(1);
+    mg4->Add(losspmvp);
+    TGraph* lossmupmvp = new TGraph(pkinE.size(), pkinEarr, loss_mup_MPV);
+    lossmupmvp->SetTitle("#mu^{+} Geant4 high precision em physics (MPV all losses)");
+    lossmupmvp->SetName("");
+    lossmupmvp->SetMarkerColor(4);
+    lossmupmvp->SetLineColor(4);
+    lossmupmvp->SetMarkerStyle(22);
+    lossmupmvp->SetMarkerSize(1);
+    lossmupmvp->SetLineWidth(1);
+    mg4->Add(lossmupmvp);
+    //
+    mg4->Draw("AC*");
+    TLegend *leg4 = cc4->BuildLegend(.55, .55, 0.9, .85);
+    leg4->Draw();
 }
