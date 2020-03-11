@@ -800,6 +800,7 @@ void bnl() {
         loss_mup_MPV[i] = (loss_mup_MPV[i]*2.0) / rho;
         loss_p_MPV[i] = (loss_p_MPV[i]*2.0) / rho;
 
+
         //        pbnl[i] = sqrt((kinEbnl[i] + pmass)*(kinEbnl[i] + pmass) - pmass * pmass);
     }
 
@@ -1396,6 +1397,8 @@ void bnl() {
     mg->Draw("AC*");
     TLegend *leg = c->BuildLegend(.55, .55, 0.9, .85);
     leg->Draw();
+}
+<<<<<<< HEAD
     TCanvas* cc = new TCanvas("dEdx canvas2", "dE/dx", 200, 10, 700, 500);
     cc->cd();
     cc->SetGrid();
@@ -1506,4 +1509,4 @@ void bnl() {
     mg4->Draw("AC*");
     TLegend *leg4 = cc4->BuildLegend(.55, .55, 0.9, .85);
     leg4->Draw();
-}
+
