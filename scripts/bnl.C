@@ -1397,8 +1397,7 @@ void bnl() {
     mg->Draw("AC*");
     TLegend *leg = c->BuildLegend(.55, .55, 0.9, .85);
     leg->Draw();
-}
-<<<<<<< HEAD
+
     TCanvas* cc = new TCanvas("dEdx canvas2", "dE/dx", 200, 10, 700, 500);
     cc->cd();
     cc->SetGrid();
@@ -1509,4 +1508,4 @@ void bnl() {
     mg4->Draw("AC*");
     TLegend *leg4 = cc4->BuildLegend(.55, .55, 0.9, .85);
     leg4->Draw();
-
+}
