@@ -16,9 +16,14 @@
 
 class SimStep {
 public:
+    inline bool operator==(const SimStep& right) const {
+        return (this == &right) ? true : false;
+    }
+    inline bool operator<(const SimStep& other) const {
+        return t < other.t;
+    }
 
     const SimStep& operator=(const SimStep&);
-    bool operator==(const SimStep&) const;
     SimStep();
     SimStep(float xx,
             float yy,

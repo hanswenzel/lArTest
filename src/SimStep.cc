@@ -49,9 +49,6 @@ const SimStep& SimStep::operator=(const SimStep& right) {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-bool SimStep::operator==(const SimStep& right) const {
-    return (this == &right) ? true : false;
-}
 
 SimStep::~SimStep() {
 }

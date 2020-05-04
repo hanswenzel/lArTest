@@ -42,8 +42,8 @@ if(ROOT_FOUND)
 endif()
 # Include ROOT's CMake functions for dictionary generation
 message(STATUS "Root Dir:  " ${ROOT_DIR})
-include("${ROOT_DIR}/modules/RootNewMacros.cmake")
-
+#include("${ROOT_DIR}/modules/RootNewMacros.cmake")
+include("${ROOT_DIR}/RootMacros.cmake")
 #----------------------------------------------------------------------------
 #  lArTest requires shared libraries
 #
