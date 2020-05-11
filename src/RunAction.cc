@@ -132,15 +132,11 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
     //     std::cout << sdnames->at(i) << std::endl;
 
     nEvts = aRun->GetNumberOfEventToBeProcessed();
-#ifdef G4VIS_USE
     G4UImanager* UI = G4UImanager::GetUIpointer();
-
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-
     if (pVVisManager) {
         UI->ApplyCommand("/vis/scene/notifyHandlers");
     }
-#endif
     // ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
 
     if (cfMgr->GetdoProfile()) {
@@ -164,10 +160,8 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 
 void RunAction::EndOfRunAction(const G4Run* aRun) {
    UNUSED(aRun); 
-#ifdef G4VIS_USE
     if (G4VVisManager::GetConcreteInstance())
         G4UImanager::GetUIpointer()->ApplyCommand("/vis/viewer/update");
-#endif
    RootIO::GetInstance()->Close();
     ConfigurationManager* cfMgr = ConfigurationManager::getInstance();
     if (cfMgr->GetdoAnalysis()) {

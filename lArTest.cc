@@ -28,12 +28,9 @@
 #include "G4Timer.hh"
 #include "G4EmCalculator.hh"
 #include "G4ParticleDefinition.hh"
-#ifdef G4UI_USE
 #include "G4UIExecutive.hh"
-#endif
-#ifdef G4VIS_USE
 #include "G4VisExecutive.hh"
-#endif
+
 // project headers
 #include "ActionInitialization.hh"
 #include "ConfigurationManager.hh"
@@ -54,14 +51,10 @@ int main(int argc, char** argv) {
     //
     // Detect interactive mode (if only one argument) and define UI session
 
-#ifdef G4UI_USE
     G4UIExecutive* ui = nullptr;
-#endif
     if (argc == 2) {
         interactive = true;
-#ifdef G4UI_USE
         ui = new G4UIExecutive(argc, argv);
-#endif
     }
     //choose the Random engine
     G4Random::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
@@ -167,30 +160,20 @@ int main(int argc, char** argv) {
     //
     // Initialize visualization
     //
-#ifdef G4UI_USE
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
-#endif
     if (interactive) {
-#ifdef G4VIS_USE
         G4VisManager* visManager = new G4VisExecutive;
         visManager->Initialize();
-#endif
         //get the pointer to the User Interface manager
-#ifdef G4UI_USE
         UImanager->ApplyCommand("/control/execute init_vis.mac");
         ui->SessionStart();
         delete ui;
-#endif
-#ifdef G4VIS_USE
         delete visManager;
-#endif
     } else {
         // batch mode
         G4String command = "/control/execute ";
         G4String fileName = argv[2];
-#ifdef G4UI_USE
         UImanager->ApplyCommand(command + fileName);
-#endif
     }
     // Job termination
     // Free the store: user actions, physics_list and detector_description are

@@ -59,6 +59,8 @@
         <volume name="Obj">
             <materialref ref="MyWater"/>
             <solidref ref="Obj"/>
+	    <colorref ref="blue"/>
+	    <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
             <physvol name="Det">
                 <volumeref ref="Det"/>
                 <position name="Det" unit="mm" x="0" y="0" z="100"/>
@@ -80,5 +82,5 @@
     <setup name="Default" version="1.0">
         <world ref="World"/>
     </setup>
-</gdml>
+</gdml_simple_extension>
 
