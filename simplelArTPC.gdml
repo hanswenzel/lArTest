@@ -22,9 +22,6 @@
         <rotation name="rIdentity"		unit="deg" x="0" y="0"   z="0"/>
     </define>
     <materials> 
-        <element name="nitrogen" formula="N" Z="7">  
-            <atom value="14.0067"/> 
-        </element>
         <element name="oxygen" formula="O" Z="8">  
             <atom value="15.999"/> 
         </element>
@@ -58,9 +55,6 @@
         <element name="titanium" formula="Ti" Z="22"> 
             <atom value="47.867"/>   
         </element>
-        <element name="argon" formula="Ar" Z="18"> 
-            <atom value="39.9480"/>  
-        </element>
         <material name="SiO2" formula="SiO2">
             <D value="2.2" unit="g/cm3"/>
             <composite n="1" ref="silicon"/>
@@ -86,19 +80,16 @@
             <composite n="1" ref="magnesium"/>
             <composite n="1" ref="oxygen"/>
         </material>
-
         <material name="Na2O" formula="Na2O">
             <D value="2.27" unit="g/cm3"/>
             <composite n="2" ref="sodium"/>
             <composite n="1" ref="oxygen"/>
         </material>
-
         <material name="TiO2" formula="TiO2">
             <D value="4.23" unit="g/cm3"/>
             <composite n="1" ref="titanium"/>
             <composite n="2" ref="oxygen"/>
         </material>
-
         <material name="fibrous_glass">
             <D value="2.74351" unit="g/cm3"/>
             <fraction n="0.600" ref="SiO2"/>
@@ -109,15 +100,12 @@
             <fraction n="0.010" ref="Na2O"/>
             <fraction n="0.013" ref="TiO2"/>
         </material>
-
-
         <!-- Foam density is 70 kg / m^3 for the 3x1x1 -->
         <material name="foam_3x1x1dp">
             <D value="0.07" unit="g/cm3"/>
             <fraction n="0.95" ref="G4_AIR"/>
             <fraction n="0.05" ref="fibrous_glass"/>
         </material>
-
         <material name="STEEL_STAINLESS_Fe7Cr2Ni" formula="STEEL_STAINLESS_Fe7Cr2Ni">
             <D value="7.9300" unit="g/cm3"/>
             <fraction n="0.0010" ref="carbon"/>
@@ -125,26 +113,8 @@
             <fraction n="0.7298" ref="iron"/>
             <fraction n="0.0900" ref="nickel"/>
         </material>
-
-
-        <material name="ArGas" formula="ArGas">
-            <D value="0.00166" unit="g/cm3"/>
-            <fraction n="1.0" ref="argon"/>
-        </material>
-
-
-
-        <material formula="Ti" name="Titanium">
-            <D value="4.506" unit="g/cm3"/>
-            <fraction n="1." ref="titanium"/>
-        </material>
-
-
     </materials>
     <solids>
-
-
-
         <box name="CRM" lunit="cm" 
              x="100.03" 
              y="97" 
@@ -161,7 +131,6 @@
              x="100"
              y="96"
              z="288"/>
-
         <tube name="CRMWireV"
               rmax="0.0075"
               z="288"               
@@ -174,57 +143,40 @@
               deltaphi="360"
               aunit="deg"
               lunit="cm"/>
-
         <box name="Cryostat" lunit="cm" 
              x="238.34" 
              y="202.74" 
              z="478.44"/>
-
         <box name="ArgonInterior" lunit="cm" 
              x="238.1"
              y="202.5"
              z="478.2"/>
-
-        <box name="GaseousArgon" lunit="cm" 
-             x="50.8"
-             y="202.5"
-             z="478.2"/>
-
         <subtraction name="SteelShell">
             <first ref="Cryostat"/>
             <second ref="ArgonInterior"/>
         </subtraction>
-
-
-
         <box name="FoamPadBlock" lunit="cm"
              x="442.94"
              y="407.34"
              z="683.04" />
-
         <subtraction name="FoamPadding">
             <first ref="FoamPadBlock"/>
             <second ref="Cryostat"/>
             <positionref ref="posCenter"/>
         </subtraction>
-
         <box name="SteelSupportBlock" lunit="cm"
              x="444.14"
              y="408.54"
              z="684.24" />
-
         <subtraction name="SteelSupport">
             <first ref="SteelSupportBlock"/>
             <second ref="FoamPadBlock"/>
             <positionref ref="posCenter"/>
         </subtraction>
-
         <box name="DetEnclosure" lunit="cm" 
              x="444.14"
              y="408.54"
              z="684.24"/>
-
-
         <box name="World" lunit="cm" 
              x="6444.14" 
              y="6408.54" 
@@ -273,24 +225,13 @@
                 <rotationref ref="rIdentity"/>
             </physvol>
         </volume>
-
         <volume name="volSteelShell">
             <materialref ref="STEEL_STAINLESS_Fe7Cr2Ni" />
             <solidref ref="SteelShell" />
         </volume>
-        <volume name="volGaseousArgon">
-            <materialref ref="ArGas"/>
-            <solidref ref="GaseousArgon"/>
-            <colorref ref="magenta"/> 
-        </volume>
-
         <volume name="volCryostat">
             <materialref ref="G4_lAr" />
-            <solidref ref="Cryostat" />
-            <physvol>
-                <volumeref ref="volGaseousArgon"/>
-                <position name="posGaseousArgon" unit="cm" x="238.1/2-50.8/2" y="0" z="0"/>
-            </physvol>
+            <solidref ref="Cryostat" />                      
             <physvol>
                 <volumeref ref="volSteelShell"/>
                 <position name="posSteelShell" unit="cm" x="0" y="0" z="0"/>
@@ -300,24 +241,19 @@
                 <position name="posTPC-0-0" unit="cm"
                           x="18.235" y="0" z="0"/>
             </physvol>
-
         </volume>
-
         <volume name="volFoamPadding">
             <materialref ref="foam_3x1x1dp"/>
             <solidref ref="FoamPadding"/>
             <colorref ref="yellow"/> 
         </volume>
-
         <volume name="volSteelSupport">
             <materialref ref="STEEL_STAINLESS_Fe7Cr2Ni"/>
             <solidref ref="SteelSupport"/>
         </volume>
-
         <volume name="volDetEnclosure">
             <materialref ref="G4_AIR"/>
             <solidref ref="DetEnclosure"/>
-
             <physvol>
                 <volumeref ref="volFoamPadding"/>
                 <positionref ref="posCryoInDetEnc"/>
@@ -331,21 +267,16 @@
                 <positionref ref="posCryoInDetEnc"/>
             </physvol>
         </volume>
-
         <volume name="volWorld" >
             <materialref ref="G4_AIR"/>
             <solidref ref="World"/>
-
             <physvol>
                 <volumeref ref="volDetEnclosure"/>
                 <position name="posDetEnclosure" unit="cm" x="-18.22" y="-1.4210854715202e-14" z="144"/>
             </physvol>
-
         </volume>
     </structure>
-
     <setup name="Default" version="1.0">
         <world ref="volWorld" />
     </setup>
-
 </gdml_simple_extension>
