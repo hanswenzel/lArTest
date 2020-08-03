@@ -58,6 +58,11 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/include
                     ${ROOT_INCLUDE_DIRS})
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+file(GLOB detectors ${PROJECT_SOURCE_DIR}/gdml/*.gdml)
+file(GLOB xdetectors ${PROJECT_SOURCE_DIR}/*.xml)
+file(GLOB macros ${PROJECT_SOURCE_DIR}/*.in)
+file(GLOB scripts ${PROJECT_SOURCE_DIR}/scripts/*)
+file(GLOB schemas ${PROJECT_SOURCE_DIR}/*.xsd)
 #----------------------------------------------------------------------------
 # Generate dictionaries, add ROOT libraries properties
 #
@@ -99,4 +104,4 @@ install (TARGETS  readHits DESTINATION bin)
 install(TARGETS lArTestClassesDict DESTINATION lib)
 #install (TARGETS lAr DESTINATION lib)
 install(FILES ${PROJECT_BINARY_DIR}/lArTestClasses_rdict.pcm DESTINATION lib)
-install (FILES  scripts/scanp.sh scripts/scanmup.sh vis.mac init_vis.mac muons.in pi+.in muons_tiny.in profile.in protodune.gdml paddle.gdml lAr_paddle.gdml lAr_box.gdml lArTarget.gdml  tinysed.gdml CerenkovMinimal.gdml CerenkovMinimalG4.gdml tinylArBox_color.gdml materials.xml lArDet_split.gdml SimpleExtension.xsd scripts/Ana.C DESTINATION bin)
+install (FILES  ${detectors} ${xdetectors} ${macros}  ${scripts} ${schemas} DESTINATION bin)
