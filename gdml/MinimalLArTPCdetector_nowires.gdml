@@ -137,10 +137,14 @@
     <solids>
         <!-- [3.1] Wire solid definitions  - - - - - - - - - - - - - - - - - - - - -->
         <!-- first the wires parallel to the z-axis -->
-        <tube name="TPCWirepar"  rmax="wireradius" z="volactivez-1"  deltaphi="360" aunit="deg" lunit="cm"/>
+	<!-- comment out for no wires
+             <tube name="TPCWirepar"  rmax="wireradius" z="volactivez"  deltaphi="360" aunit="deg" lunit="cm"/>
+	-->
         <!-- the wires perpendicular to the z-axis -->
-        <tube name="TPCWireperp" rmax="wireradius" z="volactivey-1" deltaphi="360" aunit="deg" lunit="cm"/>
-        <!-- [3.2] Wire plane solid definitions  - - - - - - - - - - - - - - - - - -->
+	<!-- comment out for no wires
+	     <tube name="TPCWireperp" rmax="wireradius" z="volactivey" deltaphi="360" aunit="deg" lunit="cm"/>
+	-->
+	<!-- [3.2] Wire plane solid definitions  - - - - - - - - - - - - - - - - - -->
         <box name="TPCPlane"     lunit="cm" x="volplanex" y="volactivey" z="volactivez"/>
         <!-- [3.3] TPC solid definitions - - - - - - - - - - - - - - - - - - - - - -->
         <box name="TPCActive"    lunit="cm" x="volactivex" y="volactivey" z="volactivez"/>
@@ -159,20 +163,22 @@
     </solids>
     <!-- [4] Placement of volumes in space - - - - - - - - - - - - - - - - - - - -->
     <structure>
-        <!-- [4.1] Wire volume definition for wires on first and second plane  - - -->
-        <volume name="volTPCWirepar">
-            <materialref ref="G4_Ti"/>
-            <solidref ref="TPCWirepar"/>
-            <auxiliary auxtype="Solid" auxvalue="True"/>
-            <colorref ref="blue"/>
-        </volume>
-        <volume name="volTPCWireperp">
-            <materialref ref="G4_Ti"/>
-            <solidref ref="TPCWireperp"/>
-            <auxiliary auxtype="Solid" auxvalue="True"/>
-            <colorref ref="red"/>
-        </volume>
-        <volume name="volTPCActive">
+      <!-- [4.1] Wire volume definition for wires on first and second plane  - - -->
+      <!-- comment out for no wires
+           <volume name="volTPCWirepar">
+           <materialref ref="G4_Ti"/>
+           <solidref ref="TPCWirepar"/>
+           <auxiliary auxtype="Solid" auxvalue="True"/>
+           <colorref ref="blue"/>
+           </volume>
+           <volume name="volTPCWireperp">
+           <materialref ref="G4_Ti"/>
+           <solidref ref="TPCWireperp"/>
+           <auxiliary auxtype="Solid" auxvalue="True"/>
+           <colorref ref="red"/>
+           </volume>
+	-->
+	<volume name="volTPCActive">
             <materialref ref="G4_lAr"/>
             <solidref ref="TPCActive"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
@@ -186,12 +192,14 @@
             <solidref ref="TPCPlane"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
             <colorref ref="magenta"/>
+	    <!-- comment out for no wires
             <loop for="ii" from="0" to="numwirepar" step="1">
                 <physvol name="psenseWireVolumepar" copynumber="ii">
                     <volumeref ref="volTPCWirepar"/>
                     <position name="posijk"  unit="cm" x="0.0" y="-0.5*volactivey+wireoffsetpar+ii*wirespacing" z="0"/>
                 </physvol>
-            </loop>
+		</loop>
+	    -->
         </volume> <!-- "volTPCPlane" -->
         <!-- [4.3] Third wire plane definition - - - - - - - - - - - - - - - - - - -->
         <!-- omitted -->
@@ -202,13 +210,15 @@
             <solidref ref="TPCPlane"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
             <colorref ref="magenta"/>
-            <loop for="jj" from="0" to="numwireperp" step="1">
-                <physvol name="psenseWireVolumeperp" copynumber="jj">
-                    <volumeref ref="volTPCWireperp"/>
-                    <position name="posijk"  unit="cm" x="0.0" y="0." z="-0.5*volactivez+wireoffsetperp+jj*wirespacing"/>
-                    <rotationref ref="rPlus90AboutX"/>
-                </physvol>
-            </loop>
+	<!-- comment out for no wires
+             <loop for="jj" from="0" to="numwireperp" step="1">
+             <physvol name="psenseWireVolumeperp" copynumber="jj">
+             <volumeref ref="volTPCWireperp"/>
+             <position name="posijk"  unit="cm" x="0.0" y="0." z="-0.5*volactivez+wireoffsetperp+jj*wirespacing"/>
+             <rotationref ref="rPlus90AboutX"/>
+             </physvol>
+	     </loop>
+	-->
         </volume>
         <!-- "volTPCPlaneVert" -->
         <volume name="volOpDetSensitive">

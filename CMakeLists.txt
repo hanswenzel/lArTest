@@ -60,7 +60,7 @@ file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 file(GLOB detectors ${PROJECT_SOURCE_DIR}/gdml/*.gdml)
 file(GLOB xdetectors ${PROJECT_SOURCE_DIR}/*.xml)
-file(GLOB macros ${PROJECT_SOURCE_DIR}/*.in)
+file(GLOB macros ${PROJECT_SOURCE_DIR}/macros/*)
 file(GLOB scripts ${PROJECT_SOURCE_DIR}/scripts/*)
 file(GLOB schemas ${PROJECT_SOURCE_DIR}/*.xsd)
 #----------------------------------------------------------------------------
