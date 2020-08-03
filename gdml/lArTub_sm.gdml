@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+    <define>
+        <constant name="TWOPI" value="2.*pi"/>
+        <constant name="HALFPI" value="pi/2."/>
+
+        <variable name="radius" value=".5"/>
+        <constant name="length" value="1."/>
+        <constant name="thickness" value="0.0003"/>
+        <constant name="margin" value="1."/>
+
+        <matrix name="SY"  coldim="1" values="51282/MeV" />
+        <matrix name="RS"  coldim="1" values="1.0" />
+        <matrix name="FTC" coldim="1" values="7.*ns" />
+        <matrix name="STC" coldim="1" values="1400.*ns" />
+        <matrix name="YR"  coldim="1" values="0.75" /> 
+	<matrix name="ArRLENGTH" coldim="2" values="1.7712*eV 313990*cm
+						    1.78626*eV 303350*cm
+						    1.80157*eV 292983*cm
+						    1.81715*eV 282886*cm
+						    1.833*eV 273052*cm
+						    1.84913*eV 263478*cm
+						    1.86555*eV 254158*cm
+						    1.88226*eV 245088*cm
+						    1.89927*eV 236263*cm
+						    1.91659*eV 227678*cm
+						    1.93423*eV 219330*cm
+						    1.9522*eV 211213*cm
+						    1.97051*eV 203322*cm
+						    1.98916*eV 195655*cm
+						    2.00817*eV 188206*cm
+						    2.02754*eV 180971*cm
+						    2.0473*eV 173946*cm
+						    2.06744*eV 167126*cm
+						    2.08798*eV 160509*cm
+						    2.10893*eV 154089*cm
+						    2.13031*eV 147863*cm
+						    2.15213*eV 141826*cm
+						    2.1744*eV 135975*cm
+						    2.19713*eV 130306*cm
+						    2.22035*eV 124816*cm
+						    2.24406*eV 119499*cm
+						    2.26828*eV 114353*cm
+						    2.29303*eV 109374*cm
+						    2.31833*eV 104559*cm
+						    2.34419*eV 99902.6*cm
+						    2.37063*eV 95402.6*cm
+						    2.39768*eV 91055.2*cm
+						    2.42536*eV 86856.9*cm
+						    2.45367*eV 82804.2*cm
+						    2.48266*eV 78893.7*cm
+						    2.51234*eV 75122.2*cm
+						    2.54274*eV 71486.3*cm
+						    2.57389*eV 67982.7*cm
+						    2.6058*eV 64608.2*cm
+						    2.63852*eV 61359.5*cm
+						    2.67207*eV 58233.7*cm
+						    2.70649*eV 55227.5*cm
+						    2.7418*eV 52337.8*cm
+						    2.77805*eV 49561.7*cm
+						    2.81526*eV 46896.2*cm
+						    2.85349*eV 44338.3*cm
+						    2.89277*eV 41885.1*cm
+						    2.93315*eV 39533.7*cm
+						    2.97467*eV 37281.4*cm
+						    3.01738*eV 35125.2*cm
+						    3.06134*eV 33062.6*cm
+						    3.10659*eV 31090.7*cm
+						    3.15321*eV 29206.9*cm
+						    3.20124*eV 27408.7*cm
+						    3.25077*eV 25693.2*cm
+						    3.30184*eV 24058.2*cm
+						    3.35455*eV 22500.9*cm
+						    3.40897*eV 21019*cm
+						    3.46518*eV 19610*cm
+						    3.52328*eV 18271.6*cm
+						    3.58336*eV 17001.4*cm
+						    3.64552*eV 15797*cm
+						    3.70988*eV 14656.2*cm
+						    3.77655*eV 13576.8*cm
+						    3.84566*eV 12556.5*cm
+						    3.91735*eV 11593.3*cm
+						    3.99176*eV 10685*cm
+						    4.06906*eV 9829.45*cm
+						    4.1494*eV 9024.73*cm
+						    4.23299*eV 8268.8*cm
+						    4.32001*eV 7559.7*cm
+						    4.41068*eV 6895.51*cm
+						    4.50524*eV 6274.36*cm
+						    4.60394*eV 5694.4*cm
+						    4.70707*eV 5153.83*cm
+						    4.81492*eV 4650.9*cm
+						    4.92783*eV 4183.87*cm
+						    5.04616*eV 3751.07*cm
+						    5.17032*eV 3350.86*cm
+						    5.30073*eV 2981.63*cm
+						    5.4379*eV 2641.81*cm
+						    5.58236*eV 2329.89*cm
+						    5.7347*eV 2044.38*cm
+						    5.89559*eV 1783.84*cm
+						    6.06576*eV 1546.86*cm
+						    6.24605*eV 1332.08*cm
+						    6.43739*eV 1138.19*cm
+						    6.64082*eV 963.895*cm
+						    6.85753*eV 807.972*cm
+						    7.08886*eV 669.226*cm
+						    7.33634*eV 546.516*cm
+						    7.60173*eV 438.747*cm
+						    7.88704*eV 344.882*cm
+						    8.19459*eV 263.945*cm
+						    8.52711*eV 195.033*cm
+						    8.88776*eV 137.334*cm
+						    9.28025*eV 90.1576*cm
+						    9.70902*eV 52.9867*cm
+						    10.1793*eV 25.5563*cm
+						    10.6975*eV 7.96269*cm"/>
+     <matrix name="ArINDEX" coldim="2" values="1.7712*eV 1.23148
+					      1.78626*eV 1.23154
+					      1.80157*eV 1.2316
+					      1.81715*eV 1.23166
+					      1.833*eV 1.23171
+					      1.84913*eV 1.23177
+					      1.86555*eV 1.23183
+					      1.88226*eV 1.2319
+					      1.89927*eV 1.23196
+					      1.91659*eV 1.23202
+					      1.93423*eV 1.23209
+					      1.9522*eV 1.23215
+					      1.97051*eV 1.23222
+					      1.98916*eV 1.23229
+					      2.00817*eV 1.23236
+					      2.02754*eV 1.23243
+					      2.0473*eV 1.23251
+					      2.06744*eV 1.23258
+					      2.08798*eV 1.23266
+					      2.10893*eV 1.23274
+					      2.13031*eV 1.23283
+					      2.15213*eV 1.23291
+					      2.1744*eV 1.233
+					      2.19713*eV 1.23309
+					      2.22035*eV 1.23318
+					      2.24406*eV 1.23328
+					      2.26828*eV 1.23338
+					      2.29303*eV 1.23348
+					      2.31833*eV 1.23358
+					      2.34419*eV 1.23369
+					      2.37063*eV 1.2338
+					      2.39768*eV 1.23392
+					      2.42536*eV 1.23404
+					      2.45367*eV 1.23416
+					      2.48266*eV 1.23429
+					      2.51234*eV 1.23443
+					      2.54274*eV 1.23456
+					      2.57389*eV 1.23471
+					      2.6058*eV 1.23486
+					      2.63852*eV 1.23501
+					      2.67207*eV 1.23518
+					      2.70649*eV 1.23534
+					      2.7418*eV 1.23552
+					      2.77805*eV 1.2357
+					      2.81526*eV 1.23589
+					      2.85349*eV 1.23609
+					      2.89277*eV 1.2363
+					      2.93315*eV 1.23651
+					      2.97467*eV 1.23674
+					      3.01738*eV 1.23698
+					      3.06134*eV 1.23723
+					      3.10659*eV 1.23749
+					      3.15321*eV 1.23776
+					      3.20124*eV 1.23805
+					      3.25077*eV 1.23835
+					      3.30184*eV 1.23867
+					      3.35455*eV 1.239
+					      3.40897*eV 1.23935
+					      3.46518*eV 1.23973
+					      3.52328*eV 1.24012
+					      3.58336*eV 1.24054
+					      3.64552*eV 1.24098
+					      3.70988*eV 1.24145
+					      3.77655*eV 1.24194
+					      3.84566*eV 1.24247
+					      3.91735*eV 1.24304
+					      3.99176*eV 1.24364
+					      4.06906*eV 1.24428
+					      4.1494*eV 1.24497
+					      4.23299*eV 1.2457
+					      4.32001*eV 1.2465
+					      4.41068*eV 1.24735
+					      4.50524*eV 1.24827
+					      4.60394*eV 1.24927
+					      4.70707*eV 1.25035
+					      4.81492*eV 1.25153
+					      4.92783*eV 1.25281
+					      5.04616*eV 1.25421
+					      5.17032*eV 1.25575
+					      5.30073*eV 1.25745
+					      5.4379*eV 1.25932
+					      5.58236*eV 1.2614
+					      5.7347*eV 1.26373
+					      5.89559*eV 1.26634
+					      6.06576*eV 1.26928
+					      6.24605*eV 1.27262
+					      6.43739*eV 1.27645
+					      6.64082*eV 1.28086
+					      6.85753*eV 1.286
+					      7.08886*eV 1.29206
+					      7.33634*eV 1.29928
+					      7.60173*eV 1.30802
+					      7.88704*eV 1.3188
+					      8.19459*eV 1.3324
+					      8.52711*eV 1.35005
+					      8.88776*eV 1.37381
+					      9.28025*eV 1.40744
+					      9.70902*eV 1.45859
+					      10.1793*eV 1.54562
+					      10.6975*eV 1.72744"/>
+<!--
+        <matrix name="ArINDEX" coldim="2" values="6.7*eV 1.5
+                                                 7.1*eV 1.5 
+                                                 7.4*eV 1.5  
+                                                 7.7*eV 1.5 
+                                                 7.9*eV 1.5 
+                                                 8.1*eV 1.5          
+                                                 8.4*eV 1.5 
+                                                 8.5*eV 1.5 
+                                                 8.6*eV 1.5 
+                                                 8.8*eV 1.5 
+                                                 9.0*eV 1.5 
+                                                 9.1*eV 1.5 
+                                                 9.4*eV 1.5 
+                                                 9.8*eV 1.5 
+                                                 10.4*eV 1.5"/>
+
+        <matrix name="REFLECTIVITY" coldim="2" values="6.7*eV 0.8
+                                                 7.1*eV 0.8 
+                                                 7.4*eV 0.8  
+                                                 7.7*eV 0.8 
+                                                 7.9*eV 0.8 
+                                                 8.1*eV 0.8          
+                                                 8.4*eV 0.8 
+                                                 8.5*eV 0.8 
+                                                 8.6*eV 0.8 
+                                                 8.8*eV 0.8 
+                                                 9.0*eV 0.8 
+                                                 9.1*eV 0.8 
+                                                 9.4*eV 0.8 
+                                                 9.8*eV 0.8 
+                                                 10.4*eV 0.8"/>
+-->
+        <matrix name="SCINT" coldim="2" values="6.7*eV 0.04
+                                                 7.1*eV 0.12 
+                                                 7.4*eV 0.27 
+                                                 7.7*eV 0.44 
+                                                 7.9*eV 0.62
+                                                 8.1*eV 0.80          
+                                                 8.4*eV 0.91 
+                                                 8.5*eV 0.92 
+                                                 8.6*eV 0.85 
+                                                 8.8*eV 0.70
+                                                 9.0*eV 0.50 
+                                                 9.1*eV 0.31 
+                                                 9.4*eV 0.13 
+                                                 9.8*eV 0.04 
+                                                10.4*eV 0.01"/>
+    </define>
+
+    <materials>
+        <material name="LAr" formula="LAr">
+            <D value="1.40" unit="g/cm3"/>
+            <fraction n="1.0000" ref="G4_Ar"/>
+            <property name="RINDEX" ref="ArINDEX"/>
+	    <property name="RAYLEIGH" ref="ArRLENGTH"/>
+            <property name="SLOWCOMPONENT" ref="SCINT"/>
+            <property name="SCINTILLATIONYIELD" ref="SY" />
+            <property name="RESOLUTIONSCALE" ref="RS" />
+            <property name="SLOWTIMECONSTANT" ref="STC" />
+            <property name="YIELDRATIO" ref="YR" />
+        </material>
+
+        <material name="Silicon" formula="Si">
+            <D value="2.33" unit="g/cm3"/>
+            <fraction n="1.0000" ref="G4_Si"/>
+            <property name="RINDEX" ref="ArINDEX"/>
+        </material>
+    </materials>
+    <solids>
+        <box name="WorldBox" lunit="m" x="radius+margin" y="radius+margin" z="radius+margin"/>
+        <tube name="ArgonVolume"  lunit="m" z="length" rmax="radius" deltaphi="TWOPI" aunit="rad" />
+        <tube name="PhotoTube"    lunit="m" z="thickness"   rmax="radius" deltaphi="TWOPI" aunit="rad" />
+    </solids>
+    <structure>
+
+        <volume name="volPhotodetector">
+            <materialref ref="Silicon"/>
+            <solidref ref="PhotoTube"/>
+            <auxiliary auxtype="SensDet" auxvalue="PhotonDetector"/>
+            <auxiliary auxtype="Color" auxvalue="Red"/>
+            <auxiliary auxtype="Solid" auxvalue="True"/>
+        </volume>
+        <volume name="volArgon">
+            <materialref ref="LAr"/>
+            <solidref ref="ArgonVolume"/>
+            <auxiliary auxtype="Color" auxvalue="Yellow"/>
+            <physvol name="pvolPhotodetector1">
+                <volumeref ref="volPhotodetector"/>
+                <position name="photondetectorpos1" unit="m" x="0." y="0." z="0.5*length-thickness"/>
+            </physvol>
+            <physvol name="pvolPhotodetector2">
+                <volumeref ref="volPhotodetector"/>
+                <position name="photondetectorpos2" unit="m" x="0." y="0." z="-0.5*length+thickness"/>
+            </physvol>
+        </volume>
+        <volume name="TOP">
+            <materialref ref="G4_AIR"/>
+            <solidref ref="WorldBox"/>
+            <physvol name="pArgonVolume">
+                <volumeref ref="volArgon"/>
+                <position name="Argonpos" x="0" y="0" z="0"/>
+            </physvol>
+        </volume> 
+    </structure>
+    <setup version="1.0" name="Default">
+        <world ref="TOP"/>
+    </setup>
+</gdml>

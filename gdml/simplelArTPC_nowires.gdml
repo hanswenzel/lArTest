@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
+                       xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"          
+                       xs:noNamespaceSchemaLocation="SimpleExtension.xsd"> 
+    <extension>
+        <color name="test_color"  R="0.1"  G="0.2"  B="0.3"  A="1.0" />
+        <color name="magenta"     R="1.0"  G="0.0"  B="1.0"  A="1.0" />
+        <color name="green"       R="0.0"  G="1.0"  B="0.0"  A="1.0" />
+        <color name="red"         R="1.0"  G="0.0"  B="0.0"  A="1.0" />
+        <color name="blue"        R="0.0"  G="0.0"  B="1.0"  A="1.0" />
+        <color name="yellow"      R="1.0"  G="1.0"  B="0.0"  A="1.0" />  
+    </extension>
+    <define>
+        <position name="posCryoInDetEnc"     unit="cm" x="0" y="1.4210854715202e-14" z="0"/>
+        <position name="posCenter"           unit="cm" x="0" y="0" z="0"/>
+        <rotation name="rPlus90AboutX"       unit="deg" x="90" y="0" z="0"/>
+        <rotation name="rMinus90AboutY"      unit="deg" x="0" y="270" z="0"/>
+        <rotation name="rMinus90AboutYMinus90AboutX"       unit="deg" x="270" y="270" z="0"/>
+        <rotation name="rPlus180AboutX"	unit="deg" x="180" y="0"   z="0"/>
+        <rotation name="rPlus180AboutY"	unit="deg" x="0" y="180"   z="0"/>
+        <rotation name="rPlus180AboutXPlus180AboutY"	unit="deg" x="180" y="180"   z="0"/>
+        <rotation name="rIdentity"		unit="deg" x="0" y="0"   z="0"/>
+    </define>
+    <materials>
+        <element name="nitrogen" formula="N" Z="7">  
+            <atom value="14.0067"/> 
+        </element>
+        <element name="oxygen" formula="O" Z="8">  
+            <atom value="15.999"/> 
+        </element>
+        <element name="aluminum" formula="Al" Z="13"> 
+            <atom value="26.9815"/>  
+        </element>
+        <element name="silicon" formula="Si" Z="14"> 
+            <atom value="28.0855"/>  
+        </element>
+        <element name="carbon" formula="C" Z="6">  
+            <atom value="12.0107"/>  
+        </element>
+        <element name="chromium" formula="Cr" Z="24"> 
+            <atom value="51.9961"/>  
+        </element>
+        <element name="iron" formula="Fe" Z="26"> 
+            <atom value="55.8450"/>  
+        </element>
+        <element name="nickel" formula="Ni" Z="28"> 
+            <atom value="58.6934"/>  
+        </element>
+        <element name="calcium" formula="Ca" Z="20"> 
+            <atom value="40.078"/>   
+        </element>
+        <element name="magnesium" formula="Mg" Z="12"> 
+            <atom value="24.305"/>   
+        </element>
+        <element name="sodium" formula="Na" Z="11"> 
+            <atom value="22.99"/>    
+        </element>
+        <element name="titanium" formula="Ti" Z="22"> 
+            <atom value="47.867"/>   
+        </element>
+        <element name="argon" formula="Ar" Z="18"> 
+            <atom value="39.9480"/>  
+        </element>
+        <material name="LAr" formula="LAr">
+            <D value="1.40" unit="g/cm3"/>
+            <fraction n="1.0000" ref="argon"/>
+        </material>
+        <material name="SiO2" formula="SiO2">
+            <D value="2.2" unit="g/cm3"/>
+            <composite n="1" ref="silicon"/>
+            <composite n="2" ref="oxygen"/>
+        </material>
+        <material name="Al2O3" formula="Al2O3">
+            <D value="3.97" unit="g/cm3"/>
+            <composite n="2" ref="aluminum"/>
+            <composite n="3" ref="oxygen"/>
+        </material>
+        <material name="Fe2O3" formula="Fe2O3">
+            <D value="5.24" unit="g/cm3"/>
+            <composite n="2" ref="iron"/>
+            <composite n="3" ref="oxygen"/>
+        </material>
+        <material name="CaO" formula="CaO">
+            <D value="3.35" unit="g/cm3"/>
+            <composite n="1" ref="calcium"/>
+            <composite n="1" ref="oxygen"/>
+        </material>
+        <material name="MgO" formula="MgO">
+            <D value="3.58" unit="g/cm3"/>
+            <composite n="1" ref="magnesium"/>
+            <composite n="1" ref="oxygen"/>
+        </material>
+        <material name="Na2O" formula="Na2O">
+            <D value="2.27" unit="g/cm3"/>
+            <composite n="2" ref="sodium"/>
+            <composite n="1" ref="oxygen"/>
+        </material>
+        <material name="TiO2" formula="TiO2">
+            <D value="4.23" unit="g/cm3"/>
+            <composite n="1" ref="titanium"/>
+            <composite n="2" ref="oxygen"/>
+        </material>
+        <material name="fibrous_glass">
+            <D value="2.74351" unit="g/cm3"/>
+            <fraction n="0.600" ref="SiO2"/>
+            <fraction n="0.118" ref="Al2O3"/>
+            <fraction n="0.001" ref="Fe2O3"/>
+            <fraction n="0.224" ref="CaO"/>
+            <fraction n="0.034" ref="MgO"/>
+            <fraction n="0.010" ref="Na2O"/>
+            <fraction n="0.013" ref="TiO2"/>
+        </material>
+        <material formula="Air" name="Air">
+            <D value="0.001205" unit="g/cm3"/>
+            <fraction n="0.781154" ref="nitrogen"/>
+            <fraction n="0.209476" ref="oxygen"/>
+            <fraction n="0.00934" ref="argon"/>
+        </material>
+
+        <!-- Foam density is 70 kg / m^3 for the 3x1x1 -->
+        <!--
+        <material name="foam_3x1x1dp">
+            <D value="0.07" unit="g/cm3"/>
+            <fraction n="0.95" ref="Air"/>
+            <fraction n="0.05" ref="fibrous_glass"/>
+        </material>
+                -->
+        <material name="STEEL_STAINLESS_Fe7Cr2Ni" formula="STEEL_STAINLESS_Fe7Cr2Ni">
+            <D value="7.9300" unit="g/cm3"/>
+            <fraction n="0.0010" ref="carbon"/>
+            <fraction n="0.1792" ref="chromium"/>
+            <fraction n="0.7298" ref="iron"/>
+            <fraction n="0.0900" ref="nickel"/>
+        </material>
+    </materials>
+    <solids>
+        <box name="CRM" lunit="cm" 
+             x="100.03" 
+             y="97" 
+             z="289"/>
+        <box name="CRMVPlane" lunit="cm" 
+             x="0.015" 
+             y="96" 
+             z="300"/>
+        <box name="CRMZPlane" lunit="cm" 
+             x="0.015"
+             y="96"
+             z="300"/>
+        <box name="CRMActive" lunit="cm"
+             x="100"
+             y="96"
+             z="300"/>
+        <tube name="CRMWireV"
+              rmax="0.0075"
+              z="300"               
+              deltaphi="360"
+              aunit="deg"
+              lunit="cm"/>
+        <tube name="CRMWireZ"
+              rmax="0.0075"
+              z="96"               
+              deltaphi="360"
+              aunit="deg"
+              lunit="cm"/>
+        <box name="Cryostat" lunit="cm" 
+             x="238.34" 
+             y="202.74" 
+             z="478.44"/>
+        <box name="ArgonInterior" lunit="cm" 
+             x="238.1"
+             y="202.5"
+             z="478.2"/>
+        <subtraction name="SteelShell">
+            <first ref="Cryostat"/>
+            <second ref="ArgonInterior"/>
+        </subtraction>
+        <!--
+        <box name="FoamPadBlock" lunit="cm"
+             x="442.94"
+             y="407.34"
+             z="683.04" />
+        <subtraction name="FoamPadding">
+            <first ref="FoamPadBlock"/>
+            <second ref="Cryostat"/>
+            <positionref ref="posCenter"/>
+        </subtraction>
+        -->
+        <box name="SteelSupportBlock" lunit="cm"
+             x="444.14"
+             y="408.54"
+             z="684.24" />
+        <subtraction name="SteelSupport">
+            <first ref="SteelSupportBlock"/>
+            <second ref="FoamPadBlock"/>
+            <positionref ref="posCenter"/>
+        </subtraction>
+        <box name="DetEnclosure" lunit="cm" 
+             x="444.14"
+             y="408.54"
+             z="684.24"/>
+        <box name="World" lunit="cm" 
+             x="6444.14" 
+             y="6408.54" 
+             z="6684.24"/>
+    </solids>
+    <structure>
+        <volume name="volTPCActive">
+            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+            <materialref ref="LAr"/>
+            <solidref ref="CRMActive"/>
+            <colorref ref="red"/> 
+        </volume>
+        <volume name="volTPCPlaneV">
+            <materialref ref="LAr"/>
+            <solidref ref="CRMVPlane"/>
+            <colorref ref="green"/> 
+            <auxiliary auxtype="Solid" auxvalue="True"/>
+        </volume>
+        <volume name="volTPCPlaneZ">
+            <materialref ref="LAr"/>
+            <solidref ref="CRMZPlane"/>
+            <colorref ref="yellow"/> 
+            <auxiliary auxtype="Solid" auxvalue="True"/>
+        </volume>
+        <volume name="volTPC">
+            <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+            <colorref ref="blue"/> 
+            <materialref ref="LAr"/>
+            <solidref ref="CRM"/>
+            <physvol>
+                <volumeref ref="volTPCPlaneV"/>
+                <position name="posPlaneV" unit="cm" 
+                          x="49.9925" y="0" z="0"/>
+                <rotationref ref="rIdentity"/>
+            </physvol>
+            <physvol>
+                <volumeref ref="volTPCPlaneZ"/>
+                <position name="posPlaneZ" unit="cm" 
+                          x="50.0075" y="0" z="0"/>
+                <rotationref ref="rIdentity"/>
+            </physvol>
+            <physvol>
+                <volumeref ref="volTPCActive"/>
+                <position name="posActive" unit="cm" 
+                          x="-0.03" y="0" z="0"/>
+                <rotationref ref="rIdentity"/>
+            </physvol>
+        </volume>
+        <volume name="volSteelShell">
+            <materialref ref="STEEL_STAINLESS_Fe7Cr2Ni" />
+            <solidref ref="SteelShell" />
+        </volume>
+        <volume name="volCryostat">
+            <materialref ref="LAr" />
+            <solidref ref="Cryostat" />                      
+            <physvol>
+                <volumeref ref="volSteelShell"/>
+                <position name="posSteelShell" unit="cm" x="0" y="0" z="0"/>
+            </physvol>
+            <physvol>
+                <volumeref ref="volTPC"/>
+                <position name="posTPC-0-0" unit="cm"
+                          x="18.235" y="0" z="0"/>
+            </physvol>
+        </volume>
+        <volume name="volFoamPadding">
+            <materialref ref="foam_3x1x1dp"/>
+            <solidref ref="FoamPadding"/>
+            <colorref ref="yellow"/> 
+        </volume>
+        <volume name="volSteelSupport">
+            <materialref ref="STEEL_STAINLESS_Fe7Cr2Ni"/>
+            <solidref ref="SteelSupport"/>
+        </volume>
+        <volume name="volDetEnclosure">
+            <materialref ref="Air"/>
+            <solidref ref="DetEnclosure"/>
+            <physvol>
+                <volumeref ref="volFoamPadding"/>
+                <positionref ref="posCryoInDetEnc"/>
+            </physvol>
+            <physvol>
+                <volumeref ref="volSteelSupport"/>
+                <positionref ref="posCryoInDetEnc"/>
+            </physvol>
+            <physvol>
+                <volumeref ref="volCryostat"/>
+                <positionref ref="posCryoInDetEnc"/>
+            </physvol>
+        </volume>
+        <volume name="volWorld" >
+            <materialref ref="Air"/>
+            <solidref ref="World"/>
+            <physvol>
+                <volumeref ref="volDetEnclosure"/>
+                <position name="posDetEnclosure" unit="cm" x="-18.22" y="-1.4210854715202e-14" z="144"/>
+            </physvol>
+        </volume>
+    </structure>
+    <setup name="Default" version="1.0">
+        <world ref="volWorld" />
+    </setup>
+</gdml_simple_extension>
