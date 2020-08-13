@@ -90,8 +90,8 @@
         <!-- spacing of sense wires: -->
         <constant name="wirespacing" value="0.4"/>
         <!-- number of wires and offset parallel to z -->
-        <constant name="wireoffsetZ" value="0.5"/>
-        <constant name="numwireZ" value="580"/>
+        <constant name="wireoffsetU" value="0.5"/>
+        <constant name="numwireU" value="580"/>
         <!-- number of wires and offset perpendicular to z -->
         <constant name="wireoffsetV" value=".4"/>
         <constant name="numwireV" value="2590"/>
@@ -137,7 +137,7 @@
     <solids>
         <!-- [3.1] Wire solid definitions  - - - - - - - - - - - - - - - - - - - - -->
         <!-- first the wires parallel to the z-axis -->
-        <tube name="TPCWireZ"  rmax="wireradius" z="volactivez"  deltaphi="360" aunit="deg" lunit="cm"/>
+        <tube name="TPCWireU"  rmax="wireradius" z="volactivez"  deltaphi="360" aunit="deg" lunit="cm"/>
         <!-- the wires perpendicular to the z-axis -->
         <tube name="TPCWireV" rmax="wireradius" z="volactivey" deltaphi="360" aunit="deg" lunit="cm"/>
         <!-- [3.2] Wire plane solid definitions  - - - - - - - - - - - - - - - - - -->
@@ -160,9 +160,9 @@
     <!-- [4] Placement of volumes in space - - - - - - - - - - - - - - - - - - - -->
     <structure>
         <!-- [4.1] Wire volume definition for wires on first and second plane  - - -->
-        <volume name="volTPCWireZ">
+        <volume name="volTPCWireU">
             <materialref ref="G4_Ti"/>
-            <solidref ref="TPCWireZ"/>
+            <solidref ref="TPCWireU"/>
             <auxiliary auxtype="Solid" auxvalue="True"/>
             <colorref ref="blue"/>
         </volume>
@@ -176,41 +176,45 @@
             <materialref ref="G4_lAr"/>
             <solidref ref="TPCActive"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+	    <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
             <colorref ref="green"/>
         </volume> <!-- "volTPCActive" -->
         <!-- [4.1] Wire volume definition for wires on first and second plane  - - -->
         <!-- omitted -->
         <!-- [4.2] First and second wire plane volume definition - - - - - - - - - -->
-        <volume name="volTPCPlane">
+        <volume name="volTPCPlaneU">
             <materialref ref="G4_lAr"/>
             <solidref ref="TPCPlane"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
-            <colorref ref="magenta"/>
-            <loop for="ii" from="0" to="numwireZ" step="1">
-                <physvol name="psenseWireVolumeZ" copynumber="ii">
-                    <volumeref ref="volTPCWireZ"/>
+	    <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
+	    <colorref ref="magenta"/>
+            <loop for="ii" from="0" to="numwireU" step="1">
+                <physvol name="psenseWireVolumeU" copynumber="ii">
+                    <volumeref ref="volTPCWireU"/>
                     <position name="posijk"  unit="cm" x="0.0" y="-0.5*volactivey+wireoffsetV+ii*wirespacing" z="0"/>
                 </physvol>
             </loop>
-        </volume> <!-- "volTPCPlane" -->
-        <!-- [4.3] Third wire plane definition - - - - - - - - - - - - - - - - - - -->
-        <!-- omitted -->
-        <!-- [4.4] Third wire plane definition - - - - - - - - - - - - - - - - - - -->
-        <!-- [4.4.1] Wire placement inside the third wire plane  - - - - - - - - -->
-        <volume name="volTPCPlaneVert">
+        </volume> <!-- "volTPCPlaneU -->
+        <volume name="volTPCPlaneV">
             <materialref ref="G4_lAr"/>
             <solidref ref="TPCPlane"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+	    <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
             <colorref ref="magenta"/>
             <loop for="jj" from="0" to="numwireV" step="1">
                 <physvol name="psenseWireVolumeV" copynumber="jj">
                     <volumeref ref="volTPCWireV"/>
-                    <position name="posijk"  unit="cm" x="0.0" y="0." z="-0.5*volactivez+wireoffsetZ+jj*wirespacing"/>
+                    <position name="posijk"  unit="cm" x="0.0" y="0." z="-0.5*volactivez+wireoffsetU+jj*wirespacing"/>
                     <rotationref ref="rPlus90AboutX"/>
                 </physvol>
             </loop>
-        </volume>
-        <!-- "volTPCPlaneVert" -->
+        </volume>  <!-- "volTPCPlaneV" -->
+        <!-- [4.3] Third wire plane definition - - - - - - - - - - - - - - - - - - -->
+        <!-- omitted -->
+        <!-- [4.4] Third wire plane definition - - - - - - - - - - - - - - - - - - -->
+        <!-- omitted -->
+        <!-- [4.4.1] Wire placement inside the third wire plane  - - - - - - - - -->
+        <!-- omitted -->
         <volume name="volOpDetSensitive">
             <materialref ref="G4_Si"/>
             <solidref ref="PMTVolume"/>
@@ -233,6 +237,7 @@
             <materialref ref="G4_lAr "/>
             <solidref ref="TPC"/>
             <auxiliary auxtype="SensDet" auxvalue="SimEnergyDeposit"/>
+	     <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
             <colorref ref="red"/>
             <!-- [4.6] TPC volume definition  - - - - - - - - - - - - - - - - - - - - - -->
             <physvol>
@@ -241,12 +246,12 @@
             </physvol>
             <!-- [4.6.2] wire planes inside the TPC  - - - - - - - - - - - - - - - - -->
             <physvol>
-                <volumeref ref="volTPCPlaneVert"/>
-                <position name="posTPCPlaneVert" unit="cm" x="-0.5*volactivex-0.5*volplanex" y="0" z="0"/>
+                <volumeref ref="volTPCPlaneV"/>
+                <position name="posTPCPlaneV" unit="cm" x="-0.5*volactivex-0.5*volplanex" y="0" z="0"/>
             </physvol> 
             <physvol>
-                <volumeref ref="volTPCPlane"/>
-                <position name="posTPCPlane" unit="cm" x="-0.5*volactivex-1.5*volplanex" y="0" z="0"/>
+                <volumeref ref="volTPCPlaneU"/>
+                <position name="posTPCPlaneU" unit="cm" x="-0.5*volactivex-1.5*volplanex" y="0" z="0"/>
             </physvol>
             <!-- [4.8.2] Optical detector elements definition inside the cryostat  - -->
             <loop for="ilong" from="0" to="4" step="1">
